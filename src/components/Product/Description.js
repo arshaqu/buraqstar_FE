@@ -1,0 +1,100 @@
+import React, { useEffect, useState } from "react";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { getBrandLogo } from "../../utils";
+import { useTranslation } from "react-i18next"; // Import i18next
+
+const Description = ({ description, specifications, brand, datasheet }) => {
+  const { t } = useTranslation(); // Hook for translations
+  // mode: 0 = none (default hidden), 1 = overview, 2 = specifications
+  const [mode, setMode] = useState(0);
+
+  // Reset view when product data changes (navigate to a different product)
+  useEffect(() => {
+    setMode(0);
+  }, [description, specifications, brand, datasheet]);
+
+  const handleView = () => {
+    if (datasheet) {
+      window.open(datasheet, '_blank');
+    } else {
+      alert(t('product.no_datasheet'));
+    }
+  };
+
+  return (
+    <>
+      <Grid item xs={12} className="mt-10">
+        <Box className="w-full h-fit">
+          <Box className="flex gap-x-3">
+            <Button
+              onClick={() => setMode(1)}
+              className={`${mode === 1 ? 'bg-black' : 'bg-[#1E55AC]'} py-4 px-10 text-lg text-white font-semibold poppins capitalize`}
+            >
+              {t('product.overview')}
+            </Button>
+            <Button
+              onClick={() => setMode(2)}
+              className={`${mode === 2 ? 'bg-black' : 'bg-[#1E55AC]'} py-4 px-10 text-lg text-white font-semibold poppins capitalize`}
+            >
+              {t('product.specifications')}
+            </Button>
+          </Box>
+        </Box>
+      </Grid>
+      {mode === 1 && (
+        <Grid item xs={12} sm={7} className="mt-10">
+          <Typography 
+            className="poppins text-base leading-7 text-[#5D5D5D]"
+            style={{ 
+              textAlign: 'justify',
+              textJustify: 'inter-word',
+              wordSpacing: '0.05em'
+            }}
+          >
+            <div dangerouslySetInnerHTML={{ __html: description }} />
+          </Typography>
+          <img className="h-10 w-auto my-6" src={getBrandLogo(brand)} alt={brand} />
+          <Box className="flex items-center gap-x-4 mt-10">
+            <Typography className="poppins text-base font-semibold text-[#2E2E2E] capitalize py-1.5">
+              {t('product.data_sheet_option')}
+            </Typography>
+            {datasheet ? (
+              <>
+                <Button
+                  variant="outlined"
+                  onClick={handleView}
+                  className="border-[1.5px] font-semibold border-black py-3 px-8 capitalize text-black poppins text-base"
+                >
+                  {t('product.view')}
+                </Button>
+              </>
+            ) : (
+              <Typography className="poppins text-base text-[#FF0000] capitalize py-1.5">
+                {t('product.no_datasheet')}
+              </Typography>
+            )}
+          </Box>
+        </Grid>
+      )}
+
+      {mode === 2 && (
+        <Grid item xs={12} sm={5} className="mt-5">
+          <Box className="mt-6">
+            {specifications.map((feat, i) => (
+              <Box className="flex gap-x-6 my-2" key={i}>
+                <Typography className="poppins text-xs w-[30%] uppercase">
+                  {feat.specification}
+                </Typography>
+                <Typography className="poppins text-xs text-[#5D5D5D] uppercase">
+                  {feat.value}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Grid>
+      )}
+    </>
+  );
+};
+
+export default Description;

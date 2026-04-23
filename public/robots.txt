@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+# Allow all crawlers
+User-agent: *
+Disallow:
+
+# Crawl-delay (optional, uncomment if needed)
+# Crawl-delay: 5
+
+# Sitemaps
+Sitemap: https://buraqstar.com/sitemap.xml
