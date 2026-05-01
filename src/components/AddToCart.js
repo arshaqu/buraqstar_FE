@@ -6,6 +6,8 @@ import { BASE_URL } from "../constants";
 import axios from "axios";
 import { AuthContext } from "../AuthContext";
 import { useTranslation } from "react-i18next"; // Import i18next
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+
 
 const AddToCart = ({ variant = "contained", className, quantity = 1, product }) => {
     const { t } = useTranslation(); // Hook for translations
@@ -52,6 +54,8 @@ const AddToCart = ({ variant = "contained", className, quantity = 1, product }) 
             <Button variant={variant} className={className} onClick={(e) => handleClick(e, product)}>
                 {loading && <CircularProgress size={25} className="text-white" />}
                 {!loading && t("cart.add_to_cart")}
+                          <ShoppingCartOutlinedIcon className="ml-2"/>
+                
             </Button>
 
             <NotificationBar

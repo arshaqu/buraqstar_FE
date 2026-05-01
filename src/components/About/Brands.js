@@ -1,67 +1,100 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import novex from "../../assets/novexabout.png";
-import zilco from "../../assets/zilcoabout.png";
-import cavil from "../../assets/cavilabout.png";
-import buraq from "../../assets/buraqabout.jpg";
-import watermark from "../../assets/top-brand.png";
+import novex from "../../assets/novex.png";
+import zilco from "../../assets/zilco.png";
+import cavil from "../../assets/cavil.png";
+import buraq from "../../assets/buraq.png";
+import { useNavigate } from "react-router-dom";   
+import CallMadeOutlinedIcon from '@mui/icons-material/CallMadeOutlined';
+import BrandsScroll from "../Layout/BrandsScroll";
+
 
 const paragraphStyle = { hyphens: "auto", wordBreak: "break-word" };
 
-const Brands = ({t}) => {
+const Brands = ({ t }) => {
+  const navigate = useNavigate();
+  const logos = [
+    { src: novex, alt: "Novex" },
+    { src: cavil, alt: "Cavil" },
+    { src: buraq, alt: "Buraq" },
+    { src: zilco, alt: "Zilco" },
+  ];
 
   const data = [
     {
       image: novex,
-      desc: t("novex_description"),
+      title: "NOVEX" , 
+      desc: "A renowned UK-origin brand with a strong legact, offering an extensive range of electrical accessories, tools , fans, lighting solutions, water heaters, and plubing essentials — engineered for quality and durability." ,
+      // desc: t("novex_description"),
       className: "h-10 w-auto",
+      links: '/brand/novex'
     },
     {
       image: zilco,
-      desc: t("zilco_description"),
+      title: "ZILCO",
+      // desc: t("zilco_description"),
+      desc: "A specilaist in switchgear and protection systems, recognized for safety, reliability, and modern design. Products include MCB, MCCB, ELCB, RCBO, isolators, enclosures, and distribution systems." ,
       className: "h-11 w-auto",
+      links: '/brand/zilco'
+
     },
     {
       image: cavil,
-      desc: t("cavil_description"),
+      title: "CAVIL",
+      // desc: t("cavil_description"),
+      desc: "An Italian-origin brand known for innovation in residential and commercial applications, air circulation solutions, extractor fans, LED lighting, and premium sanitary fittings." ,
       className: "h-10 w-auto",
+      links: '/brand/cavil'
     },
     {
       image: buraq,
-      desc: t("buraq_description"),
+      title: "BURAQ",
+      // desc: t("buraq_description"),
+      desc: "A performance-driven brand specializing in ventilation systems and water pumps, designed for comfort, efficienct, and reliability in both residential and commercial spaces." ,
       className: "h-9 w-auto",
+      links: '/brand/buraq'
     },
   ];
 
-  return (
-    <>
-      <Box  className="absolute sm:left-[37%] left-0">
-        <img className="h-auto sm:h-[50vh] w-[100%] sm:w-auto " src={watermark} alt="watermark" />
-      </Box>
 
-      <Typography className="poppins text-center capitalize text-3xl font-bold w-full text-[#2E2E2E] mt-0 mb-6">
-        {t("our_brands")}
-      </Typography>
-      <Box className="w-full relative flex justify-center items-center sm:mt-0 sm:h-[35vh] mb-0">
-        <Grid
-          container
-          rowSpacing={{ xs: 3, sm: 4 }}
-          columnSpacing={{ sm: 2, md: 3 }}
-          className="px-5 sm:px-16"
-        >
-          {data.map((brand, i) => (
-            <Grid item xs={12} sm={6} md={3} key={i} className="flex flex-col items-center sm:items-start text-center md:text-left space-y-4">
-              <div className="w-full flex justify-center sm:justify-start items-center h-auto sm:h-16 lg:h-14">
-                <img src={brand.image} alt={`brand${i}`} className={`${brand.className}`} />
-              </div>
-              <Typography className="poppins text-[11px] sm:text-[13px] leading-5 text-[#152E3A] text-justify sm:text-left" style={paragraphStyle}>
-                {brand.desc}
+
+  return (
+    <Box className="w-full py-10  bg-gray-100 ">
+      {/* Header */}
+      <BrandsScroll/>
+
+      <Box className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 md:p-16 gap-6 mx-auto">
+        {data.map((item, index) => (
+          <Box
+            key={index}
+            className="bg-white rounded-2xl p-16  shadow-sm flex flex-col items-left"
+          >
+       
+            {/* CONTENT (left aligned but centered block) */}
+            <div className="w-full max-w-2xl text-left">
+              <Typography className="text-2xl font-semibold text-[#2E2E2E] mb-3 poppins">
+                {item.title}
               </Typography>
-            </Grid>
-          ))}
-        </Grid>
+
+              <Typography className="text-gray-500 text-md mt-10 text-base leading-relaxed poppins ">
+                {item.desc}
+              </Typography>
+            </div>
+                
+           <div className="mt-10">
+        <button
+          onClick={() => navigate(item.links)}
+          className="px-6 py-2 text-gray-800 border border-gray-800 hover:bg-gray-900 hover:text-white rounded-lg  transition"
+        >
+          View {item.title}<CallMadeOutlinedIcon className="text-md mb-1 ml-2"/>
+        </button>
+      </div>
+
+
+          </Box>
+        ))}
       </Box>
-    </>
+    </Box>
   );
 };
 

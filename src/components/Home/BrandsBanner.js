@@ -1,408 +1,438 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Box, ButtonBase, Divider, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next"; // Import i18next
-import brandslogo from "../../assets/brandslogo.png";
-import brandbg from "../../assets/brandbg.png";
-import novex from "../../assets/Novexlogowhite.png";
-import cavil from "../../assets/cavillogowhite.png";
-import buraq from "../../assets/Buraqlogowhite.png";
-import zilco from "../../assets/zilcologowhite.png";
-import novexorange from "../../assets/novexlogored.png";
-import cavilyellow from "../../assets/cavillogoyellow.png";
-import buraqgreen from "../../assets/buraqlogogreen.png";
-import zilcoblue from "../../assets/zilcologowhite.png";
+import React, { useEffect, useState, useCallback, useRef, useContext } from "react";
+import { Box, ButtonBase, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { BRANDS } from "../../constants";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { BRANDS, ImageURL } from "../../constants";
 import { createSlug } from "../../utils";
+import ajaxService from "../../services/ajax-service";
+import { AuthContext } from "../../AuthContext";
+import defaultImage from "../../assets/contactsvg.svg";
 
-const brandLogos = [
-  { name: BRANDS.NOVEX, src: [novex, novexorange], className: "h-16", hoverClassName: "h-20" },
-  { name: BRANDS.CAVIL, src: [cavil, cavilyellow], className: "h-16 -mt-1", hoverClassName: "h-20 -mt-1" },
-  { name: BRANDS.BURAQ, src: [buraq, buraqgreen], className: "h-16", hoverClassName: "h-20" },
-  { name: BRANDS.ZILCO, src: [zilco, zilcoblue], className: "h-16 -mt-3", hoverClassName: "h-20 -mt-3" },
+// ─── Constants ────────────────────────────────────────────────────────────────
+const BRAND_TABS = [
+  { name: BRANDS.NOVEX, label: "NOVEX" },
+  { name: BRANDS.CAVIL, label: "CAVIL" },
+  { name: BRANDS.BURAQ, label: "BURAQ" },
+  { name: BRANDS.ZILCO, label: "ZILCO" },
 ];
 
-const BrandsBanner = ({ brands }) => {
-  const { t } = useTranslation(); // Hook for translations
-  const navigate = useNavigate();
+const PRODUCTS_PER_PAGE = 20;
+const GAP = 8;
 
-  // Measure the desktop row height so the center badge can match it exactly
-  const desktopRowRef = useRef(null);
-  const [desktopRowHeight, setDesktopRowHeight] = useState(0);
-  const [logoAnimationState, setLogoAnimationState] = useState('hidden'); // 'hidden', 'appearing', 'visible', 'disappearing'
+// ─── Hook: visible count by breakpoint ───────────────────────────────────────
+const useVisibleCount = () => {
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSm = useMediaQuery(theme.breakpoints.down("md"));
+  const isMd = useMediaQuery(theme.breakpoints.down("lg"));
+  if (isXs) return 1;
+  if (isSm) return 2;
+  if (isMd) return 3;
+  return 6;
+};
 
-  useEffect(() => {
-    const measure = () => {
-      if (desktopRowRef.current) {
-        setDesktopRowHeight(desktopRowRef.current.clientHeight || 0);
-      }
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, []);
+// ─── BadgeChip ────────────────────────────────────────────────────────────────
+const BadgeChip = ({ type, text }) => {
+  const styles = {
+    sale: { background: "#22c55e", color: "#fff" },
+    new:  { background: "#fff", color: "#111", border: "0.5px solid #ddd" },
+    hot:  { background: "#ef4444", color: "#fff" },
+  };
+  if (!type || !styles[type]) return null;
+  return (
+    <Box
+      sx={{
+        position: "absolute", top: 10, left: 10, zIndex: 2,
+        fontSize: 11, fontWeight: 600, px: "8px", py: "3px",
+        borderRadius: "4px", lineHeight: 1.4, ...styles[type],
+      }}
+    >
+      {text}
+    </Box>
+  );
+};
 
-  // Animation loop with faster cadence
-  useEffect(() => {
-    const timeoutsRef = { current: [] };
+// ─── ProductCard ──────────────────────────────────────────────────────────────
+const ProductCard = ({ product, onClick, cardWidth }) => {
+  const { currency, exchangeRate } = useContext(AuthContext);
 
-    // Define the loop function first
-    const startLoop = () => {
-      setLogoAnimationState('appearing');
-      
-      // After appearing completes, show visible
-      const appearDuration = 900;
-      const visibleDuration = 800;
-      const disappearDuration = 500;
-      const hiddenDelay = 10;
+  const getBadge = () => {
+    if (product.hot)                 return { type: "hot",  text: "HOT" };
+    if (product.discount_percentage) return { type: "sale", text: `-${product.discount_percentage}%` };
+    return null;
+  };
 
-      const visibleTimeout = setTimeout(() => {
-        setLogoAnimationState('visible');
-        
-        // Stay visible briefly, then start disappearing
-        const disappearTimeout = setTimeout(() => {
-          setLogoAnimationState('disappearing');
-          
-          // After disappearing completes, loop back to hidden
-          const hiddenTimeout = setTimeout(() => {
-            setLogoAnimationState('hidden');
-            
-            // Restart the loop after short delay
-            const restartTimeout = setTimeout(() => {
-              startLoop();
-            }, hiddenDelay);
-            
-            timeoutsRef.current.push(restartTimeout);
-          }, disappearDuration);
-          
-          timeoutsRef.current.push(hiddenTimeout);
-        }, visibleDuration);
-        
-        timeoutsRef.current.push(disappearTimeout);
-      }, appearDuration);
-      
-      timeoutsRef.current.push(visibleTimeout);
-    };
+  const badge           = getBadge();
+  const rawPrice        = parseFloat(product.price || 0);
+  const rawDiscountPrice = parseFloat(product.discount_price || 0);
+  const hasDiscount     = product.discount_price && rawDiscountPrice !== rawPrice;
+  const displayPrice    = Math.round(rawPrice        * exchangeRate * 100) / 100;
+  const displayDiscount = Math.round(rawDiscountPrice * exchangeRate * 100) / 100;
 
-    // Initial short delay, then start the loop
-    const initialDelay = setTimeout(() => {
-      startLoop();
-    }, 500);
-    
-    timeoutsRef.current.push(initialDelay);
-
-    // Cleanup
-    return () => {
-      timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
-      timeoutsRef.current = [];
-    };
-  }, []);
+  // Same image logic as SaleSection
+  const imgSrc = product?.images?.[0] ? ImageURL + product.images[0] : defaultImage;
 
   return (
-    <Box className="w-full">
-      {/* Local keyframes for bottom-to-top reveal with blue glow on the central brand badge */}
-      <style>{`
-        @keyframes brandBottomReveal {
-          0% { opacity: 0; clip-path: inset(100% 0 0 0); }
-          100% { opacity: 1; clip-path: inset(0 0 0 0); }
-        }
-        @keyframes brandBottomHide {
-          0% { opacity: 1; clip-path: inset(0 0 0 0); }
-          100% { opacity: 0; clip-path: inset(100% 0 0 0); }
-        }
-        @keyframes brandBlueGlow {
-          0% { opacity: 0; transform: scale(0.9); }
-          40% { opacity: 0.6; }
-          100% { opacity: 0; transform: scale(1.05); }
-        }
-        .brand-logo-container { position: relative; display: flex; justify-content: center; align-items: center; overflow: hidden; width: 100%; height: 100%; border-radius: 50%; clip-path: circle(50% at 50% 50%); }
-        .brand-blue-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 70%, rgba(40, 88, 163, 0.5), rgba(40, 88, 163, 0.3) 45%, rgba(40, 88, 163, 0) 75%); animation: brandBlueGlow 950ms cubic-bezier(0.22, 1, 0.36, 1) 250ms both; }
-        /* Responsive banner row height */
-        .brands-row { height: 140px; }
-        .mobile-brands-container { height: 200px; overflow: hidden; }
-        .mobile-brand-item { position: relative; height: 60px; display: flex; align-items: center; justify-content: center; }
-        .mobile-brand-hover { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; pointer-events: none; }
-        @media (min-width: 640px) { /* sm */
-          .brands-row { height: 180px; }
-        }
-        @media (min-width: 768px) and (max-width: 1023px) { /* iPad */
-          .brands-row { height: 140px !important; }
-          .brand-logo-ipad { height: 3.5rem !important; max-width: 120px; object-fit: contain; }
-          .brand-logo-ipad-hover { height: 4.5rem !important; max-width: 150px; object-fit: contain; }
-          .brand-logo-container { max-width: 120px !important; max-height: 120px !important; }
-        }
-        @media (min-width: 1024px) { /* lg */
-          .brands-row { height: 150px; }
-        }
-      `}</style>
-      {/* Background with brandbg.png */}
-      <Box 
-        className="w-full py-0 px-4 sm:px-8 lg:px-12 mt-0 mb-0 relative"
-        style={{
-          backgroundImage: `url(${brandbg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+    <ButtonBase
+      onClick={onClick}
+      sx={{
+        flex: `0 0 ${cardWidth}px`,
+        width: `${cardWidth}px`,
+        minWidth: 0,
+        display: "flex", flexDirection: "column", alignItems: "stretch",
+        textAlign: "left", border: "0.5px solid", borderColor: "divider",
+        borderRadius: "12px", overflow: "hidden", background: "#fff",
+        transition: "box-shadow 0.18s",
+        "&:hover": { boxShadow: "0 4px 20px rgba(0,0,0,0.10)" },
+      }}
+    >
+      <Box
+        sx={{
+          position: "relative", width: "100%",
+          height: { xs: 180, sm: 200, md: 220, lg: 260 },
+          display: "flex", alignItems: "center", justifyContent: "center",
+          background: "#ffffff", borderBottom: "1px solid #e9e9e9",
+          p: 2, overflow: "hidden", boxSizing: "border-box",
         }}
       >
-        {/* Mobile: brandslogo.png positioned to overlap blue background */}
-        <Box className="flex sm:hidden justify-center absolute -top-14 left-1/2 transform -translate-x-1/2 z-20">
-          <div 
-            className="brand-logo-container" 
-            style={{ 
-              width: '7rem', 
-              height: '7rem',
-              opacity: logoAnimationState === 'hidden' ? 0 : logoAnimationState === 'visible' ? 1 : undefined,
-              animation: logoAnimationState === 'appearing' 
-                ? 'brandBottomReveal 1500ms cubic-bezier(0.22, 1, 0.36, 1) both' 
-                : logoAnimationState === 'disappearing'
-                ? 'brandBottomHide 1200ms cubic-bezier(0.22, 1, 0.36, 1) both'
-                : 'none'
-            }}
-          >
-            {logoAnimationState === 'appearing' && <div className="brand-blue-glow" />}
-            <img 
-              src={brandslogo} 
-              alt="Top Brands" 
-              className="block w-auto object-contain"
-              style={{ height: '100%', width: '100%' }}
-            />
-          </div>
+        {badge && <BadgeChip type={badge.type} text={badge.text} />}
+        <img
+          src={imgSrc}
+          alt={product.name}
+          style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+          onError={(e) => { e.target.src = defaultImage; }}
+        />
+      </Box>
+
+      <Box sx={{ p: "12px 14px 14px", flex: 1 }}>
+        <Typography className="poppins" sx={{ fontSize: 11, color: "text.secondary", mb: "2px" }}>
+          {product.category_name || product.category}
+        </Typography>
+        <Typography
+          className="poppins font-semibold"
+          sx={{
+            fontSize: 14, color: "#2858A3", mb: "8px", lineHeight: 1.3,
+            display: "-webkit-box", WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical", overflow: "hidden",
+          }}
+        >
+          {product.name}
+        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+          <Typography className="poppins " sx={{ fontSize: 14, fontWeight: 600 }}>
+            {currency} {displayPrice.toFixed(2)}
+          </Typography>
+          {hasDiscount && (
+            <Typography sx={{ fontSize: 12, color: "text.secondary", textDecoration: "line-through" }}>
+              {currency} {displayDiscount.toFixed(2)}
+            </Typography>
+          )}
         </Box>
-        {/* Desktop: Horizontal Layout: NOVEX → CAVIL → brandslogo.svg → BURAQ → ZILCO */}
-        <Box ref={desktopRowRef} className="hidden sm:flex items-center justify-between w-full brands-row">
-          {/* NOVEX */}
-          <ButtonBase 
-            onClick={() => {
-              const brand = brands.find((brand) => brand.name === BRANDS.NOVEX);
-              if (brand) {
-                const brandSlug = brand.slug || createSlug(brand.name);
-                navigate(`/brand/${brandSlug}`);
-              }
-            }}
-            className="flex flex-col items-center group transition-all duration-300 hover:scale-105 flex-1"
-          >
-            <Box className="text-white">
-              <img
-                src={brandLogos[0].src[0]}
-                alt="NOVEX"
-                className={`${brandLogos[0].className} brand-logo-ipad block group-hover:hidden`}
-              />
-              <img
-                src={brandLogos[0].src[1]}
-                alt="NOVEX"
-                className={`${brandLogos[0].hoverClassName} brand-logo-ipad-hover hidden group-hover:block`}
-              />
-            </Box>
-          </ButtonBase>
+      </Box>
+    </ButtonBase>
+  );
+};
 
-          {/* CAVIL */}
-          <ButtonBase 
-            onClick={() => {
-              const brand = brands.find((brand) => brand.name === BRANDS.CAVIL);
-              if (brand) {
-                const brandSlug = brand.slug || createSlug(brand.name);
-                navigate(`/brand/${brandSlug}`);
-              }
-            }}
-            className="flex flex-col items-center group transition-all duration-300 hover:scale-105 flex-1"
-          >
-            <Box className="text-white">
-              <img
-                src={brandLogos[1].src[0]}
-                alt="CAVIL"
-                className={`${brandLogos[1].className} brand-logo-ipad block group-hover:hidden`}
-              />
-              <img
-                src={brandLogos[1].src[1]}
-                alt="CAVIL"
-                className={`${brandLogos[1].hoverClassName} brand-logo-ipad-hover hidden group-hover:block`}
-              />
-            </Box>
-          </ButtonBase>
+// ─── ArrowButton ──────────────────────────────────────────────────────────────
+const ArrowButton = ({ direction, onClick, disabled }) => (
+  <ButtonBase
+    onClick={onClick}
+    disabled={disabled}
+    sx={{
+      position: "absolute", top: "50%", transform: "translateY(-50%)",
+      [direction === "left" ? "left" : "right"]: { xs: -12, md: -17 },
+      width: { xs: 28, md: 34 }, height: { xs: 28, md: 34 },
+      borderRadius: "50%", background: "#fff", border: "0.5px solid",
+      borderColor: "divider", display: "flex", alignItems: "center",
+      justifyContent: "center", zIndex: 10,
+      boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+      opacity: disabled ? 0.3 : 1, transition: "opacity 0.15s, box-shadow 0.15s",
+      "&:hover:not(:disabled)": { boxShadow: "0 4px 12px rgba(0,0,0,0.13)" },
+    }}
+  >
+    {direction === "left"
+      ? <ChevronLeftIcon sx={{ fontSize: { xs: 16, md: 20 } }} />
+      : <ChevronRightIcon sx={{ fontSize: { xs: 16, md: 20 } }} />}
+  </ButtonBase>
+);
 
-          {/* Central brandslogo with synchronized smoke reveal (desktop) */}
-          <Box className="flex flex-col items-center flex-1">
-            <div 
-              className="brand-logo-container" 
-              style={{ 
-                height: desktopRowHeight ? `${desktopRowHeight}px` : '100%', 
-                width: desktopRowHeight ? `${desktopRowHeight}px` : 'auto',
-                opacity: logoAnimationState === 'hidden' ? 0 : logoAnimationState === 'visible' ? 1 : undefined,
-                animation: logoAnimationState === 'appearing' 
-                  ? 'brandBottomReveal 1500ms cubic-bezier(0.22, 1, 0.36, 1) both' 
-                  : logoAnimationState === 'disappearing'
-                  ? 'brandBottomHide 1200ms cubic-bezier(0.22, 1, 0.36, 1) both'
-                  : 'none'
+// ─── SkeletonCard ─────────────────────────────────────────────────────────────
+const SkeletonCard = ({ cardWidth }) => (
+  <Box
+    sx={{
+      flex: `0 0 ${cardWidth}px`, width: `${cardWidth}px`,
+      border: "0.5px solid", borderColor: "divider",
+      borderRadius: "12px", overflow: "hidden",
+    }}
+  >
+    <Box sx={{ height: { xs: 180, sm: 200, md: 220, lg: 260 }, background: "#f0f0ee" }} />
+    <Box sx={{ p: "12px 14px 14px" }}>
+      <Box sx={{ height: 10, background: "#f0f0ee", borderRadius: 1, mb: 1, width: "60%" }} />
+      <Box sx={{ height: 10, background: "#f0f0ee", borderRadius: 1, mb: 1, width: "80%" }} />
+      <Box sx={{ height: 12, background: "#f0f0ee", borderRadius: 1, mb: 1 }} />
+      <Box sx={{ height: 12, background: "#f0f0ee", borderRadius: 1, width: "50%" }} />
+    </Box>
+  </Box>
+);
+
+// ─── Main Component ───────────────────────────────────────────────────────────
+const ShopByBrand = ({ brands = [] }) => {
+  const navigate     = useNavigate();
+  const visibleCount = useVisibleCount();
+  const viewportRef  = useRef(null);
+
+  const [activeBrand, setActiveBrand]         = useState(BRAND_TABS[0].name);
+  const [productsByBrand, setProductsByBrand] = useState({});
+  const [loadingBrand, setLoadingBrand]       = useState(null);
+  const [offset, setOffset]                   = useState(0);
+  const [viewportWidth, setViewportWidth]     = useState(0);
+  const [isPaused, setIsPaused]               = useState(false); // ← pause flag
+
+  // Measure viewport width
+  useEffect(() => {
+    if (!viewportRef.current) return;
+    const ro = new ResizeObserver(([entry]) => {
+      setViewportWidth(entry.contentRect.width);
+    });
+    ro.observe(viewportRef.current);
+    return () => ro.disconnect();
+  }, []);
+
+  const cardWidth = viewportWidth
+    ? Math.floor((viewportWidth - GAP * (visibleCount - 1)) / visibleCount)
+    : 0;
+  const stepPx    = cardWidth + GAP;
+
+  const fetchBrandProducts = useCallback(
+    async (brandName) => {
+      const brandObj = brands.find((b) => b.name === brandName);
+      if (!brandObj) return;
+      setLoadingBrand(brandName);
+      try {
+        const user  = localStorage.getItem("user") ?? null;
+        const token = localStorage.getItem("token");
+        const params = new URLSearchParams({
+          category_id: 0, type: "all", offset: 0,
+          limit: PRODUCTS_PER_PAGE, brand_id: brandObj.id, new_arrival: false,
+        });
+        if (token && user) params.append("user_id", JSON.parse(user).id);
+        const response = await ajaxService.get(`/category/products?${params.toString()}`);
+        setProductsByBrand((prev) => ({ ...prev, [brandName]: response?.data || [] }));
+      } catch (err) {
+        console.error("ShopByBrand fetch error:", err);
+      } finally {
+        setLoadingBrand(null);
+      }
+    },
+    [brands]
+  );
+
+  useEffect(() => {
+    if (!brands.length) return;
+    BRAND_TABS.forEach(({ name }) => fetchBrandProducts(name));
+  }, [brands, fetchBrandProducts]);
+
+  useEffect(() => { setOffset(0); }, [visibleCount, activeBrand]);
+
+  // Auto-slider — stops when isPaused is true
+  useEffect(() => {
+    const products = productsByBrand[activeBrand] || [];
+    if (!products.length || isPaused) return; // ← check isPaused here
+
+    const interval = setInterval(() => {
+      setOffset((prev) => {
+        const next = prev + 1;
+        return next + visibleCount > products.length ? 0 : next;
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [activeBrand, productsByBrand, visibleCount, isPaused]); // ← isPaused in deps
+
+  const handleTabClick = (brandName) => {
+    setActiveBrand(brandName);
+    setOffset(0);
+    if (!productsByBrand[brandName]) fetchBrandProducts(brandName);
+  };
+
+  const handleViewAll = () => {
+    const brandObj = brands.find((b) => b.name === activeBrand);
+    if (brandObj) navigate(`/brand/${brandObj.slug || createSlug(brandObj.name)}`);
+  };
+
+  const currentProducts = productsByBrand[activeBrand] || [];
+  const isLoading       = loadingBrand === activeBrand;
+  const canPrev         = offset > 0;
+  const canNext         = offset + visibleCount < currentProducts.length;
+  const translateX      = -(offset * stepPx);
+
+  return (
+    <Box sx={{ width: "100%" }}>
+      <Box
+        sx={{
+          background: "#eaeaea",
+          p: { xs: "20px 16px", sm: "28px 24px", md: "44px" },
+          boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+        }}
+      >
+        {/* Tabs row */}
+      <Box
+  sx={{
+    display: "flex",
+    flexDirection: { xs: "column", sm: "row" },
+    borderBottom: "1.5px solid",
+    borderColor: "divider",
+    mb: "20px",
+    gap: { xs: 1, sm: 0 },
+  }}
+>
+  {/* TOP ROW (Mobile) / LEFT (Desktop) */}
+  <Box
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: { xs: "space-between", sm: "flex-start" },
+      width: { xs: "100%", sm: "auto" },
+    }}
+  >
+    <Typography
+      className="poppins"
+      sx={{
+        fontSize: { xs: 16, sm: 18, md: 20 },
+        fontWeight: 400,
+        whiteSpace: "nowrap",
+      }}
+    >
+      Shop by{" "}
+      <Box component="span" sx={{ fontWeight: 600, color: "#2858A3" }}>
+        Brand
+      </Box>
+    </Typography>
+
+    {/* View All (mobile only here) */}
+    <ButtonBase
+      onClick={handleViewAll}
+      sx={{
+        display: { xs: "block", sm: "none" },
+        fontSize: 12,
+        color: "#2858A3",
+        px: 1,
+        py: 0.5,
+        "&:hover": { textDecoration: "underline" },
+      }}
+    >
+      View all
+    </ButtonBase>
+  </Box>
+
+  {/* CENTER TABS */}
+  <Box
+    sx={{
+      flex: 1,
+      display: "flex",
+      justifyContent: { xs: "flex-start", sm: "center" },
+      overflowX: { xs: "auto", sm: "visible" },
+      scrollbarWidth: "none",
+      "&::-webkit-scrollbar": { display: "none" },
+      gap: { xs: 1, sm: 0 },
+    }}
+  >
+    {BRAND_TABS.map(({ name, label }) => (
+      <ButtonBase
+        key={name}
+        onClick={() => handleTabClick(name)}
+        sx={{
+          px: { xs: "12px", md: "24px" },
+          py: "8px",
+          fontSize: { xs: 12, md: 14 },
+          fontWeight: activeBrand === name ? 600 : 400,
+          color: activeBrand === name ? "#2858A3" : "text.secondary",
+          borderBottom: "2px solid",
+          borderColor:
+            activeBrand === name ? "#2858A3" : "transparent",
+          mb: "-1.5px",
+          whiteSpace: "nowrap",
+          flexShrink: 0,
+        }}
+      >
+        {label}
+      </ButtonBase>
+    ))}
+  </Box>
+
+  {/* RIGHT (desktop only) */}
+  <ButtonBase
+    onClick={handleViewAll}
+    sx={{
+      display: { xs: "none", sm: "block" },
+      fontSize: { sm: 13, md: 14 },
+      color: "#2858A3",
+      px: 1,
+      py: 0.5,
+      whiteSpace: "nowrap",
+      "&:hover": { textDecoration: "underline" },
+    }}
+  >
+    View all
+  </ButtonBase>
+</Box>
+
+        {/* Carousel */}
+        <Box sx={{ position: "relative", px: { xs: "16px", md: "0px" } }}>
+          <ArrowButton
+            direction="left"
+            onClick={() => setOffset((o) => Math.max(0, o - 1))}
+            disabled={!canPrev || isLoading}
+          />
+
+          {/* Clipping viewport — mouse enter/leave controls isPaused */}
+          <Box
+            ref={viewportRef}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            sx={{ overflow: "hidden", width: "100%", py: "10px" }}
+          >
+            {/* Sliding track */}
+            <Box
+              sx={{
+                display: "flex",
+                gap: `${GAP}px`,
+                transform: `translateX(${translateX}px)`,
+                transition: "transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                willChange: "transform",
               }}
             >
-              {logoAnimationState === 'appearing' && <div className="brand-blue-glow" />}
-              <img 
-                src={brandslogo} 
-                alt="Top Brands" 
-                className="block w-auto object-contain"
-                style={{ height: '100%', width: '100%' }}
-              />
-            </div>
-          </Box>
-
-          {/* BURAQ */}
-          <ButtonBase 
-            onClick={() => {
-              const brand = brands.find((brand) => brand.name === BRANDS.BURAQ);
-              if (brand) {
-                const brandSlug = brand.slug || createSlug(brand.name);
-                navigate(`/brand/${brandSlug}`);
-              }
-            }}
-            className="flex flex-col items-center group transition-all duration-300 hover:scale-105 flex-1"
-          >
-            <Box className="text-white">
-              <img
-                src={brandLogos[2].src[0]}
-                alt="BURAQ"
-                className={`${brandLogos[2].className} brand-logo-ipad block group-hover:hidden`}
-              />
-              <img
-                src={brandLogos[2].src[1]}
-                alt="BURAQ"
-                className={`${brandLogos[2].hoverClassName} brand-logo-ipad-hover hidden group-hover:block`}
-              />
-            </Box>
-          </ButtonBase>
-
-          {/* ZILCO */}
-          <ButtonBase 
-            onClick={() => {
-              const brand = brands.find((brand) => brand.name === BRANDS.ZILCO);
-              if (brand) {
-                const brandSlug = brand.slug || createSlug(brand.name);
-                navigate(`/brand/${brandSlug}`);
-              }
-            }}
-            className="flex flex-col items-center group transition-all duration-300 hover:scale-105 flex-1"
-          >
-            <Box className="text-white">
-              <img
-                src={brandLogos[3].src[0]}
-                alt="ZILCO"
-                className={`${brandLogos[3].className} brand-logo-ipad block group-hover:hidden`}
-              />
-              <img
-                src={brandLogos[3].src[1]}
-                alt="ZILCO"
-                className={`${brandLogos[3].hoverClassName} brand-logo-ipad-hover hidden group-hover:block`}
-              />
-            </Box>
-          </ButtonBase>
-        </Box>
-
-        {/* Mobile: Grid Layout */}
-        <Box className="flex sm:hidden flex-col items-center justify-center w-full pt-12 pb-4 mobile-brands-container">
-          {/* 2x2 Grid */}
-          <Box className="grid grid-cols-2 gap-5 w-full max-w-xs mt-4">
-            {/* Row 1: NOVEX and CAVIL */}
-                  <ButtonBase
-                    onClick={() => {
-                      const brand = brands.find((brand) => brand.name === BRANDS.NOVEX);
-                      if (brand) {
-                        const brandSlug = brand.slug || createSlug(brand.name);
-                        navigate(`/brand/${brandSlug}`);
+              {isLoading || !cardWidth
+                ? Array.from({ length: visibleCount }).map((_, i) => (
+                    <SkeletonCard key={i} cardWidth={cardWidth || 200} />
+                  ))
+                : currentProducts.length > 0
+                ? currentProducts.map((product, i) => (
+                    <ProductCard
+                      key={product.id || i}
+                      product={product}
+                      cardWidth={cardWidth}
+                      onClick={() =>
+                        navigate(`/product/${product.slug || createSlug(product.name)}`)
                       }
-                    }}
-                    className="flex flex-col items-center group transition-all duration-300 hover:scale-105 mobile-brand-item"
-                  >
-                    <Box className="text-white">
-                      <img
-                        src={brandLogos[0].src[0]}
-                        alt="NOVEX"
-                        className="h-12 block group-hover:hidden"
-                      />
-                      <img
-                        src={brandLogos[0].src[1]}
-                        alt="NOVEX"
-                        className="h-16 hidden group-hover:block mobile-brand-hover"
-                      />
-                    </Box>
-                  </ButtonBase>
-
-            <ButtonBase 
-              onClick={() => {
-                const brand = brands.find((brand) => brand.name === BRANDS.BURAQ);
-                if (brand) {
-                  const brandSlug = brand.slug || createSlug(brand.name);
-                  navigate(`/brand/${brandSlug}`);
-                }
-              }}
-              className="flex flex-col items-center group transition-all duration-300 hover:scale-105 mobile-brand-item"
-            >
-              <Box className="text-white">
-                <img
-                  src={brandLogos[2].src[0]}
-                  alt="BURAQ"
-                  className="h-12 block group-hover:hidden"
-                />
-                <img
-                  src={brandLogos[2].src[1]}
-                  alt="BURAQ"
-                  className="h-16 hidden group-hover:block mobile-brand-hover"
-                />
-              </Box>
-            </ButtonBase>
-
-            {/* Row 2: ZILCO and BURAQ */}
-            <ButtonBase 
-              onClick={() => {
-                const brand = brands.find((brand) => brand.name === BRANDS.ZILCO);
-                if (brand) {
-                  const brandSlug = brand.slug || createSlug(brand.name);
-                  navigate(`/brand/${brandSlug}`);
-                }
-              }}
-              className="flex flex-col items-center group transition-all duration-300 hover:scale-105 mobile-brand-item"
-            >
-              <Box className="text-white">
-                <img
-                  src={brandLogos[3].src[0]}
-                  alt="ZILCO"
-                  className="h-12 -mt-4 block group-hover:hidden"
-                />
-                <img
-                  src={brandLogos[3].src[1]}
-                  alt="ZILCO"
-                  className="h-16 -mt-4 hidden group-hover:block mobile-brand-hover"
-                />
-              </Box>
-            </ButtonBase>
-
-            <ButtonBase 
-              onClick={() => {
-                const brand = brands.find((brand) => brand.name === BRANDS.CAVIL);
-                if (brand) {
-                  const brandSlug = brand.slug || createSlug(brand.name);
-                  navigate(`/brand/${brandSlug}`);
-                }
-              }}
-              className="flex flex-col items-center group transition-all duration-300 hover:scale-105 mobile-brand-item"
-            >
-              <Box className="text-white">
-                <img
-                  src={brandLogos[1].src[0]}
-                  alt="CAVIL"
-                  className="h-12 -mt-2 block group-hover:hidden"
-                />
-                <img
-                  src={brandLogos[1].src[1]}
-                  alt="CAVIL"
-                  className="h-16 -mt-2 hidden group-hover:block mobile-brand-hover"
-                />
-              </Box>
-            </ButtonBase>
+                    />
+                  ))
+                : Array.from({ length: visibleCount }).map((_, i) => (
+                    <SkeletonCard key={i} cardWidth={cardWidth || 200} />
+                  ))}
+            </Box>
           </Box>
+
+          <ArrowButton
+            direction="right"
+            onClick={() => setOffset((o) => o + 1)}
+            disabled={!canNext || isLoading}
+          />
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default BrandsBanner;
+export default ShopByBrand;

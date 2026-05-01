@@ -33,6 +33,14 @@ import {
   GetCountries,
 } from "react-country-state-city";
 import "react-country-state-city/dist/react-country-state-city.css";
+import CheckIcon from '@mui/icons-material/Check';
+import buraqlog from "../../assets/buraqlog.png";
+import { Hero } from "../../components";
+import bg from '../../assets/partnerwithus.png'
+import image1 from '../../assets/partners.png'
+
+
+
 
 const RETAILER_ERROR_FIELD_ORDER = [
   "business_name",
@@ -482,7 +490,7 @@ const RetailerRegistration = () => {
 
   return (
     !success ?
-      <Box sx={{ bgcolor: "grey.50", width: "100%", minHeight: "100%", pb: { xs: 4, md: 6 } }}>
+      <Box sx={{ bgcolor: "white", width: "100%", minHeight: "100%", pb: { xs: 4, md: 6 } }}>
         <>
         <SEO
           title="Partner With Us | Buraq Star Trading | Novex | Cavil | Zilco"
@@ -506,96 +514,207 @@ const RetailerRegistration = () => {
             }
           }}
         />
+<Grid item xs={12} sx={{ mx: "auto" }}>
+    <Hero bg={bg} title={t("partner_with_us")} color={"#fff"} />
+  <Box sx={{ py: { xs: 5, md: 8 }, px: { xs: 2, sm: 4 } }}>
+    {/* Header */}
+    <Box className="text-center mb-10 ">
+        <Typography className="text-3xl sm:text-4xl font-semibold text-[#2E2E2E] poppins">
+         🤝🏻 {t("partner_with_us")}
+        </Typography>
 
-        <Grid item xs={12} md={10} lg={9} sx={{ mx: "auto" }}>
+        <Typography className="text-gray-500 mt-2 max-w-xl mx-auto poppins">
+         {t("expand_your_business")}
+        </Typography>
+
+        <div className="flex items-center justify-center gap-4">
+          <div className="w-20 h-[1.5px] bg-gray-400"></div>
+          <img
+            src={buraqlog}
+            alt="logo"
+            className="w-8 h-8 object-contain"
+            loading="lazy"
+          />
+          <div className="w-20 h-[1.5px] bg-gray-400"></div>
+        </div>
+      </Box>
+
+    {/* Cards Grid */}
+  <Grid
+  container
+  spacing={2}
+  sx={{
+    maxWidth: 1700,
+    width: "100%",
+    mx: "auto",
+  }}
+>
+      {[
+        { label: t("power_hand_tools"),          desc: t("power_hand_tools_desc") },
+        { label: t("switch_sockets"),             desc: t("switch_sockets_desc") },
+        { label: t("wire_cables"),                desc: t("wire_cables_desc") },
+        { label: t("hardware"),                   desc: t("hardware_desc") },
+        { label: t("fan_ventilation_systems"),    desc: t("fan_ventilation_systems_desc") },
+        { label: t("water_pumps_pressure_kits"),  desc: t("water_pumps_pressure_kits_desc") },
+        { label: t("sanitary_bath_fittings"),     desc: t("sanitary_bath_fittings_desc") },
+        { label: t("led_lamps_light_fittings"),   desc: t("led_lamps_light_fittings_desc") },
+      ].map((item, index) => (
+        <Grid item xs={12} sm={6} md={3} key={index}>
           <Card
             elevation={0}
             sx={{
+              height: "100%",
               borderRadius: 3,
-              border: "1px solid",
-              borderColor: alpha(theme.palette.primary.main, 0.12),
-              boxShadow: `0 8px 32px ${alpha(theme.palette.primary.main, 0.08)}`,
-              mx: { xs: 2, sm: 6, md: 10 },
-              my: 3,
-              p: { xs: 2, sm: 3 },
-              bgcolor: "background.paper",
+              bgcolor:  "grey.100",
+            
               transition: "box-shadow 0.2s ease",
               "&:hover": {
-                boxShadow: `0 12px 40px ${alpha(theme.palette.primary.main, 0.12)}`,
+                boxShadow: `0 8px 32px ${alpha(theme.palette.primary.main, 0.12)}`,
               },
             }}
           >
-            <CardContent sx={{ p: { xs: 2, sm: 3 }, "&:last-child": { pb: { xs: 2, sm: 3 } } }}>
-              <Box display="flex" alignItems="center" gap={1} mb={2}>
-                <Typography variant="h5" fontWeight={900} color="primary" className="poppins">
-                  🤝 {t("partner_with_us")}
-                </Typography>
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+                p: { xs: 2.5, sm: 6 },
+                "&:last-child": { pb: { xs: 2.5, sm: 3 } },
+              }}
+            >
+              {/* Check Icon */}
+              <Box
+                sx={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: "50%",
+                  bgcolor: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  mb: 2.5,
+                }}
+              >
+                <CheckIcon sx={{ fontSize: 20, color: "#2058A3" }} />
               </Box>
 
-              <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7, mb: 2 }}>
-                {t("expand_your_business")}
+              <Typography variant="subtitle1" fontWeight={600} color="text.primary" className="poppins text-2xl" gutterBottom>
+                {item.label}
               </Typography>
-
-              <Box component="ul" sx={{ m: 0, pl: 0, listStyle: "none" }}>
-                {[
-                  t("power_hand_tools"),
-                  t("switch_sockets"),
-                  t("wire_cables"),
-                  t("hardware"),
-                  t("fan_ventilation_systems"),
-                  t("water_pumps_pressure_kits"),
-                  t("sanitary_bath_fittings"),
-                  t("led_lamps_light_fittings"),
-                ].map((item, index) => (
-                  <Box component="li" key={index} sx={{ display: "flex", alignItems: "center", gap: 1.25, mb: 1.25 }}>
-                    <Box
-                      component="span"
-                      sx={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: "50%",
-                        bgcolor: "primary.main",
-                        flexShrink: 0,
-                      }}
-                    />
-                    <Typography variant="body1" color="text.primary" fontWeight={500}>
-                      {item}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-
-              <Typography variant="subtitle1" fontWeight={700} color="primary" sx={{ mt: 3, mb: 1.5 }} className="poppins">
-                {t("why_partner_with_us")}
+              <Typography variant="body2" color="text.secondary" className="poppins text-lg" sx={{ lineHeight: 1.7 }}>
+                {item.desc}
               </Typography>
-
-              <Box component="ul" sx={{ m: 0, pl: 0, listStyle: "none" }}>
-                {[
-                  t("access_premium_brands"),
-                  t("reliable_supply_chain"),
-                  t("competitive_pricing"),
-                  t("join_growing_network"),
-                ].map((reason, index) => (
-                  <Box component="li" key={index} sx={{ display: "flex", alignItems: "center", gap: 1.25, mb: 1.25 }}>
-                    <Box
-                      component="span"
-                      sx={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: "50%",
-                        bgcolor: alpha(theme.palette.primary.main, 0.45),
-                        flexShrink: 0,
-                      }}
-                    />
-                    <Typography variant="body1" color="text.primary" fontWeight={500}>
-                      {reason}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
             </CardContent>
           </Card>
         </Grid>
+      ))}
+    </Grid>
+  </Box>
+</Grid>
+
+
+{/* Section */}
+<Box sx={{ bgcolor: "#f3f4f6", py: { xs: 3, md: 5 } }}>
+  <Box
+    sx={{
+      maxWidth: 1400,
+      mx: "auto",
+      px: { xs: 2, sm: 3, md: 4 },
+    }}
+  >
+    {/* White Container */}
+    <Box
+      sx={{
+        bgcolor: "#fff",
+        borderRadius: 3,
+        p: { xs: 3, md: 6 },
+        boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
+      }}
+    >
+      <Grid container spacing={4} alignItems="center">
+
+        {/* LEFT SIDE */}
+        <Grid item xs={12} md={6}>
+          <Typography
+            variant="h4"
+            className="poppins"
+            sx={{
+              fontWeight: 600,
+              color: "#2E2E2E",
+              mb: 2,
+              fontSize: { xs: "1.5rem", md: "2.5rem" },
+            }}
+          >
+            Why Partner With Us?
+          </Typography>
+
+          <Typography
+          className="poppins"
+            sx={{
+              color: "#6B7280",
+              mb: 3,
+              maxWidth: 520,
+              fontSize: { xs: 12, md: 13 },
+            }}
+          >
+            Partner with us to gain access to premium brands and high-quality products
+            backed by a reliable supply chain and strong logistics support. We offer competitive pricing, dedicated marketing assistance, and a collabrative approach to help your business grow. Join our expanding network and unlock new opporunities for long-term success and profitability.
+          </Typography>
+
+          {/* Bullet points */}
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+            {[
+              "Access to premium brands and quality products",
+              "Reliable supply chain and logistics support",
+              "Competitive pricing and marketing support",
+              "Join our growing network and unlock new opportunities",
+            ].map((item, i) => (
+              <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: 1 }}>
+                   <Box
+                sx={{
+                  width: 25,
+                  height: 25,
+                  borderRadius: "50%",
+                  bgcolor: "#e1e1e1",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                 
+                }}
+              >
+                <CheckIcon sx={{ fontSize: 18, color: "#2058A3" }} />
+              </Box>
+                <Typography className="mt-1 poppins font-semibold text-gray-500" sx={{ color: "#374151" , fontSize: { xs: 13, md: 14 } }}>
+                  {item}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Grid>
+
+        {/* RIGHT SIDE */}
+        <Grid item xs={12} md={6}>
+          <Box
+            component="img"
+            src={image1}
+            alt="partner network"
+            sx={{
+              width: "100%",
+              borderRadius: 3,
+              objectFit: "cover",
+              maxHeight: 420,
+            }}
+          />
+        </Grid>
+
+      </Grid>
+    </Box>
+  </Box>
+</Box>
+
+
+
 
         <Grid
           container

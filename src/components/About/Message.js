@@ -1,50 +1,196 @@
 import React from "react";
 import { Box, Divider, Grid, Typography } from "@mui/material";
+import ShareLocationOutlinedIcon from "@mui/icons-material/ShareLocationOutlined";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import PublicIcon from "@mui/icons-material/Public";
+import DoneIcon from "@mui/icons-material/Done";
 import watermark from "../../assets/watermark.svg";
 import profile from "../../assets/profile.jpg";
 import signature from "../../assets/signature.svg";
+import image1 from "../../assets/ourpromise.png";
 import who from "../../assets/servicebg.jpg";
 import vision from "../../assets/picture1.jpg";
 import mission from "../../assets/picture4.jpg";
 import operation from "../../assets/picture5.jpg";
+import buraqlog from "../../assets/buraqlog.png";
+import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
+import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
+import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
+import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
+import UAE from "../../assets/UAE.png";
+import Qatar from "../../assets/Qatar.png";
+import Oman from "../../assets/Oman.png";
+import Bahrain from "../../assets/Bahrain.png";
+import Pakisthan from "../../assets/Pakistan.png";
+import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 
 const paragraphStyle = { hyphens: "auto", wordBreak: "break-word" };
 
-const Message = ({t}) => {
+const Message = ({ t }) => {
+  const features = [
+    {
+      title: "Curated Quality Selection",
+      desc: "Trade-grade products designed for performance and durability.",
+      icon: <VerifiedUserOutlinedIcon fontSize="large" />,
+    },
+    {
+      title: "Trusted Brands Portfolio",
+      desc: "NOVEX, ZILCO, BURAQ & CAVIL — proven quality across projects.",
+      icon: <HandshakeOutlinedIcon fontSize="large" />,
+    },
+    {
+      title: "Consistent Stock Availability",
+      desc: "Key essentials always ready to prevent site delays.",
+      icon: <DoneOutlinedIcon fontSize="large" />,
+    },
+    {
+      title: "Project-Friendly Pricing",
+      desc: "Best-value rates, value packs, and bulk support for businesses.",
+      icon: <PaymentsOutlinedIcon fontSize="large" />,
+    },
+    {
+      title: "Fast Delivery Across UAE",
+      desc: "Reliable dispatch backed by a strong distribution network.",
+      icon: <LocalShippingOutlinedIcon fontSize="large" />,
+    },
+    {
+      title: "Expert Support",
+      desc: "A team that understands technical products and project needs.",
+      icon: <VolunteerActivismOutlinedIcon fontSize="large" />,
+    },
+  ];
+
+  const countries = [
+    { name: "UAE", flag: UAE },
+    { name: "Qatar", flag: Qatar },
+    { name: "Oman", flag: Oman },
+    { name: "Bahrain", flag: Bahrain },
+    { name: "Pakistan", flag: Pakisthan },
+  ];
 
   return (
-    <Grid
-      container
-      className="py-16 px-4 sm:py-[70px] sm:ps-[70px] sm:pe-10 relative h-fit"
-    >
-      <Box className="absolute top-6 right-0">
+    <Grid container className="py-16 relative h-fit">
+      {/* <Box className="absolute top-6 right-0">
         <img className="h-[70vh] w-auto" src={watermark} alt="watermark" />
-      </Box>
+      </Box> */}
 
-      {/* WHO WE ARE */}
-      <Grid item xs={12} className="pb-6 px-4 sm:px-10 ">
-        <Box className="flex justify-center bg-[#fff] ">
-          <Divider className="bg-[#CCCCCC] w-[90%] mb-10" />
+      {/* ABOUT BURAQ STAR */}
+      <Grid item xs={12} className="pb-6 px-4 sm:px-10 mb-10">
+        {/* 
+  <Box className="w-full py-10 px-5 sm:px-14 bg-[#F4F6F7]"> */}
+
+        {/* Heading Section */}
+        <Box className="flex flex-col items-center justify-center text-center mb-10 ">
+          <Typography className="text-4xl font-semibold text-[#2E2E2E] poppins">
+            About Buraq Star
+          </Typography>
+
+          <Typography className="text-md max-w-xl text-gray-500 mt-2 poppins mx-auto">
+            A trusted UAE trading house delivering premium electrical, sanitary,
+            hardware, and building essentials since 2002.
+          </Typography>
+          <div className="flex items-center justify-center gap-4 mb-6 ">
+            <div className="w-24 h-[1px] bg-gray-500 rounded-3xl"></div>
+
+            <img
+              src={buraqlog}
+              alt="Buraq Logo"
+              className="w-8 h-8 object-contain"
+            />
+
+            <div className="w-24 h-[1px] bg-gray-500 rounded-3xl"></div>
+          </div>
         </Box>
 
-        <Box className="w-full h-fit py-6 px-5 sm:px-14 bg-[#F4F6F7]">
+        {/* Cards Section */}
+        <Grid container spacing={4} className="justify-center ">
+          {/* Card 1 */}
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className="bg-gray-100 rounded-xl shadow-sm p-6 text-center h-full">
+              <div className="flex justify-center mb-3 p-6">
+                <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-3">
+                  <ShareLocationOutlinedIcon
+                    sx={{ fontSize: 44, color: "#2858A4" }}
+                  />
+                </div>
+              </div>
+              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+                Dubai & Sharjah
+              </Typography>
+              <Typography className="text-md text-gray-500 mt-2 poppins max-w-sm mx-auto p-3">
+                Lorem Ipsum generators on the tend to repeat on the tend to
+                repeat.
+              </Typography>
+            </Box>
+          </Grid>
+
+          {/* Card 2 */}
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className="bg-gray-100 rounded-xl shadow-sm p-6 text-center h-full">
+              <div className="flex justify-center mb-3 p-6">
+                <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-3">
+                  <VerifiedUserIcon sx={{ fontSize: 44, color: "#2858A4" }} />
+                </div>
+              </div>
+              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+                20+ Years of Experience
+              </Typography>
+              <Typography className="text-md text-gray-500 mt-2 poppins max-w-sm mx-auto p-3">
+                Lorem Ipsum generators on the tend to repeat on the tend to
+                repeat.
+              </Typography>
+            </Box>
+          </Grid>
+
+          {/* Card 3 */}
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className="bg-gray-100 rounded-xl shadow-sm p-6 text-center h-full">
+              <div className="flex justify-center mb-3 p-6">
+                <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-3">
+                  <StarBorderIcon sx={{ fontSize: 44, color: "#2858A4" }} />
+                </div>
+              </div>
+              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+                GCC Reach
+              </Typography>
+              <Typography className="text-md text-gray-500 mt-2 poppins max-w-sm mx-auto p-3">
+                Lorem Ipsum generators on the tend to repeat on the tend to
+                repeat.
+              </Typography>
+            </Box>
+          </Grid>
+
+          {/* Card 4 */}
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className="bg-gray-100 rounded-xl shadow-sm p-6 text-center h-full">
+              <div className="flex justify-center mb-3 p-6">
+                <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-3">
+                  <PublicIcon sx={{ fontSize: 44, color: "#2858A4" }} />
+                </div>
+              </div>
+              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+                International Distribution
+              </Typography>
+              <Typography className="text-md text-gray-500 mt-2 poppins max-w-sm mx-auto p-3">
+                Lorem Ipsum generators on the tend to repeat on the tend to
+                repeat.
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+        {/* </Box> */}
+      </Grid>
+
+      {/* WHO WE ARE */}
+      <Grid item xs={12} className="pb-6 px-4 sm:px-10 bg-[#F4F6F7] p-20 ">
+        <Box className="w-full h-fit py-6 px-5 sm:px-14  rounded-3xl ">
           {/* Parent Grid container with vertical centering */}
-          <Grid container className="pb-10 items-center">
-
+          <Grid container className="pb-10 items-center  bg-white p-5">
             {/* Left Column: Who we are Image */}
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className="flex justify-center"
-            >
-              <span className="before:block before:absolute before:-inset-1 before:translate-x-6 before:translate-y-0 before:-scale-y-[.85] before:-scale-x-95 before:bg-[#02ADEC] relative inline-block">
-                <img className="w-full h-auto relative" src={who} alt="Profile" />
-              </span>
-            </Grid>
-
-            {/* Right Column: who we are text */}
             <Grid
               item
               xs={12}
@@ -52,153 +198,346 @@ const Message = ({t}) => {
               md={8}
               className="px-0 sm:px-8 lg:ps-20 md:text-left text-center space-y-3"
             >
-              <Typography className="poppins capitalize text-3xl font-bold w-full text-[#2E2E2E] text-justify sm:text-left leading-snug">
+              <Typography className="poppins text-4xl font-semibold w-full text-[#2E2E2E] text-justify sm:text-left leading-snug mt-8">
                 {t("who_we_are")}
               </Typography>
-              <Typography className="text-sm text-[#152E3A] poppins leading-6 text-justify sm:text-left" style={paragraphStyle}>
-                {t("who_we_are_description")}
+              <Typography
+                className="text-lg text-[#152E3A] poppins leading-6  text-justify leading-7 sm:text-left max-w-4xl"
+                style={paragraphStyle}
+              >
+                {t("who_we_are_description1")}
+              </Typography>
+              <Typography
+                className="text-lg text-[#152E3A] poppins leading-6 text-justify sm:text-left leading-7 max-w-4xl"
+                style={paragraphStyle}
+              >
+                {t("who_we_are_description2")}
+              </Typography>
+
+              <div className="flex flex-col  ">
+                {[
+                  "Trusted Since 2002",
+                  "Premium Brand Portfolio",
+                  "Professional & Retail Supply",
+                  "Reliable Delivery Network",
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center gap-5 ">
+                    <div className="rounded-full bg-gray-200 flex items-center justify-center shadow-sm p-2 shrink-0 mt-5">
+                      <DoneIcon
+                        className=""
+                        sx={{ color: "#2858A4", fontSize: 20 }}
+                      />
+                    </div>
+                    <Typography
+                      className="text-lg text-gray-700 poppins font-semibold  leading-6 mt-5"
+                      style={paragraphStyle}
+                    >
+                      {item}
+                    </Typography>
+                  </div>
+                ))}
+              </div>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={3.5}
+              className="flex justify-center mt-5 "
+            >
+              <img
+                className="w-full h-auto relative rounded-xl"
+                src={who}
+                alt="Profile "
+              />
+            </Grid>
+            {/* Right Column: who we are text */}
+          </Grid>
+        </Box>
+      </Grid>
+
+      {/* OUR PROMISES
+       */}
+      <Grid item xs={12} className="py-4 px-4 md:py-20 md:px-20">
+        <Box
+          className="w-full "
+          sx={{
+            backgroundImage: `url(${image1})`,
+            backgroundSize: "100% 100%",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            minHeight: { xs: "180px", sm: "180px", md: "150px" },
+            display: "flex",
+            alignItems: "center",
+            px: { xs: 6, sm: 12 },
+            py: 2,
+          }}
+        >
+          <Grid container className="items-center" spacing={4}>
+            <Grid item xs={12} sm={5}>
+              <Typography
+                className="poppins font-semibold text-[#152E3A]"
+                sx={{ fontSize: { xs: "1.6rem", sm: "3rem" } }}
+              >
+                Our Promise
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12} sm={7}>
+              <Typography
+                className="poppins text-[#4A5568] leading-7"
+                sx={{ fontSize: "1.2rem", maxWidth: 700 }}
+              >
+                We don't just supply products — we support projects. Every item
+                we offer is selected and delivered with one goal :{" "}
+                <span className="font-semibold text-[#152E3A]">
+                  to help our customers build with confidence.
+                </span>
               </Typography>
             </Grid>
           </Grid>
         </Box>
       </Grid>
 
-      {/* OUR OPERATIONS */}
-      <Grid item xs={12}   className="py-4 px-4 sm:px-10  "  >
-        <Box className="flex justify-center bg-[#fff] pt-6">
-          <Divider className="bg-[#CCCCCC] w-[90%] mb-10" />
+      <Box className="w-full bg-[#F4F6F7] py-12 px-4 sm:px-10">
+        {/* Header */}
+        <Box className="text-center mb-12">
+          <Typography className="text-3xl sm:text-4xl font-semibold text-[#2E2E2E] poppins">
+            Why Buraq Star
+          </Typography>
+          <Typography className="text-gray-500 mt-2 max-w-xl mx-auto poppins">
+            Premium-grade essentials, built for professionals who don’t
+            compromise on quality.
+          </Typography>
+          <div className="flex items-center justify-center gap-4 mt-5">
+            <div className="w-20 h-[1px] bg-gray-400"></div>
+            <img
+              src={buraqlog}
+              alt="Buraq Logo"
+              className="w-8 h-8 object-contain"
+              loading="lazy"
+            />
+            <div className="w-20 h-[1px] bg-gray-400"></div>
+          </div>
         </Box>
-        <Box className="w-full h-fit py-6 px-5 sm:px-14 bg-[#F4F6F7]">
-          {/* Parent Grid container with vertical centering */}
-          <Grid container className="pb-10 items-center">
 
-          
-
-            {/* Left Column: Mission Text  change order for shw text after image in mobile and before in desktop*/}
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8}
-              className="px-0 sm:px-8 lg:ps-20 md:text-left text-center order-2 md:order-1 space-y-3"
+        {/* Cards */}
+        <Box className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
+          {features.map((item, index) => (
+            <Box
+              key={index}
+              className="bg-white rounded-2xl p-16 shadow-sm flex flex-col items-left"
             >
-              <Typography className="poppins capitalize text-3xl font-bold w-full text-[#2E2E2E] text-justify sm:text-left leading-snug">
-                {t("our_operations")}
-              </Typography>
-              <Typography className="text-sm text-[#152E3A] poppins leading-6 text-justify sm:text-left" style={paragraphStyle}>
-                {t("our_operations_description_1")}
-              </Typography>
-              <Typography className="text-sm text-[#152E3A] poppins leading-6 text-justify sm:text-left" style={paragraphStyle}>
-                {t("our_operations_description_2")}
-              </Typography>
-              <Typography className="text-sm text-[#152E3A] poppins leading-6 text-justify sm:text-left" style={paragraphStyle}>
-                {t("our_operations_description_3")}
-              </Typography>
-            </Grid>
+              {/* ICON (centered) */}
+              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gray-100 text-[#2858A4] mb-6 text-4xl">
+                {item.icon}
+              </div>
 
-              {/* Right Column: Image  */}
-              <Grid
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className="flex justify-center order-1 md:order-2"
+              {/* CONTENT (left aligned but centered block) */}
+              <div className="w-full max-w-md text-left">
+                <Typography className="text-2xl font-semibold text-[#2E2E2E] mb-3 poppins">
+                  {item.title}
+                </Typography>
+
+                <Typography className="text-gray-500 text-xl mt-10 text-base leading-relaxed poppins ">
+                  {item.desc}
+                </Typography>
+              </div>
+            </Box>
+          ))}
+        </Box>
+      </Box>
+
+      <Box className="w-full h-fit py-6 px-5 sm:px-14 bg-white mt-7">
+        {/* Parent Grid container with vertical centering */}
+        <Grid container className="pb-10 items-center">
+          {/* Right Column: Image  */}
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={4}
+            className="flex justify-center order-1 md:order-1"
+          >
+            <img
+              className="w-full h-auto relative rounded-2xl"
+              src={operation}
+              alt="Profile"
+            />
+          </Grid>
+
+          {/* Left Column: Mission Text  change order for shw text after image in mobile and before in desktop*/}
+
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={8}
+            className="px-0 sm:px-8  order-2 md:order-2 space-y-3"
+          >
+            <Typography className="text-4xl font-semibold text-[#2E2E2E] poppins mt-8">
+              {t("our_operations")}
+            </Typography>
+            <div className="flex items-center  gap-4 mb-6 ">
+              <div className="w-24 h-[1px] bg-gray-500 rounded-3xl"></div>
+              <img
+                src={buraqlog}
+                alt="Buraq Logo"
+                className="w-8 h-8 object-contain"
+              />
+              <div className="w-24 h-[1px] bg-gray-500 rounded-3xl"></div>
+            </div>
+            <Typography
+              className="text-md text-[#152E3A] poppins leading-6 text-justify md:text-left"
+              style={paragraphStyle}
             >
-              <span className="before:block before:absolute before:-inset-1 before:translate-x-6 before:translate-y-0 before:-scale-y-[.85] before:-scale-x-95 before:bg-[#02ADEC] relative inline-block">
-                <img className="w-full h-auto relative" src={operation} alt="Profile" />
+              {t("our_operations_description_1")}
+            </Typography>
+            <Typography
+              className="text-md text-[#152E3A] poppins leading-6 text-justify sm:text-left"
+              style={paragraphStyle}
+            >
+              {t("our_operations_description_2")}
+            </Typography>
+            <div className="flex flex-col  ">
+              {[
+                "Showrooms in Duvai & Sharjah",
+                "Large Storage Capacity Warehouses",
+                "UAE-Wide Delivery Coverage",
+                "Regional Presence Across GCC & Beyond",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-5 ">
+                  <div className="rounded-full bg-gray-200 flex items-center justify-center shadow-sm p-2 shrink-0 mt-5">
+                    <DoneIcon
+                      className=""
+                      sx={{ color: "#2858A4", fontSize: 20 }}
+                    />
+                  </div>
+                  <Typography
+                    className="text-md text-gray-600 poppins font-semibold leading-6 mt-5"
+                    style={paragraphStyle}
+                  >
+                    {item}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+          </Grid>
+        </Grid>
+      </Box>
+
+                  {/* {FLAG SECTION} */}
+      <Box className="w-full py-10 px-4 sm:px-10 bg-[#F4F6F7] mt-10">
+        {/* Header */}
+        <Box className="text-center mb-10">
+          <Typography className="text-3xl sm:text-4xl font-semibold text-[#2E2E2E] poppins">
+            Our Regional Presence
+          </Typography>
+          <Typography className="text-gray-500 mt-2 max-w-xl mx-auto poppins">
+            With strong roots in the UAE and partnerships across the region, we
+            proudly serve customers in
+          </Typography>
+          <div className="flex items-center justify-center gap-4 mt-4">
+            <div className="w-20 h-[1px] bg-gray-400"></div>
+            <img
+              src={buraqlog}
+              alt="logo"
+              className="w-8 h-8 object-contain"
+              loading="lazy"
+            />
+            <div className="w-20 h-[1px] bg-gray-400"></div>
+          </div>
+        </Box>
+        {/* Countries Row */}
+        <Box className="mx-auto bg-white rounded-xl overflow-hidden border-2 border-gray-100 grid grid-cols-5 sm:grid-cols-3 lg:grid-cols-5">
+          {countries.map((country, index) => (
+            <div
+              key={index}
+              className="relative flex items-center justify-center h-[101px] border-r last:border-r-0 border-gray-200 group cursor-pointer overflow-hidden"
+            >
+              {/* Flag Background */}
+              <img
+                src={country.flag}
+                alt={country.name}
+                className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-300 z-0"
+              />
+              {/* Dark overlay (for readability) */}
+              <div className="absolute group-hover:opacity-100 transition duration-300 z-10"></div>
+              {/* Country Name */}
+              <span className="relative z-20 text-gray-700 group-hover:text-white font-semibold text-xl poppins transition duration-300">
+                {country.name}
               </span>
-            </Grid>
+            </div>
+          ))}
+        </Box>
+      </Box>
+
+
+            {/* {Mission and Vision} */}
+      <Box className="w-full py-10 px-4 sm:px-10  mt-10">
+            <Box className="text-center mb-10">
+          <Typography className="text-3xl sm:text-4xl font-semibold text-[#2E2E2E] poppins">
+           Mission & Vision
+          </Typography>
+          <div className="flex items-center justify-center gap-4 mt-4">
+            <div className="w-20 h-[1px] bg-gray-400"></div>
+            <img
+              src={buraqlog}
+              alt="logo"
+              className="w-8 h-8 object-contain"
+              loading="lazy"
+            />
+            <div className="w-20 h-[1px] bg-gray-400"></div>
+          </div>
+        </Box>
+
+           <Grid container spacing={4} className="justify-center ">
+          {/* Card 1 */}
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className="bg-gray-100 rounded-xl shadow-sm p-6 text-center h-full">
+              <div className="flex justify-center mb-3 p-6">
+                <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-3">
+                  <TrackChangesOutlinedIcon
+                    sx={{ fontSize: 44, color: "#2858A4" }}
+                    />
+                </div>
+              </div>
+              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+                    {/* {t("mission")} */}
+                Our Mission
+              </Typography>
+              <Typography className="text-md text-gray-500 mt-2 poppins max-w-lg mx-auto p-3">
+                  {/* {t("mission_description")} */}
+               To Create World-class products under our brands — Buraq, Novex, Zilco, and Cavil — combining functionality and aesthetics to deliver exceptional value.
+              </Typography>
+            </Box>
+          </Grid>
+
+          {/* Card 2 */}
+          <Grid item xs={12} sm={6} md={3}>
+            <Box className="bg-gray-100 rounded-xl shadow-sm p-6 text-center h-full">
+              <div className="flex justify-center mb-3 p-6">
+                <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-3">
+                  <LightbulbOutlinedIcon  sx={{ fontSize: 44, color: "#2858A4" }} />
+                </div>
+              </div>
+              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+                Our Vision
+                {/* {t("vision")} */}
+              </Typography>
+              <Typography className="text-md text-gray-500 mt-2 poppins max-w-lg mx-auto p-3">
+               To be a global leader in innovative , high—quality products that enrich lives and set new standards of excellence.
+                {/* {t("vision_description")} */}
+              </Typography>
+            </Box>
+          </Grid>
+          </Grid>
+      </Box>
 
             
-          </Grid>
-        </Box>
-      </Grid>
 
-      {/* VISION */}
-      <Grid item xs={12} className="py-4 px-4 sm:px-10">
-        <Box className="flex justify-center bg-[#fff] pt-6">
-          <Divider className="bg-[#CCCCCC] w-[90%] mb-10" />
-        </Box>
-        <Box className="w-full h-fit py-6 px-5 sm:px-14 bg-[#F4F6F7]">
-          {/* Parent Grid container with vertical centering */}
-          <Grid container className="pb-10 items-center">
 
-            {/* Left Column: */}
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className="flex justify-center "
-            >
-              <span className="before:block before:absolute before:-inset-1 before:translate-x-6 before:translate-y-0 before:-scale-y-[.85] before:-scale-x-95 before:bg-[#02ADEC] relative inline-block">
-                <img className="w-full h-auto relative" src={vision} alt="Profile" />
-              </span>
-            </Grid>
-
-            {/* Right Column: Image */}
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8}
-              className="px-0 sm:px-8 lg:ps-20 text-center md:text-left space-y-3"
-            >
-              <Typography className="poppins capitalize text-3xl font-bold w-full text-[#2E2E2E] text-justify sm:text-left leading-snug">
-                {t("vision")}
-              </Typography>
-              <Typography className="text-sm text-[#152E3A] poppins leading-6 text-justify sm:text-left" style={paragraphStyle}>
-                {t("vision_description")}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Box>
-      </Grid>
-
-      {/* MISSION */}
-      <Grid item xs={12} className="py-4 px-4 sm:px-10">
-        <Box className="flex justify-center bg-[#fff] pt-6">
-          <Divider className="bg-[#CCCCCC] w-[90%] mb-10" />
-        </Box>
-        <Box className="w-full h-fit py-6 px-5 sm:px-14 bg-[#F4F6F7]">
-          {/* Parent Grid container with vertical centering */}
-          <Grid container className="pb-10 items-center">
-
-            {/* Left Column: Mission Text change order here also as above inn operations */}
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8}
-              className="px-0 sm:px-8 lg:ps-20 text-center md:text-left order-2 md:order-1 space-y-3"
-            >
-              <Typography className="poppins capitalize text-3xl font-bold w-full text-[#2E2E2E] text-justify sm:text-left leading-snug">
-                {t("mission")}
-              </Typography>
-              <Typography className="text-sm text-[#152E3A] poppins leading-6 text-justify sm:text-left" style={paragraphStyle}>
-                {t("mission_description")}
-              </Typography>
-            </Grid>
-
-            {/* Right Column: Image */}
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className="flex justify-center order-1 md:order-2"
-            >
-              <span className="before:block before:absolute before:-inset-1 before:translate-x-6 before:translate-y-0 before:-scale-y-[.85] before:-scale-x-95 before:bg-[#02ADEC] relative inline-block">
-                <img className="w-full h-auto relative" src={mission} alt="Profile" />
-              </span>
-            </Grid>
-          </Grid>
-        </Box>
-
-        <Box className="flex justify-center bg-[#fff] mt-10">
-          <Divider className="bg-[#CCCCCC] w-[100%] " />
-        </Box>
-      </Grid>
+  
     </Grid>
   );
 };

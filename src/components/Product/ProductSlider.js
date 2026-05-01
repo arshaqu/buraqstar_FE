@@ -16,6 +16,8 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function ProductSlider({ images }) {
   const { t, i18n } = useTranslation();
@@ -25,16 +27,36 @@ export default function ProductSlider({ images }) {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
+  const [thumbStartIndex, setThumbStartIndex] = useState(0);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(true);
   const mainSwiperRef = useRef(null);
   const zoomImageRef = useRef(null);
+  const displayImages = images?.slice(0, 16) || [];
+  
+const THUMB_VISIBLE = 5;
+
+const visibleThumbnails = displayImages.slice(
+  thumbStartIndex,
+  thumbStartIndex + THUMB_VISIBLE
+);
+
+const handleThumbNext = () => {
+  if (thumbStartIndex + THUMB_VISIBLE < displayImages.length) {
+    setThumbStartIndex(prev => prev + 1);
+  }
+};
+
+const handleThumbPrev = () => {
+  if (thumbStartIndex > 0) {
+    setThumbStartIndex(prev => prev - 1);
+  }
+};
 
   // Check if current language is RTL
   const isRTL = i18n.language === 'ar' || i18n.language === 'ur';
 
   // Limit images to 5 maximum (1 main + 4 thumbnails)
-  const displayImages = images?.slice(0, 16) || [];
 
   useEffect(() => {
     // Simulate loading for smooth transition
@@ -115,151 +137,113 @@ export default function ProductSlider({ images }) {
 
   return (
     <div className="relative w-full space-y-1 mb-0">
-      {/* Main Image Slider */}
-      <div className="relative bg-gradient-to-br from-gray-50 via-white to-gray-50 rounded-3xl overflow-hidden  border border-gray-100/50">
-        <Swiper
-          ref={mainSwiperRef}
-          modules={[Navigation, Thumbs, EffectFade]}
-          thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-          effect="fade"
-          fadeEffect={{ crossFade: true }}
-          navigation={{
-            nextEl: '.swiper-button-next-custom',
-            prevEl: '.swiper-button-prev-custom',
-          }}
-          onSlideChange={handleSlideChange}
-          className={`w-full h-[50vh] sm:h-[60vh] lg:h-[70vh] ${isRTL ? 'rtl' : ''}`}
-          style={{
-            direction: isRTL ? 'rtl' : 'ltr'
-          }}
-          dir={isRTL ? 'rtl' : 'ltr'}
+  {/* Product Image Slider - Responsive Layout */}
+<div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start w-full p-10">
+
+  {/* Main Image */}
+  <div className="relative w-full md:flex-1 aspect-square bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden flex items-center justify-center ">
+
+    <img
+      src={displayImages[currentImageIndex]}
+      alt={`Product image ${currentImageIndex + 1}`}
+      className="max-w-[100%] max-h-[100%] object-contain transition-opacity duration-300 cursor-pointer"
+      onClick={() => handleImageClick(currentImageIndex)}
+    />
+
+    {/* Counter */}
+    <div className="absolute top-3 left-3 bg-black/50 text-white text-xs px-3 py-1 rounded-full">
+      {currentImageIndex + 1} / {displayImages.length}
+    </div>
+
+    {/* Prev / Next */}
+    {displayImages.length > 1 && (
+      <>
+        <button
+          onClick={() =>
+            setCurrentImageIndex(i =>
+              (i - 1 + displayImages.length) % displayImages.length
+            )
+          }
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm transition-all hover:scale-110"
         >
-          {displayImages.map((image, i) => (
-            <SwiperSlide
-              key={i}
-              className="w-full flex items-center justify-center cursor-pointer group relative"
-              onClick={() => handleImageClick(i)}
+          <ChevronLeftIcon className="text-[#2858a3]" fontSize="small" />
+        </button>
+
+        <button
+          onClick={() =>
+            setCurrentImageIndex(i =>
+              (i + 1) % displayImages.length
+            )
+          }
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm transition-all hover:scale-110"
+        >
+          <ChevronRightIcon className="text-[#2858a3]" fontSize="small" />
+        </button>
+      </>
+    )}
+  </div>
+
+  {/* Thumbnails Section */}
+  {displayImages.length > 1 && (
+    <div className="
+      flex flex-row md:flex-col
+      gap-2 md:gap-3
+      w-full md:w-24
+      overflow-x-auto md:overflow-visible
+      flex-shrink-0
+    ">
+
+      {/* UP button (desktop only) */}
+      {/* <button
+        onClick={handleThumbPrev}
+        disabled={thumbStartIndex === 0}
+        className="hidden md:flex w-8 h-8 rounded-full bg-white shadow border items-center justify-center disabled:opacity-30"
+      >
+       <ExpandLessIcon />
+      </button> */}
+
+      {/* Thumbnails */}
+      <div className="
+        flex md:flex-col
+        gap-2 md:gap-3
+        w-full
+      ">
+        {visibleThumbnails.map((image, i) => {
+          const realIndex = thumbStartIndex + i;
+
+          return (
+            <div
+              key={realIndex}
+              onClick={() => setCurrentImageIndex(realIndex)}
+              className={`min-w-[100px] md:w-full aspect-square rounded-lg md:rounded-xl overflow-hidden cursor-pointer border-2 transition-all duration-200
+                ${realIndex === currentImageIndex
+                  ? 'border-[#2858a3] opacity-100'
+                  : 'border-gray-200 opacity-80 hover:opacity-50 hover:border-[#2858a3]/50'
+                }`}
             >
               <img
                 src={image}
-                alt={`Product image ${i + 1}`}
-                className="max-h-full max-w-full object-contain transition-all duration-500 group-hover:scale-105"
+                alt={`Thumbnail ${realIndex + 1}`}
+                className="w-full h-full object-cover"
                 loading="lazy"
               />
-
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                  <div className="bg-white/90 backdrop-blur-sm text-[#2858a3] px-4 py-2 rounded-full font-semibold poppins text-sm flex items-center gap-2 shadow-[0_8px_32px_-8px_rgba(40,88,163,0.3)]">
-                    <FullscreenIcon fontSize="small" />
-                    {t('product_slider.click_to_zoom')}
-                  </div>
-                </div>
-              </div>
-
-              {/* Image Counter */}
-              <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm poppins">
-                {i + 1} / {displayImages.length}
-              </div>
-            </SwiperSlide>
-          ))}
-
-          {/* Custom Navigation Buttons */}
-          {displayImages.length > 1 && (
-            <>
-              <div className="swiper-button-prev-custom absolute left-4 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer">
-                <div className="w-12 h-12 bg-white/80 backdrop-blur-md hover:bg-white/95 rounded-full flex items-center justify-center shadow-[0_8px_24px_-6px_rgba(0,0,0,0.12)] transition-all duration-300 hover:scale-110 hover:shadow-[0_12px_32px_-8px_rgba(40,88,163,0.25)] group">
-                  <ChevronLeftIcon className="text-[#2858a3] text-xl group-hover:scale-110 transition-transform" />
-                </div>
-              </div>
-              <div className="swiper-button-next-custom absolute right-4 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer">
-                <div className="w-12 h-12 bg-white/80 backdrop-blur-md hover:bg-white/95 rounded-full flex items-center justify-center shadow-[0_8px_24px_-6px_rgba(0,0,0,0.12)] transition-all duration-300 hover:scale-110 hover:shadow-[0_12px_32px_-8px_rgba(40,88,163,0.25)] group">
-                  <ChevronRightIcon className="text-[#2858a3] text-xl group-hover:scale-110 transition-transform" />
-                </div>
-              </div>
-            </>
-          )}
-        </Swiper>
+            </div>
+          );
+        })}
       </div>
 
-      {/* Thumbnail Slider - Horizontal Scrollable */}
-      {displayImages.length > 1 && (
-        <div className="px-2 relative mt-1 mb-0 pb-0 h-16">
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            modules={[Navigation, Thumbs]}
-            spaceBetween={12}
-            slidesPerView="auto"
-            watchSlidesProgress
-            freeMode={true}
-            grabCursor={true}
-            navigation={{
-              nextEl: '.thumb-button-next',
-              prevEl: '.thumb-button-prev',
-            }}
-            className={`thumbnail-swiper ${isRTL ? 'rtl' : ''} !mb-0 !pb-0`}
-            style={{ direction: isRTL ? 'rtl' : 'ltr' }}
-            dir={isRTL ? 'rtl' : 'ltr'}
-            breakpoints={{
-              0: {
-                slidesPerView: 3.5,
-                spaceBetween: 8
-              },
-              640: {
-                slidesPerView: 4.5,
-                spaceBetween: 10
-              },
-              768: {
-                slidesPerView: 5,
-                spaceBetween: 12
-              }
-            }}
-          >
-            {displayImages.map((image, i) => (
-              <SwiperSlide key={i} className="!w-auto cursor-pointer">
-                <div
-                  className={`relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 border-2 ${i === currentImageIndex
-                    ? 'border-[#2858a3] shadow-[0_8px_24px_-4px_rgba(40,88,163,0.4)]'
-                    : 'border-gray-200/80 hover:border-[#2858a3]/50 hover:shadow-[0_4px_16px_-2px_rgba(40,88,163,0.2)]'
-                    }`}
-                  onClick={() => {
-                    mainSwiperRef.current?.swiper?.slideTo(i);
-                    setCurrentImageIndex(i);
-                  }}
-                >
-                  <img
-                    src={image}
-                    alt={`Thumbnail ${i + 1}`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                  {i === currentImageIndex && (
-                    <div className="absolute inset-0 bg-[#2858a3] bg-opacity-20 flex items-center justify-center">
-                      <div className="w-2 h-2 bg-[#2858a3] rounded-full"></div>
-                    </div>
-                  )}
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+      {/* DOWN button (desktop only) */}
+      {/* <button
+        onClick={handleThumbNext}
+        disabled={thumbStartIndex + THUMB_VISIBLE >= displayImages.length}
+        className="hidden md:flex w-8 h-8 rounded-full bg-white shadow border items-center justify-center disabled:opacity-30"
+      >
+        <ExpandMoreIcon />
+      </button> */}
 
-          {/* Thumbnail Navigation Arrows */}
-          {displayImages.length > 4 && (
-            <>
-              <div className="thumb-button-prev absolute left-0 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer">
-                <div className="w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full flex items-center justify-center shadow-[0_4px_12px_-2px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_16px_-4px_rgba(40,88,163,0.3)]">
-                  <ChevronLeftIcon className="text-[#2858a3] text-sm" />
-                </div>
-              </div>
-              <div className="thumb-button-next absolute right-0 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer">
-                <div className="w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full flex items-center justify-center shadow-[0_4px_12px_-2px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_16px_-4px_rgba(40,88,163,0.3)]">
-                  <ChevronRightIcon className="text-[#2858a3] text-sm" />
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      )}
+    </div>
+  )}
+</div>
 
       {/* Zoom Modal */}
       <Modal

@@ -94,11 +94,11 @@ const AddressCard = ({ index, address,fetchAddresses }) => {
             <Grid item xs={12} sm={6} key={index}>
               <Box display="flex" alignItems="center">
                 {field.icon}
-                <Typography variant="subtitle2" color="textSecondary" sx={{ ml: 1 }}>
+                <Typography variant="subtitle2" className='poppins' color="textSecondary" sx={{ ml: 1 }}>
                   {field.label}:
                 </Typography>
               </Box>
-              <Typography variant="body1" sx={{ fontWeight: 600, ml: 3 }}>
+              <Typography variant="body1" className='poppins' sx={{ fontWeight: 600, ml: 3 }}>
                 {field.value}
               </Typography>
             </Grid>

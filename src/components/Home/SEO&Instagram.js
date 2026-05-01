@@ -1,221 +1,256 @@
-import React, { useEffect, useState } from "react";
-import { Box, Divider, Typography } from "@mui/material";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Autoplay } from "swiper/modules";
-import axios from "axios";
-import { useTranslation } from "react-i18next"; // Import i18next
+import React from "react";
+// import BuraqLogo from "../../assets/buraqlog.png";
+import BuraqLogo from '../../assets/watermark_panel.svg'
 
-const accessToken = "IGAAZAHBPYTBB1BZAE0zODVqS0dXQ3NfOGU4cEFfRU1JNmE1d3g1NWFjLUxfVVdxX0N1OUY1ME1fS0pEaktJb21Vd2FGMDNDWXFNYWNWaUJXVHExWDZAyMFpCd1B3a0ZAkdnd6cjZAfeEZAqbnJ1aW02WU1pbHRhS24tS0hWS0pWOVVNOAZDZD";
+const checkItems = [
+  "Trusted Since 2002",
+  "Premium Brand Portfolio",
+  "Professional & Retail Supply",
+  "Reliable Delivery Network",
+];
 
-const SEOInstagram = () => {
-  const { t, i18n } = useTranslation(); // Hook for translations
-  const [followers, setFollowers] = useState(0);
-
-  // Check if current language is RTL
-  const isRTL = i18n.language === 'ar' || i18n.language === 'ur';
-
-  useEffect(() => {
-    const fetchInstagramData = async () => {
-      try {
-        const userResponse = await axios.get(
-          `https://graph.instagram.com/me?fields=followers_count&access_token=${accessToken}`
-        );
-        setFollowers(userResponse.data.followers_count);
-      } catch (error) {
-        console.error("Error fetching Instagram user data", error);
-      }
-    };
-
-    fetchInstagramData();
-  }, []);
-
+const WhoWeAre = () => {
   return (
     <>
-      <Box className="w-full flex flex-col items-center ">
-        {/* Main SEO Text Section */}
-        <Box className="w-full pt-10 pb-10 px-8 sm:pt-0 sm:pb-10 sm:px-28 text-justify sm:text-left">
-          <Typography className="text-sm sm:text-xl pb-4 poppins text-[#141516] uppercase font-semibold">
-            {t("seo_instagram.title")}
-          </Typography>
+      <style>{`
+        .who-we-are-section {
+          background: linear-gradient(135deg, #dce8f5 0%, #eaf2fb 50%, #d6e6f5 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 40px 16px;
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          position: relative;
+          overflow: hidden;
+        }
 
-          <Box style={{ textAlign: "justify", textJustify: "inter-word" }} className="text-justify sm:text-left">
-            <Typography
-              className="text-sm leading-6 poppins text-[#5D5D5D] mt-3 text-justify sm:text-left"
-              style={{ hyphens: "auto", wordBreak: "break-word" }}
-            >
-              {t("seo_instagram.paragraph1")}
-            </Typography>
-            <Typography
-              className="text-sm leading-6 poppins text-[#5D5D5D] mt-3 text-justify sm:text-left"
-              style={{ hyphens: "auto", wordBreak: "break-word" }}
-            >
-              {t("seo_instagram.paragraph2")}
-            </Typography>
-            <Typography
-              className="text-sm leading-6 poppins text-[#5D5D5D] mt-3 text-justify sm:text-left"
-              style={{ hyphens: "auto", wordBreak: "break-word" }}
-            >
-              {t("seo_instagram.paragraph3")}
-            </Typography>
-            <Typography
-              className="text-sm leading-6 poppins text-[#5D5D5D] mt-3 text-justify sm:text-left"
-              style={{ hyphens: "auto", wordBreak: "break-word" }}
-            >
-              {t("seo_instagram.paragraph4")}
-            </Typography>
-            <Typography
-              className="text-sm leading-6 poppins text-[#5D5D5D] mt-3 text-justify sm:text-left"
-              style={{ hyphens: "auto", wordBreak: "break-word" }}
-            >
-              {t("seo_instagram.paragraph5")}
-            </Typography>
-            <Typography
-              className="text-sm leading-6 poppins text-[#5D5D5D] mt-3 text-justify sm:text-left"
-              style={{ hyphens: "auto", wordBreak: "break-word" }}
-            >
-              {t("seo_instagram.paragraph6")}
-            </Typography>
-            <Typography
-              className="text-sm leading-6 poppins text-[#5D5D5D] mt-3 text-justify sm:text-left"
-              style={{ hyphens: "auto", wordBreak: "break-word" }}
-            >
-              {t("seo_instagram.paragraph7")}
-            </Typography>
-            <Typography
-              className="text-sm leading-6 poppins text-[#5D5D5D] mt-3 text-justify sm:text-left"
-              style={{ hyphens: "auto", wordBreak: "break-word" }}
-            >
-              {t("seo_instagram.paragraph8")}
-            </Typography>
-          </Box>
-        </Box>
+        .who-we-are-card {
+          background: rgba(255, 255, 255, 0.92);
+          border-radius: 18px;
+          box-shadow: 0 8px 40px rgba(30, 70, 130, 0.10);
+          padding: 48px 52px;
+          max-width: 1540px;
+          width: 100%;
+          display: grid;
+          grid-template-columns: 2fr 1.2fr 280px;
+          gap: 0;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+        }
 
-        <Divider className="bg-[#CCCCCC] my-4 w-[90%]" />
+      
 
-        {/* Instagram Stats */}
-        {/* <Box className="flex flex-wrap  justify-center md:justify-between items-center  px-8 sm:px-28 w-full pt-16 pb-4">
-          <Typography className="text-3xl pb-4 poppins  text-[#141516] capitalize font-semibold flex items-center  gap-x-2">
-            <InstagramIcon className="text-4xl" />
-            {t("seo_instagram.instagram_feed")}
-          </Typography>
+        .who-we-are-left h2 {
+          font-weight: 500;
+          font-size: clamp(28px, 2.8vw, 32px);
+          color: #1a1a2e;
+          margin: 0 0 20px 0;
+          letter-spacing: -0.5px;
+        }
 
-          <Box className="flex items-center gap-x-3">
-            <Typography className="sm:text-lg text-sm poppins text-[#02ADEC] flex items-center gap-x-1">
-              <PersonOutlineOutlinedIcon />
-              {followers} {t("seo_instagram.followers")}
-            </Typography>
-            <Typography className="sm:text-lg text-sm poppins text-[#02ADEC] flex items-center gap-x-1">
-              <FavoriteBorderOutlinedIcon />
-              5k {t("seo_instagram.likes")}
-            </Typography>
-            <Typography className="sm:text-lg text-sm poppins text-[#02ADEC] flex items-center gap-x-1">
-              <QuestionAnswerOutlinedIcon />
-              5k {t("seo_instagram.comments")}
-            </Typography>
-          </Box>
-        </Box> */}
-      </Box>
+        .who-we-are-left p {
+          font-size: clamp(13px, 1.3vw, 14.5px);
+          line-height: 1.78;
+          color: #4a4a5a;
+          margin: 0 0 14px 0;
+        }
 
-      {/* The Swiper with IG images */}
-      {/* <Box className="w-full">
-        <Slider />
-      </Box> */}
+        .who-we-are-left p:last-child {
+          margin: 0;
+        }
+
+        .who-we-are-left strong,
+        .who-we-are-left .font-semibold {
+          color: #1a1a2e;
+          font-weight: 700;
+        }
+
+        /* Center column */
+        .who-we-are-center {
+          padding: 0 32px;
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+
+        .check-item {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+
+        .check-circle {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          background: transparent;
+          background: linear-gradient(135deg, #efefef 0%, #e2e2e2 100%);
+        }
+
+        .check-label {
+          font-weight: 600;
+          font-size: clamp(13px, 1.3vw, 14.5px);
+          color: #1a1a2e;
+        }
+
+        .shop-btn {
+          background: #1d3a6e;
+          color: #fff;
+          border: none;
+          border-radius: 8px;
+          padding: 13px 36px;
+          font-size: clamp(13px, 1.5vw, 16.5px)
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-weight: 500;
+          cursor: pointer;
+          letter-spacing: 0.3px;
+          transition: background 0.2s, transform 0.15s;
+          margin-top: 6px;
+          align-self: flex-start;
+        }
+
+        .shop-btn:hover {
+          background: #16306b;
+          transform: translateY(-1px);
+        }
+
+        /* Right column — logo watermark */
+        .who-we-are-right {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          
+        }
+
+        
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+          .who-we-are-card {
+            grid-template-columns: 1.6fr 1fr 200px;
+          }
+          .who-we-are-right img {
+            width: 190px;
+            height: 190px;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .who-we-are-card {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+          }
+          .who-we-are-left {
+            grid-column: 1 / 3;
+            grid-row: 1;
+            border-right: none;
+            border-bottom: 1px solid #e8eef6;
+            padding-right: 0;
+            padding-bottom: 28px;
+          }
+          .who-we-are-center {
+            grid-column: 1 / 2;
+            grid-row: 2;
+            padding: 28px 16px 0 0;
+          }
+          .who-we-are-right {
+            grid-column: 2 / 3;
+            grid-row: 2;
+            padding: 28px 0 0 0;
+            justify-content: flex-end;
+          }
+          .who-we-are-right img {
+            width: 150px;
+            height: 150px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .who-we-are-card {
+            grid-template-columns: 1fr;
+            padding: 28px 24px;
+          }
+          .who-we-are-left {
+            grid-column: 1;
+            grid-row: 1;
+            border-bottom: 1px solid #e8eef6;
+            padding-bottom: 24px;
+          }
+          .who-we-are-center {
+            grid-column: 1;
+            grid-row: 2;
+            padding: 24px 0 0 0;
+          }
+          .who-we-are-right {
+            grid-column: 1;
+            grid-row: 3;
+            padding: 20px 0 0 0;
+            justify-content: center;
+          }
+          .who-we-are-right img {
+            width: 130px;
+            height: 130px;
+          
+          }
+        }
+      `}</style>
+
+      <section className="who-we-are-section">
+        <div className="who-we-are-card">
+
+          {/* LEFT — Title + Description */}
+          <div className="who-we-are-left poppins">
+            <h2>Who We Are?</h2>
+            <p>
+              Buraq Star Trading Co. LLC is a UAE-based supplier and brand house specializing in{" "}
+              <span style={{fontWeight: 600}}>building materials, electrical, sanitary, hardware, and project essentials</span>.
+              Since 2002, we have earned the trust of contractors, retailers, maintenance teams,
+              and homeowners by consistently delivering{" "}
+              <span style={{fontWeight: 600}}>quality, reliability, and value.</span>
+            </p>
+            <p>
+              We design, develop, and distribute premium brands including{" "}
+              <span style={{fontWeight: 600}}>NOVEX, ZILCO, BURAQ, and CAVIL</span>, supported by a strong international
+              supply chain and a growing eCommerce platform that makes professional-grade products
+              available anytime, anywhere.
+            </p>
+          </div>
+
+          {/* CENTER — Checklist + Button */}
+          <div className="who-we-are-center">
+            {checkItems.map((item, i) => (
+              <div className="check-item" key={i}>
+                <div className="check-circle">
+                  <svg width="13" height="10" viewBox="0 0 13 10" fill="none">
+                    <path
+                      d="M1.5 5L4.83333 8.5L11.5 1.5"
+                      stroke="#2452a4"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+                <span className="check-label poppins">{item}</span>
+              </div>
+            ))}
+            <button className="shop-btn poppins text-md">Shop Now</button>
+          </div>
+
+          {/* RIGHT — Logo watermark */}
+          <div className="who-we-are-right">
+            <img src={BuraqLogo} alt="" aria-hidden="true" />
+          </div>
+
+        </div>
+      </section>
     </>
   );
 };
 
-export default SEOInstagram;
-
-// Slider component for IG media
-const Slider = () => {
-  const { i18n } = useTranslation();
-  const [images, setImages] = useState([]);
-
-  // Check if current language is RTL
-  const isRTL = i18n.language === 'ar' || i18n.language === 'ur';
-
-  useEffect(() => {
-    const fetchInstagramImages = async () => {
-      try {
-        const response = await axios.get(
-          `https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink,media_type&access_token=${accessToken}`
-        );
-        setImages(response.data.data);
-      } catch (error) {
-        console.error("Error fetching Instagram images", error);
-      }
-    };
-
-    fetchInstagramImages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <Swiper
-      modules={[Autoplay]}
-      autoplay={{
-        delay: 2000,
-        disableOnInteraction: false,
-      }}
-      className={`w-full pb-6 mb-10 ${isRTL ? 'rtl' : ''}`}
-      dir={isRTL ? 'rtl' : 'ltr'}
-      style={{ direction: isRTL ? 'rtl' : 'ltr' }}
-      breakpoints={{
-        0: {
-          slidesPerView: 1,
-          spaceBetween: 10,
-        },
-        480: {
-          slidesPerView: 1,
-          spaceBetween: 10,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        1024: {
-          slidesPerView: 4,
-          spaceBetween: 20,
-        },
-      }}
-    >
-      {images.map((media) => (
-        <SwiperSlide key={media.id} className="relative group rounded-md overflow-hidden">
-          <a href={media.permalink} target="_blank" rel="noopener noreferrer" className="block w-full">
-            {/* Image or Video depending on media_type */}
-            {media.media_type === "VIDEO" ? (
-              <video
-                src={media.media_url}
-                className="w-full h-auto object-cover"
-                autoPlay
-                muted
-                loop
-              />
-            ) : (
-              <img
-                src={media.media_url}
-                alt={media.caption}
-                className="w-full h-auto object-cover"
-              />
-            )}
-
-            {/* Hover Overlay */}
-            <Box className="absolute inset-0 hidden group-hover:flex cursor-pointer bg-black bg-opacity-40 justify-center items-center flex-col gap-y-1">
-              <InstagramIcon className="text-6xl text-white" />
-              {media.caption && (
-                <Typography className="text-base text-white text-center px-2">
-                  {media.caption}
-                </Typography>
-              )}
-            </Box>
-          </a>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  );
-};
+export default WhoWeAre;

@@ -340,7 +340,7 @@ const DeliveryAddress = ({ addressData, selectedAddress, onSelect, setAddressDat
                     background: "#fff",
                 }}
             >
-                <Typography className="poppins font-semibold uppercase text-lg text-black">
+                <Typography className="poppins font-semibold uppercase text-xl text-black">
                     {t('checkout.delivery_address')}
                 </Typography>
                 {showForm ? (
@@ -348,7 +348,7 @@ const DeliveryAddress = ({ addressData, selectedAddress, onSelect, setAddressDat
                         variant="contained"
                         onClick={handleCancel}
                         className="poppins bg-[#e10909] w-full sm:w-auto"
-                        style={{ textTransform: "capitalize" }}
+                        style={{ textTransform: "capitalize" ,borderRadius: '40px' }}
                     >
                         Cancel
                     </Button>
@@ -357,7 +357,7 @@ const DeliveryAddress = ({ addressData, selectedAddress, onSelect, setAddressDat
                         variant="contained"
                         onClick={() => setShowForm(true)}
                         className="poppins bg-[#2858a3] w-full sm:w-auto"
-                        style={{ textTransform: "capitalize" }}
+                        style={{ textTransform: "capitalize" , borderRadius: '40px' }}
                     >
                         {t('checkout.add_new_address')}
                     </Button>
@@ -422,7 +422,7 @@ const DeliveryAddress = ({ addressData, selectedAddress, onSelect, setAddressDat
                     ))}
                 </>
             ) : (
-                <Typography variant="body1" color="textSecondary" sx={{ margin: "20px 0" }}>
+                <Typography variant="body1" className="poppins" color="textSecondary" sx={{ margin: "20px 0" }}>
                     {t('checkout.no_addresses_found')}
                 </Typography>
             )}

@@ -10,13 +10,16 @@ import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlin
 
 import logo from "./../../assets/buraq_logo.jpg";
 import { routes } from "../../data";
+
 import ajaxService from "../../services/ajax-service";
 import { ImageURL } from "../../constants";
 import { AuthContext } from "../../AuthContext";
 import { useTranslation } from "react-i18next";
 import defaultImage from "../../assets/contactsvg.svg";
+import { IoSearch } from "react-icons/io5";
 import MobileNavigationDrawer from "./MobileNavigationDrawer";
-
+import { FavoriteBorderOutlined } from "@mui/icons-material";
+import { FiSearch } from "react-icons/fi";
 
 
 
@@ -59,6 +62,11 @@ const HeaderBar = () => {
   const desktopSearchRef = useRef(null);
   const mobileSearchRef = useRef(null);
   const mobileSearchIconRef = useRef(null);
+
+
+    const handleNavigate = () => {
+    navigate(localStorage.getItem("token") ? "/user/wishlists" : "/user/login");
+  };
 
   // Clear search when navigating to different pages
   useEffect(() => {
@@ -251,41 +259,46 @@ const HeaderBar = () => {
   // }, [CartId])
 
   return (
-    <Box className='h-20 sm:h-28 w-full relative top-0 bg-white flex items-center justify-between sm:justify-center px-2.5 sm:px-9 sm:py-5 gap-x-2 sm:gap-x-20'>
-      <Box className='flex items-center gap-x-2 sm:gap-x-3'>
-        <IconButton
-          className='p-0 block sm:block lg:hidden'
-          onClick={() => setMobileDrawerOpen(true)}
-        >
-          <MenuIcon className='text-2xl sm:text-3xl text-[#2858A3]' />
-        </IconButton>
+    <Box className='h-20 sm:h-28 w-full relative top-0 bg-white flex items-center justify-between px-2.5 sm:px-4 sm:py-5'>
+     <Box className='flex items-center'>
+  <IconButton
+    className='p-0 mr-1 sm:mr-2 block sm:block lg:hidden'
+    onClick={() => setMobileDrawerOpen(true)}
+  >
+    <MenuIcon className='text-2xl sm:text-3xl text-[#2858A3]' />
+  </IconButton>
 
-        {/* Mobile Navigation Drawer */}
-        <MobileNavigationDrawer
-          open={mobileDrawerOpen}
-          onClose={() => setMobileDrawerOpen(false)}
-        />
+  <MobileNavigationDrawer
+    open={mobileDrawerOpen}
+    onClose={() => setMobileDrawerOpen(false)}
+  />
 
-        <Link to='/' onClick={handleLogoClick}>
-          <img
-            src={logo}
-            className='h-[40px] sm:h-[54px] md:h-[62px] lg:h-[80px] w-auto object-contain'
-            style={{ imageRendering: 'auto' }}
-            alt='burraq star logo'
-          />
-        </Link>
-      </Box>
+  <Link to='/' onClick={handleLogoClick} className="ml-0">
+    <img
+      src={logo}
+      className='h-[38px] sm:h-[54px] md:h-[62px] lg:h-[70px] w-auto object-contain'
+      alt='burraq star logo'
+    />
+  </Link>
+</Box>
 
       {/* Desktop Search Bar */}
-      <Box ref={desktopSearchRef} className="relative w-[50%] h-[85%] bg-[#f0f0f0] rounded-lg hidden sm:flex items-center justify-between px-8 py-4 mx-8">
-        <input
-          className="w-[80%] bg-transparent outline-none text-[#2858A3]"
-          placeholder={t('header.search_placeholder')}
-          value={search}
-          onChange={handleSearchChange}
-          onKeyDown={handleKeyDown}
-        />
-        <SearchIcon className="text-2xl text-[#2858A3] cursor-pointer" />
+    <Box
+  ref={desktopSearchRef}
+  className="relative w-[50%] h-[75%] bg-gray-100 rounded-3xl hidden sm:flex items-center px-4 py-4 mx-8 border border-gray-200"
+>
+  <input
+    className="flex-1 bg-transparent outline-none text-[#2858A3] "
+    placeholder={t('header.search_placeholder')}
+    value={search}
+    onChange={handleSearchChange}
+    onKeyDown={handleKeyDown}
+  />
+  
+  <Box style={isRTL ? { marginLeft: '-9px' } : { marginRight: '-9px' }} className='  border border-[#2858A3] rounded-3xl p-1.5 bg-[#2858A3]'>
+    <FiSearch className="text-3xl text-white cursor-pointer" />
+
+  </Box>
 
         {/* Dropdown */}
         {search && (
@@ -357,24 +370,17 @@ const HeaderBar = () => {
           />
         </Box>
 
-        <Link to='/checkout'>
-          <IconButton className='p-1 sm:p-2' sx={{ border: '1.5px solid #2858A3', borderRadius: '6px' }}>
-            <StyledBadge badgeContent={totalUniqueItems} color='primary'>
-              <ShoppingCartIcon className='text-[#2858A3] text-xl sm:text-2xl lg:text-4xl' />
-            </StyledBadge>
-          </IconButton>
-        </Link>
-
-        <Box className='hidden lg:flex items-center ml-2'>
+   
+        {/* <Box className='hidden lg:flex items-center ml-2'>
           <Link
             to={isLoggedIn ? '/user/dashboard' : '/user/login'}
-            className='h-full flex items-center'
+            className='h-full flex items-center '
           >
             <Typography className='poppins font-semibold'>
               {isLoggedIn ? t('header.dashboard') : t('header.login')}
             </Typography>
           </Link>
-          <Typography className='poppins mx-3'>
+          <Typography className='poppins mx-4'>
             {t('header.or')}
           </Typography>
           {isLoggedIn ? (
@@ -387,12 +393,28 @@ const HeaderBar = () => {
           ) : (
             <Link to='/user/registration' className='h-full flex items-center'>
               <Typography className='poppins font-semibold'>
-                {t('header.register')}
+                {t('header.signup')}
               </Typography>
             </Link>
           )}
-        </Box>
+        </Box> */}
+                <Box className="flex gap-x-2 cursor-pointer items-center " onClick={handleNavigate}>
+                  <FavoriteBorderOutlined className="text-3xl" />
+                  <Typography className="capitalize text-xs poppins"></Typography>
+                </Box>
+
+
+           <Link to='/checkout'>
+          <IconButton className='p-1 sm:p-2' >
+            <StyledBadge badgeContent={totalUniqueItems} color='primary'>
+              <ShoppingCartIcon className='text-[#2858A3] text-xl sm:text-2xl lg:text-4xl' />
+            </StyledBadge>
+          </IconButton>
+        </Link>
       </Box>
+
+
+
 
 
       {/* Mobile Search */}

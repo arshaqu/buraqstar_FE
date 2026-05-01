@@ -15,9 +15,12 @@ const Content = ({ product, setProduct, t, wishlistNotify, setWishlistNotify }) 
   const { i18n } = useTranslation();
 
   return (
-    <Box className="h-full w-full px-0 sm:px-10">
-      <Box className="flex items-start justify-between mb-2">
-        <Box className="w-fit border border-[#FF3030] px-1.5 poppins text-xs text-[#FF3030] uppercase bg-transparent">
+    <Box className="h-full w-full px-0 sm:px-10 mt-8 md:pl-10">
+      <Box className="flex items-start justify-between ">
+      <Typography className="poppins text-lg  capitalize py-1.5">
+         {product.code}
+      </Typography>
+        <Box className="w-fit bg-[#aaf9d6] px-2 pr-2 poppins text-sm rounded-2xl text-[#0F804D] bg-transparent">
           {product.stocks > 0 ? t("product.stock_availability") : t("product.stock_unavailability")}
         </Box>
         <AddToWishlist
@@ -33,14 +36,11 @@ const Content = ({ product, setProduct, t, wishlistNotify, setWishlistNotify }) 
           setOpen={setWishlistNotify}
         />
       </Box>
-      <Typography className="poppins text-3xl font-bold w-full sm:w-3/4 text-[#2E2E2E] capitalize py-2">
+      <Typography className="poppins text-4xl font-semibold w-full sm:w-3/4 text-[#2E2E2E] capitalize py-2">
         {getName(product, i18n.language)}
       </Typography>
-      <Typography className="poppins text-xs text-[#02ADEC] capitalize py-1.5 font-bold">
-        {t("product.by")} {product.brand}
-      </Typography>
-      <Typography className="poppins text-xs text-[#1E55AC] capitalize py-1.5">
-        {product.code}
+      <Typography className="poppins text-sm text-[#02ADEC] capitalize py-1.5 font-bold">
+      {t("product.by")} {product.brand}
       </Typography>
       <Typography className="poppins text-sm text-[#5D5D5D] capitalize py-1.5">
         <span className="pe-1 font-bold">{t("product.availability")}: </span>
@@ -48,7 +48,7 @@ const Content = ({ product, setProduct, t, wishlistNotify, setWishlistNotify }) 
           {product.stocks} {t("product.available_in_stock")}
         </span>
       </Typography>
-      <Divider className="bg-[#eff0f0] mt-6 mb-4" />
+     
       <Box className="flex">
         <Typography className="poppins text-sm text-[#2E2E2E] capitalize py-1.5 pe-2">
           {t("product.tag")}:
@@ -57,42 +57,7 @@ const Content = ({ product, setProduct, t, wishlistNotify, setWishlistNotify }) 
           {product.tags}
         </Typography>
       </Box>
-      <Grid container spacing={1}>
-        <Grid item xs={12} sm={5}>
-          <Box className="flex items-center">
-            <Typography className="poppins text-sm sm:text-base text-[#2E2E2E] capitalize py-1.5 pe-2">
-              {t("product.choose_quantity")}:
-            </Typography>
-            <Box className="flex items-center justify-between bg-transparent border rounded-md px-3 py-1.5">
-              <IconButton size="small" className="">
-                <Remove className="text-sm text-black" onClick={() => (quantity !== 1) && setQuantity(quantity - 1)} />
-              </IconButton>
-              <span className="px-4">{quantity}</span>
-              <IconButton size="small" className="">
-                <Add className="text-sm text-black" onClick={() => (quantity !== product.stocks) && setQuantity(quantity + 1)} />
-              </IconButton>
-            </Box>
-          </Box>
-        </Grid>
-
-        {/* change grid layout of add to cart and bulk inquiry buttons for mobile */}
-        <Grid item xs={12} sm={4}  >
-          <AddToCart
-            className="bg-[#1E55AC] w-full sm:w-auto  py-2.5 px-16 text-white poppins capitalize "
-            quantity={quantity}
-            product={product}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={3} >
-          <Button variant="contained"
-            component={Link}
-            to="/contact"
-            className="bg-[#1E55AC] w-full sm:w-auto py-2.5 px-8 text-white poppins capitalize">
-            {t("product.bulk_inquiry")}
-          </Button>
-        </Grid>
-      </Grid>
+ 
       <Box className="flex items-center gap-x-3 my-3">
         {product.discount_percentage &&
           <Box className="">
@@ -113,8 +78,13 @@ const Content = ({ product, setProduct, t, wishlistNotify, setWishlistNotify }) 
           (05) {t("product.reviews")}
         </Typography> */}
       </Box>
+
+      <SocialShare product={product} />
+
+
+
       <Typography 
-        className="poppins text-sm text-[#5D5D5D] py-1.5"
+        className="poppins text-md text-[#5D5D5D] "
         style={{ 
           textAlign: 'justify',
           textJustify: 'inter-word',
@@ -124,7 +94,43 @@ const Content = ({ product, setProduct, t, wishlistNotify, setWishlistNotify }) 
       >
         <div dangerouslySetInnerHTML={{ __html: getDescription(product, i18n.language) }} />
       </Typography>
-      <SocialShare product={product} />
+
+           <Grid className="mt-2" container spacing={2}>
+        <Grid item xs={12} sm={4}>
+          <Box className="flex items-center">
+            <Typography className="poppins text-sm sm:text-base text-[#2E2E2E] capitalize py-1.5 pe-2">
+              {t("product.choose_quantity")}:
+            </Typography>
+            <Box className="flex items-center justify-between bg-transparent border rounded-3xl ">
+              <IconButton size="small" className="p-2 ml-1 bg-[#E9E9E9] text-black rounded-3xl ">
+                <Remove className="text-xl " onClick={() => (quantity !== 1) && setQuantity(quantity - 1)} />
+              </IconButton>
+              <span className="px-4 font-bold text-[#2858A4]">{quantity}</span>
+              <IconButton size="small" className="p-2 m-1 bg-[#E9E9E9] text-black  rounded-3xl ">
+                <Add className="text-xl" onClick={() => (quantity !== product.stocks) && setQuantity(quantity + 1)} />
+              </IconButton>
+            </Box>
+          </Box>
+        </Grid>
+
+        {/* change grid layout of add to cart and bulk inquiry buttons for mobile */}
+        <Grid item xs={12} sm={3.2}  >
+          <AddToCart
+            className="bg-[#1E1E1E] w-full sm:w-auto rounded-3xl py-2.5 px-16 text-white poppins capitalize hover:bg-[#02AFF3] transition-colors duration-200"
+            quantity={quantity}
+            product={product}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={3} >
+          <Button variant="contained"
+            component={Link}
+            to="/contact"
+            className="bg-[#02AFF3] w-full sm:w-auto rounded-3xl py-2.5 px-14 text-white poppins capitalize hover:bg-[#1E1E1E] transition-colors duration-200">
+            {t("product.bulk_inquiry")}
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

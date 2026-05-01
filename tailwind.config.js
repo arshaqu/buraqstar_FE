@@ -19,6 +19,7 @@ module.exports = {
         gradientStart: '#D4B6A7',
         gradientEnd: '#8C7A6B'
       },
+      
       keyframes: {
         fadeInLeft: {
           '0%': {

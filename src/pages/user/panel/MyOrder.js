@@ -13,6 +13,7 @@ import axios from 'axios';
 import { BASE_URL, ImageURL } from '../../../constants';
 import waterMark from './../../../assets/watermark_panel.svg';
 import defaultImage from "../../../assets/contactsvg.svg";
+import { useNavigate } from 'react-router-dom';
 
 // Premium Table Styling
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -63,6 +64,7 @@ function stableSort(array, comparator) {
 }
 
 const MyOrder = () => {
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const [orders, setOrders] = useState([]);
     const [filteredOrders, setFilteredOrders] = useState([]);
@@ -102,6 +104,12 @@ const MyOrder = () => {
 
         fetchOrders();
     }, []);
+
+
+    useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+}, [])
+
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';

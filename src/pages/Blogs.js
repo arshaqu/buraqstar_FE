@@ -1,7 +1,7 @@
 // Blogs.jsx
 
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import bg from "../assets/blog-hero.png";
 import ajaxService from "../services/ajax-service";
 import { BrandBanner, Hero, Slider, SliderTwo } from "../components";
@@ -9,6 +9,8 @@ import SkeletonBlog from "../skeleton/SkeletonBlog"; // Import SkeletonBlog comp
 import SEO from "../components/SEO";
 import { SITE_URL } from "../constants";
 import { useTranslation } from "react-i18next";
+import { t } from "i18next";
+import RecentlyView from "../components/RecentlyView";
 
 const Blogs = () => {
   const { i18n } = useTranslation();
@@ -48,7 +50,9 @@ const Blogs = () => {
           }
         }}
       />
-      <Hero bg={bg} title={"Blogs"} />
+   <Typography className="text-gray-700 leading-relaxed ml-10 p-5 poppins text-lg">
+        {t('dashboard_sidebar.home')} &nbsp; &gt; &nbsp; <span className="text-[#2858A3] ">{t('Blogs')}</span>
+      </Typography>
 
       {/* Show SkeletonBlog component while loading */}
       {loading ? (
@@ -65,7 +69,8 @@ const Blogs = () => {
           <Slider blogs={blogs} />
           <SliderTwo blogs={blogs} />
           <Box className="mb-20">
-            <BrandBanner />
+            {/* <BrandBanner /> */}
+            <RecentlyView/>
           </Box>
         </>
       )}

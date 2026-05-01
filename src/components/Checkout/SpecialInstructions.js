@@ -26,7 +26,7 @@ const SpecialInstructions = ({ formData, setFormData, t }) => {
         className="p-5"
         style={{ display: "flex", justifyContent: "space-between" }}
       >
-        <p style={{ fontWeight: 900, fontSize: "16px" }}>
+        <p className="poppins" style={{ fontWeight: 600, fontSize: "16px" }}>
           {t('checkout.special_instructions')}
         </p>
       </Box>

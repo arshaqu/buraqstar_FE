@@ -15,26 +15,29 @@ import {
 import {
   GoogleMapStyle,
   REACT_APP_GOOGLE_MAPS_API_KEY,
-} from "../constants"; // Ensure constants are correctly imported
+} from "../constants";
 import ajaxService from "../services/ajax-service";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
 import { PickupLocationIcon } from "../constants/googlemapstyle";
-import { useTranslation } from "react-i18next"; // Import i18next
+import { useTranslation } from "react-i18next";
 import SEO from "../components/SEO";
 import { SITE_URL } from "../constants";
+import buraqlog from "../assets/buraqlog.png";
 
 const mapStyles = {
-  height: "70vh",
+  height: "100%",
   width: "100%",
 };
 
 const defaultCenter = {
-  lat: 25.276987, // Dubai Default Latitude
-  lng: 55.296249, // Dubai Default Longitude
+  lat: 25.276987,
+  lng: 55.296249,
 };
 
 const StoreLocator = () => {
-  const { t } = useTranslation(); // Hook for translations
+  const { t } = useTranslation();
   const [selectedStore, setSelectedStore] = useState(null);
   const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,40 +66,51 @@ const StoreLocator = () => {
     setSelectedStore(store);
   };
 
-  // Loading state
   if (loading) {
     return (
-      <Container>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="100vh"
-          flexDirection="column"
-        >
-          <Skeleton variant="rectangular" width="80%" height={400} />
-          <Skeleton
-            variant="rectangular"
-            width="80%"
-            height={60}
-            style={{ marginTop: "20px" }}
-          />
-          <Skeleton
-            variant="rectangular"
-            width="80%"
-            height={60}
-            style={{ marginTop: "10px" }}
-          />
+      <Box sx={{ bgcolor: "#fff", minHeight: "100vh" }}>
+        {/* Breadcrumb skeleton */}
+        <Box sx={{ px: 4, py: 2 }}>
+          <Skeleton variant="text" width={200} />
         </Box>
-      </Container>
+        {/* Map area skeleton */}
+        <Box sx={{ position: "relative", height: "500px" }}>
+          <Skeleton variant="rectangular" width="100%" height="100%" />
+          <Box
+            sx={{
+              position: "absolute",
+              top: 20,
+              left: 40,
+              width: 300,
+              bgcolor: "#fff",
+              borderRadius: 3,
+              p: 3,
+            }}
+          >
+            <Skeleton variant="text" width="60%" height={32} />
+            <Skeleton variant="rectangular" width="100%" height={1} sx={{ my: 1 }} />
+            <Skeleton variant="text" width="80%" sx={{ mt: 2 }} />
+            <Skeleton variant="text" width="60%" />
+            <Skeleton variant="text" width="80%" sx={{ mt: 2 }} />
+            <Skeleton variant="text" width="60%" />
+          </Box>
+        </Box>
+        {/* Contact section skeleton */}
+        <Box sx={{ px: 4, py: 6, textAlign: "center" }}>
+          <Skeleton variant="text" width={200} sx={{ mx: "auto" }} height={40} />
+          <Box sx={{ display: "flex", gap: 3, mt: 4 }}>
+            <Skeleton variant="rectangular" sx={{ flex: 1, borderRadius: 2 }} height={80} />
+            <Skeleton variant="rectangular" sx={{ flex: 1, borderRadius: 2 }} height={80} />
+          </Box>
+        </Box>
+      </Box>
     );
   }
 
-  // Error state
   if (error) {
     return (
-      <Container
-        style={{
+      <Box
+        sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -106,12 +120,12 @@ const StoreLocator = () => {
         <Alert severity="error" className="poppins">
           {error}
         </Alert>
-      </Container>
+      </Box>
     );
   }
 
   return (
-    <Box sx={{ bgcolor: "#f7f9fc", pb: 5, position: "relative", zIndex: 1 }}>
+    <Box sx={{ bgcolor: "#fff", minHeight: "100vh" }}>
       <SEO
         title="Store Locator | Buraq Star Trading | Novex | Cavil | Zilco"
         description="Find Buraq Star Trading stores near you. Locate outlets to shop for premium electrical, sanitary, hardware, and tool products."
@@ -145,222 +159,410 @@ const StoreLocator = () => {
           },
         }}
       />
-      {/* Header Banner with Wave */}
-      <Box
-        sx={{
-          position: "relative",
-          color: "white",
-          textAlign: "center",
-          pb: 8, // Extra space so the wave doesn't overlap the text
-          // Keep your gradient background:
-          background: "linear-gradient(90deg, #2858a3 0%, #2858a3 100%)",
-        }}
-        className=""
-      >
-        <Box sx={{ py: 6, position: "relative", zIndex: 2 }}>
-          <Typography
-            variant="h4"
-            className="poppins font-bold"
-            sx={{ color: "#fff", mb: 1 }}
-          >
-            {t("store_locator")}
-          </Typography>
-          <Typography variant="body1" className="poppins" sx={{ color: "#fefefe" }}>
-            {t("find_nearest_stores")}
-          </Typography>
-        </Box>
 
-        {/* Wave SVG at the bottom of the header */}
+      {/* Breadcrumb */}
+      <Box sx={{ px: { xs: 2, md: 4 }, py: 1.5, bgcolor: "#fff" }}>
+        <Typography
+          variant="body2"
+          className="poppins"
+          sx={{ color: "#666", fontSize: "0.85rem" }}
+        >
+          <Box
+            component="span"
+            sx={{ cursor: "pointer", "&:hover": { color: "#2858A3" } }}
+          >
+            {t("home") || "Home"}
+          </Box>
+          {" › "}
+          <Box component="span" sx={{ color: "#2858A3" }}>
+            {t("store_locator") || "Store Locator"}
+          </Box>
+        </Typography>
+      </Box>
+
+      {/* Map Section with Overlapping Sidebar */}
+      <Box sx={{ display: "flex", justifyContent: "center", bgcolor: "#fff", py: 2 }}>
+      <Box sx={{ position: "relative", height: { xs: "auto", md: "500px" }, width: { xs: "100%", md: "80%" }, borderRadius: 3, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.10)" }}>
+        {/* Map fills the full container */}
         <Box
-          component="svg"
-          viewBox="0 0 500 150"
-          preserveAspectRatio="none"
           sx={{
-            position: "absolute",
-            bottom: 0,
+            position: { xs: "relative", md: "absolute" },
+            top: 0,
             left: 0,
-            width: "100%",
-            height: "80px",
+            right: 0,
+            bottom: 0,
+            height: { xs: "350px", md: "100%" },
           }}
         >
-          <path
-            d="M0,49.98 C150,150 350,-50 500,49.98 L500,150 L0,150 Z"
-            fill="#f7f9fc"
-          />
+          <LoadScript googleMapsApiKey={REACT_APP_GOOGLE_MAPS_API_KEY}>
+            <GoogleMap
+              mapContainerStyle={mapStyles}
+              zoom={selectedStore ? 15 : 11}
+              center={
+                selectedStore
+                  ? {
+                      lat: parseFloat(selectedStore.lat),
+                      lng: parseFloat(selectedStore.lng),
+                    }
+                  : defaultCenter
+              }
+              options={{
+                disableDefaultUI: true,
+                zoomControl: true,
+                clickableIcons: false,
+              }}
+            >
+              {stores.map((store, index) => (
+                <Marker
+                  key={index}
+                  position={{
+                    lat: parseFloat(store.lat),
+                    lng: parseFloat(store.lng),
+                  }}
+                  onClick={() => handleMarkerClick(store)}
+                  icon={PickupLocationIcon ? { url: PickupLocationIcon } : undefined}
+                />
+              ))}
+            </GoogleMap>
+          </LoadScript>
+        </Box>
+
+        {/* Floating Sidebar over the map */}
+        <Paper
+          elevation={4}
+          sx={{
+            position: { xs: "relative", md: "absolute" },
+            top: { md: 24 },
+            left: { md: 40 },
+            width: { xs: "100%", md: 320 },
+            maxHeight: { xs: "auto", md: 420 },
+            overflow: "auto",
+            borderRadius: 3,
+            bgcolor: "#fff",
+            zIndex: 10,
+            boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
+            mt: { xs: 0, md: 0 },
+          }}
+        >
+          {/* Sidebar Header */}
+          <Box sx={{ px: 3, pt: 3, pb: 1 }}>
+            <Typography
+              variant="h6"
+              className="poppins"
+              sx={{ fontWeight: 500, color: "#1a1a1a", }}
+            >
+              {t("available_stores") || "Available Stores"}
+            </Typography>
+            {/* Decorative divider with icon */}
+           <div className="flex items-center justify-start gap-4 mb-4 ">
+            <div className="w-14 h-[1px] bg-gray-500 rounded-3xl"></div>
+
+            <img
+              src={buraqlog}
+              alt="Buraq Logo"
+              className="w-6 h-6 object-contain"
+            />
+
+            <div className="w-14 h-[1px] bg-gray-500 rounded-3xl"></div>
+          </div>
+          </Box>
+
+          <Divider />
+
+          {/* Store List */}
+          <List sx={{ py: 0 }}>
+            {stores.map((store, index) => {
+              const isSelected = selectedStore?.name === store.name;
+              return (
+                <Box key={index}>
+                  <ListItem
+                    button
+                    onClick={() => handleStoreClick(store)}
+                    sx={{
+                      px: 3,
+                      py: 1.8,
+                      transition: "all 0.2s ease",
+                      bgcolor: isSelected ? "rgba(40, 88, 163, 0.06)" : "transparent",
+                      borderLeft: isSelected ? "3px solid #000000" : "3px solid transparent",
+                      "&:hover": {
+                        bgcolor: "rgba(40, 88, 163, 0.06)",
+                        borderLeft: "3px solid #2882a3",
+                      },
+                    }}
+                  >
+                    <Box display="flex" alignItems="flex-start" gap={1.5}>
+                      <LocationOnIcon
+                        sx={{
+                          color: isSelected ? "#000000" : "#999",
+                          mt: 0.3,
+                          fontSize: 20,
+                          flexShrink: 0,
+                        }}
+                      />
+                      <Box>
+                        <Typography
+                          className="poppins"
+                          sx={{
+                            fontWeight: 600,
+                            fontSize: "0.9rem",
+                            color: "#1a1a1a",
+                            lineHeight: 1.3,
+                          }}
+                        >
+                          {store.name}
+                        </Typography>
+                        <Typography
+                          className="poppins"
+                          sx={{
+                            fontSize: "0.78rem",
+                            color: "#777",
+                            mt: 0.3,
+                            lineHeight: 1.4,
+                          }}
+                        >
+                          {store.city}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </ListItem>
+                  {index < stores.length - 1 && (
+                    <Divider sx={{ mx: 3 }} />
+                  )}
+                </Box>
+              );
+            })}
+          </List>
+        </Paper>
+      </Box>
+      </Box>
+
+      {/* Store Details (shown when a store is selected) */}
+      {selectedStore && (
+        <Box
+          sx={{
+            bgcolor: "#f5f8ff",
+            borderTop: "1px solid #e8eef7",
+            px: { xs: 2, md: 4 },
+            py: 3,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 2,
+            animation: "fadeIn 0.4s ease",
+          }}
+        >
+          <Box>
+            <Typography
+              variant="h6"
+              className="poppins"
+              sx={{ fontWeight: 600, color: "#1a1a1a" }}
+            >
+              {selectedStore.name}
+            </Typography>
+            <Typography
+              variant="body2"
+              className="poppins"
+              sx={{ color: "#666", mt: 0.5 }}
+            >
+              {selectedStore.city}
+            </Typography>
+          </Box>
+          <Button
+            variant="contained"
+            href={`https://www.google.com/maps?q=${selectedStore.lat},${selectedStore.lng}`}
+            target="_blank"
+            startIcon={<LocationOnIcon />}
+            className="poppins"
+            sx={{
+              textTransform: "none",
+              bgcolor: "#2858A3",
+              borderRadius: 2,
+              px: 3,
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 500,
+              fontSize: "0.875rem",
+              "&:hover": { bgcolor: "#1e477d" },
+            }}
+          >
+            {t("view_on_google_maps") || "View on Google Maps"}
+          </Button>
+        </Box>
+      )}
+
+      {/* Contact Information Section */}
+      <Box
+        sx={{
+          borderTop: "1px solid #eee",
+          px: { xs: 2, md: 4 },
+          py: { xs: 5, md: 7 },
+          textAlign: "center",
+        }}
+      >
+        {/* Section Title */}
+        <Typography
+          variant="h5"
+          className="poppins text-3xl"
+          sx={{ fontWeight: 600, color: "#1a1a1a" }}
+        >
+          {t("cont_info") || "Contact Information"}
+        </Typography>
+
+        {/* Decorative divider */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 1,
+            mb: 4,
+          }}
+        >
+         
+          <div className="flex items-center justify-start gap-4 mb-4 ">
+            <div className="w-20 h-[1px] bg-gray-500 rounded-3xl"></div>
+
+            <img
+              src={buraqlog}
+              alt="Buraq Logo"
+              className="w-6 h-6 object-contain"
+            />
+
+            <div className="w-20 h-[1px] bg-gray-500 rounded-3xl"></div>
+          </div>
+        
+        </Box>
+
+        {/* Contact Cards */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            gap: 3,
+            maxWidth: 1400,
+            mx: "auto",
+             border: "2px solid #e8eef7",
+              borderRadius: 3,
+          }}
+        >
+          {/* Phone Card */}
+          <Paper
+            elevation={0}
+            sx={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              p: 3,
+              borderRadius: 2,
+              bgcolor: "#fff",
+              textAlign: "left",
+              transition: "box-shadow 0.2s",
+              "&:hover": {
+                boxShadow: "0 4px 20px rgba(40, 88, 163, 0.1)",
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: 52,
+                height: 52,
+                borderRadius: "50%",
+                bgcolor: "#02AFF3",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <PhoneIcon sx={{ color: "#ffffff", fontSize: 24  }} />
+            </Box>
+            <Box sx={{ cursor: "pointer"}} onClick={() => window.location.href = "tel:80066839"}>
+            
+              <Typography
+                className="poppins"
+                sx={{ fontWeight: 600, fontSize: "1.3rem", color: "#1a1a1a" , "&:hover": { color: "#2858A3" } }}
+              >
+                {t("phone_number") || "Phone Number"}
+              </Typography>
+              <Typography
+                className="poppins"
+                sx={{
+                  fontSize: "1rem",
+                  color: "#2858A3",
+                  fontWeight: 600,
+                  mt: 0.3,
+                }}
+              >
+                800-NOVEX (66839)
+              </Typography>
+            </Box>
+          </Paper>
+
+          {/* Email Card */}
+        <Paper
+            component="a"
+            href="mailto:ecommerce@buraqstar.com"
+            elevation={0}
+            sx={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              p: 3,
+              borderRadius: 2,
+              bgcolor: "#fff",
+              textAlign: "left",
+              transition: "box-shadow 0.2s",
+              textDecoration: "none",
+              "&:hover": {
+                boxShadow: "0 4px 20px rgba(40, 88, 163, 0.1)",
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: 52,
+                height: 52,
+                borderRadius: "50%",
+                bgcolor: "#02AFF3",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <EmailIcon sx={{ color: "#ffffff", fontSize: 24 }} />
+            </Box>
+
+            <Box>
+              <Typography
+                className="poppins"
+                sx={{ fontWeight: 600, fontSize: "1.3rem", color: "#1a1a1a" }}
+              >
+                {t("email") || "Email"}
+              </Typography>
+
+              <Typography
+                className="poppins"
+                sx={{
+                  fontSize: "1rem",
+                  color: "#2858A3",
+                  fontWeight: 600,
+                  mt: 0.3,
+                }}
+              >
+                ecommerce@buraqstar.com
+              </Typography>
+            </Box>
+          </Paper>
         </Box>
       </Box>
 
-      <Container>
-        <Box
-          display="flex"
-          flexDirection={{ xs: "column", md: "row" }}
-          gap={3}
-          mt={{ xs: -2, md: -10 }} // Overlap wave a bit more on larger screens
-        >
-          {/* Sidebar: Store List */}
-          <Paper
-            elevation={3}
-            sx={{
-              flex: 1,
-              maxHeight: "70vh",
-              overflow: "auto",
-              p: 2,
-              borderRadius: 3,
-              // Glass effect styles:
-              backgroundColor: "rgba(255, 255, 255, 0.35)",
-              backdropFilter: "blur(12px)",
-              boxShadow: "0 8px 32px rgba(31, 38, 135, 0.2)",
-              // Subtle fade-in:
-              animation: "fadeIn 0.7s ease-in-out",
-            }}
-            className="shadow-lg relative"
-          >
-            <Typography variant="h6" className="poppins font-semibold" gutterBottom>
-              {t("available_stores")}
-            </Typography>
-            <Divider />
-            <List>
-              {stores.map((store, index) => {
-                const isSelected = selectedStore?.name === store.name;
-                return (
-                  <Box key={index} sx={{ mt: 1 }}>
-                    <ListItem
-                      button
-                      onClick={() => handleStoreClick(store)}
-                      sx={{
-                        transition: "background-color 0.3s, color 0.3s",
-                        borderRadius: 2,
-                        bgcolor: isSelected ? "#2858A3" : "transparent",
-                        color: isSelected ? "#fff" : "#000",
-                        "&:hover": {
-                          bgcolor: "#2858A3",
-                          color: "#fff",
-                        },
-                      }}
-                    >
-                      <Box display="flex" alignItems="center">
-                        <LocationOnIcon fontSize="small" sx={{ mr: 2 }} />
-                        <Box>
-                          <Typography className="poppins font-medium">
-                            {store.name}
-                          </Typography>
-                          <Typography className="poppins text-sm">
-                            {store.city}
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </ListItem>
-                    <Divider />
-                  </Box>
-                );
-              })}
-            </List>
-          </Paper>
-
-          {/* Main Content: Google Map */}
-          <Box
-            flex={2}
-            height="70vh"
-            sx={{
-              position: "relative",
-              borderRadius: 3,
-              overflow: "hidden",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-              // Optional glass effect behind map controls (if you want):
-              // backgroundColor: "rgba(255, 255, 255, 0.25)",
-              // backdropFilter: "blur(10px)",
-            }}
-            className="shadow-lg"
-          >
-            <LoadScript googleMapsApiKey={REACT_APP_GOOGLE_MAPS_API_KEY}>
-              <GoogleMap
-                mapContainerStyle={mapStyles}
-                zoom={selectedStore ? 15 : 11}
-                center={
-                  selectedStore
-                    ? {
-                        lat: parseFloat(selectedStore.lat),
-                        lng: parseFloat(selectedStore.lng),
-                      }
-                    : defaultCenter
-                }
-                options={{
-                  // styles: GoogleMapStyle,
-                  disableDefaultUI: true, // Hide default controls for a cleaner look
-                  zoomControl: true,
-                }}
-              >
-                {stores.map((store, index) => (
-                  <Marker
-                    key={index}
-                    position={{
-                      lat: parseFloat(store.lat),
-                      lng: parseFloat(store.lng),
-                    }}
-                    onClick={() => handleMarkerClick(store)}
-                    icon={{
-                      url: PickupLocationIcon,
-                    }}
-                  />
-                ))}
-              </GoogleMap>
-            </LoadScript>
-          </Box>
-        </Box>
-
-        {/* Store Details */}
-        {selectedStore && (
-          <Box
-            mt={4}
-            p={3}
-            borderRadius={2}
-            sx={{
-              // Glass effect for details box:
-              backgroundColor: "rgba(255, 255, 255, 0.35)",
-              backdropFilter: "blur(12px)",
-              boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.2)",
-              animation: "fadeIn 0.5s ease-in-out",
-              textAlign: "center",
-            }}
-            className="poppins"
-          >
-            <Typography variant="h5" className="font-bold text-black">
-              {selectedStore.name}
-            </Typography>
-            <Typography variant="body2" className="mt-1 text-black">
-              {selectedStore.city}
-            </Typography>
-
-            <Box textAlign="center" mt={2}>
-              <Button
-                variant="contained"
-                href={`https://www.google.com/maps?q=${selectedStore.lat},${selectedStore.lng}`}
-                target="_blank"
-                sx={{
-                  textTransform: "capitalize",
-                  bgcolor: "#2858A3",
-                  "&:hover": { bgcolor: "#1e477d" },
-                }}
-                className="poppins"
-              >
-                {t("view_on_google_maps")}
-              </Button>
-            </Box>
-          </Box>
-        )}
-      </Container>
-
-      {/* Example simple fade-in keyframe (Tailwind doesn't have built-in for this) */}
       <style jsx global>{`
         @keyframes fadeIn {
-          0% {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          0% { opacity: 0; transform: translateY(6px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </Box>

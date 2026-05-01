@@ -87,6 +87,7 @@ export const routes = {
     dashboard: '/user/dashboard',
     myOrder: '/user/my-order',
     myProfile: '/user/profile',
+    addresses: '/user/addresses',
 };
 
 export default routes;

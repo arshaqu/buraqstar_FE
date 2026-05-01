@@ -83,33 +83,29 @@ const TermsAndConditions = () => {
           }
         }}
       />
-      <Hero bg={bg} title={t("terms_and_conditions")} />
-      <Container maxWidth="lg" className="py-10 px-4 sm:px-6 lg:px-10">
-        <Paper elevation={3} className="p-6 sm:p-8 rounded-lg shadow-md bg-white">
-          <Typography 
-            variant="subtitle1" 
-            className="text-gray-600 text-center mb-6 text-sm sm:text-base"
-          >
-            {t("effective_date")}: 2-4-2025
-          </Typography>
-          <Typography className="text-gray-700 leading-relaxed mb-6 text-sm sm:text-base">
-            {t("welcome_message")}
-          </Typography>
-          {termsSections.map((section, i) => (
-            <Box key={i} className="mb-6">
-              <Typography 
-                variant="h6" 
-                className="text-gray-800 font-bold mb-2 text-base sm:text-lg"
-              >
-                {i + 1}. {section.title}
+
+       <Typography className="text-gray-700 leading-relaxed mb-6 ml-10 p-5 poppins text-xl">
+        {t('dashboard_sidebar.home')} &nbsp; &gt; &nbsp; <span className="text-[#2858A3] ">{t('terms_and_conditions')}</span>
+      </Typography>
+
+        <Container maxWidth="lg" className=" sm:px-6 md:px-8">
+            <Paper elevation={3} className="p-14 rounded-lg shadow-md bg-gray-100">
+        
+              <Typography className="text-gray-700 leading-relaxed mb-6 poppins">
+                {t("privacy_policy_intro")}
               </Typography>
-              <Typography className="text-gray-700 leading-relaxed text-sm sm:text-base whitespace-pre-line">
-                {section.description}
-              </Typography>
-            </Box>
-          ))}
-        </Paper>
-      </Container>
+              {termsSections.map((section, i) => (
+                <Box key={i} className="mb-6">
+                  <Typography variant="h6" className="text-gray-800 font-semibold mb-2 poppins">
+                    {i + 1}. {section.title}
+                  </Typography>
+                  <Typography className="text-gray-700 leading-relaxed whitespace-pre-line poppins">
+                    {section.description}
+                  </Typography>
+                </Box>
+              ))}
+            </Paper>
+          </Container>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, Button, Avatar, IconButton, Typography, Box, Divider, Checkbox, FormControlLabel, CircularProgress } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
@@ -24,6 +24,10 @@ const MyProfile = () => {
         type: '',
         message: ''
     });
+
+    useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [])
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -205,7 +209,7 @@ const MyProfile = () => {
                     </IconButton>
                 </Box>
                 <Box className="flex flex-col w-full md:w-2/3 space-y-6">
-                    <Typography variant="h4" className="font-semibold text-gray-600 mb-3">
+                    <Typography variant="h4" className="font-semibold text-gray-600 mb-3 poppins">
                         {t('my_profile.edit_profile')}
                         <Divider
                             sx={{
@@ -217,15 +221,16 @@ const MyProfile = () => {
                     </Typography>
 
                     <TextField
+                    
                         label={t('my_profile.email')}
                         variant="outlined"
                         fullWidth
                         value={user.email}
                         InputLabelProps={{
-                            className: "text-gray-500",
+                            className: "text-gray-500 poppins",
                         }}
                         InputProps={{
-                            className: "rounded-lg bg-white/20 backdrop-blur-lg",
+                            className: "rounded-lg bg-white/20 backdrop-blur-lg poppins",
                         }}
                         disabled
                     />
@@ -237,10 +242,10 @@ const MyProfile = () => {
                         value={name}
                         onChange={handleNameChange}
                         InputLabelProps={{
-                            className: "text-gray-500",
+                            className: "text-gray-500 poppins",
                         }}
                         InputProps={{
-                            className: "rounded-lg bg-white/20 backdrop-blur-lg",
+                            className: "rounded-lg bg-white/20 backdrop-blur-lg poppins",
                         }}
                     />
                     <TextField
@@ -254,10 +259,10 @@ const MyProfile = () => {
                         helperText={phoneError}
                         placeholder="+971 50 123 4567"
                         InputLabelProps={{
-                            className: "text-gray-500",
+                            className: "text-gray-500 poppins",
                         }}
                         InputProps={{
-                            className: "rounded-lg bg-white/20 backdrop-blur-lg",
+                            className: "rounded-lg bg-white/20 backdrop-blur-lg poppins",
                         }}
                         FormHelperTextProps={{
                             sx: {
@@ -272,11 +277,12 @@ const MyProfile = () => {
                     <FormControlLabel
                         control={
                             <Checkbox
-                                checked={showPasswordField}
-                                onChange={(e) => setShowPasswordField(e.target.checked)}
-                                color="primary"
+                            checked={showPasswordField}
+                            onChange={(e) => setShowPasswordField(e.target.checked)}
+                            color="primary"
                             />
                         }
+                        className='poppins'
                         label={t('my_profile.change_password')}
                     />
 
@@ -289,10 +295,10 @@ const MyProfile = () => {
                             value={password}
                             onChange={handlePasswordChange}
                             InputLabelProps={{
-                                className: "text-gray-500",
+                                className: "text-gray-500 poppins",
                             }}
                             InputProps={{
-                                className: "rounded-lg bg-white/20 backdrop-blur-lg",
+                                className: "rounded-lg bg-white/20 backdrop-blur-lg poppins",
                             }}
                         />
                     )}
@@ -304,7 +310,7 @@ const MyProfile = () => {
                             e.stopPropagation();
                             handleSubmit();
                         }}
-                        className="w-full py-3 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+                        className="w-full py-3 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 poppins"
                         sx={{
                             textTransform: 'capitalize',
                             padding: '6px 16px',

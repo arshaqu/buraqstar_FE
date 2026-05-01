@@ -74,26 +74,26 @@ const CustomerSupport = () => {
             <SupportAgentIcon className="text-[#2858a3] text-6xl mb-4" />
             <Typography
               variant="h4"
-              className="font-semibold text-gray-800 mb-2 text-lg sm:text-2xl text-center"
+              className="font-semibold text-gray-800 mb-2 text-lg sm:text-2xl text-center poppins"
             >
               {t("customer_support")}
             </Typography>
-            <Typography className="text-gray-600 text-sm sm:text-base text-center max-w-lg">
+            <Typography className="text-gray-600 text-sm sm:text-base text-center max-w-lg poppins">
               {t("customer_support_description")}
             </Typography>
 
             {/* A clickable phone icon that calls a dummy number when clicked */}
             <Box className="mt-4 flex flex-col sm:flex-row items-center gap-2 text-[#2858a3] ">
-              <SupportAgentIcon className="!text-3xl" /> {/* or use LocalPhoneIcon, PhoneIcon, etc. */}
+              <SupportAgentIcon className="!text-3xl poppins" /> {/* or use LocalPhoneIcon, PhoneIcon, etc. */}
               {t("call_us_at")}
               <a href="tel:+97165616976" className="hover:text-blue-700">
-                <Typography variant="body1" className="underline">
+                <Typography variant="body1" className="underline poppins ">
                   (971) 6 561 6976
                 </Typography>
               </a>
               {t("or")}
               <a href="tel:+97142248520" className="hover:text-blue-700">
-                <Typography variant="body1" className="underline">
+                <Typography variant="body1" className="underline poppins">
                   (971) 4 224 8520
                 </Typography>
               </a>
@@ -110,10 +110,10 @@ const CustomerSupport = () => {
                     className="p-6 rounded-lg shadow-sm bg-white hover:shadow-md transition duration-300 flex flex-col items-center text-center"
                   >
                     {item.icon}
-                    <Typography variant="h6" className="text-gray-800 font-medium mt-3">
+                    <Typography variant="h6" className="text-gray-800 font-medium mt-3 poppins">
                       {t(item.title)}
                     </Typography>
-                    <Typography className="text-gray-600 text-sm mt-1">
+                    <Typography className="text-gray-600 text-sm mt-1 poppins">
                       {t(item.description)}
                     </Typography>
                   </Paper>

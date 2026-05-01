@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import { Box, Button, CircularProgress, Grid } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
-import bg from '../assets/category_hero.jpg'
+import bg from '../assets/shop2.png'
 import ajaxService from '../services/ajax-service'
 import { CATEGORIES } from '../constants'
 import { Hero, BrandBanner, AddToCartModal } from '../components'
@@ -22,6 +22,8 @@ import {
   DEALS_SEO_MAP,
   normalizeSeoKey
 } from '../constants/seoMeta'
+import DeliveryTags from '../components/Product/DeliveryTags'
+import RecentlyView from '../components/RecentlyView'
 
 const ProductsPage = ({ pageType }) => {
   const navigate = useNavigate()
@@ -73,6 +75,10 @@ const ProductsPage = ({ pageType }) => {
   )
   const [expandedItems, setExpandedItems] = useState({})
 
+  // ── Brands filter state (new) ──
+  const [brands, setBrands] = useState([])
+  const [selectedBrands, setSelectedBrands] = useState([])
+
   // Dynamic title based on page type (for sidebar)
   const Title = useMemo(() => {
     if (isCategories) return t('categories_title')
@@ -113,6 +119,15 @@ const ProductsPage = ({ pageType }) => {
       [id]: !prevState[id]
     }))
   }
+
+  // ── Brand toggle handler (new) ──
+  const handleBrandToggle = useCallback((brandId) => {
+    setSelectedBrands(prev =>
+      prev.includes(brandId)
+        ? prev.filter(id => id !== brandId)
+        : [...prev, brandId]
+    )
+  }, [])
 
   // Navigation handlers - different for each page type
   const handleParentClick = useCallback(
@@ -195,7 +210,7 @@ const ProductsPage = ({ pageType }) => {
     const response = await ajaxService.get('/all-categories')
     if (response.success) {
       let data = response.data
-      const updatedCategories = [{ id: 0, name: 'View All Items', slug: 'all' }, ...data]
+      const updatedCategories = [{ id: 0, name: t("side_categories.view_all"), slug: 'all' }, ...data]
 
       let foundParentID = null
       let foundChildID = null
@@ -248,6 +263,14 @@ const ProductsPage = ({ pageType }) => {
     }
   }, [parentSlug, childSlug, subChildSlug])
 
+  // ── Load brands list for the filter section (new) ──
+  const loadBrandsList = useCallback(async () => {
+    const { success, data } = await ajaxService.get('/all-brands')
+    if (success) {
+      setBrands(data.map(b => ({ id: b.id, name: b.name })))
+    }
+  }, [])
+
   const loadBrands = useCallback(async () => {
     const { success, data } = await ajaxService.get('/all-brands')
     if (success) {
@@ -259,14 +282,12 @@ const ProductsPage = ({ pageType }) => {
       const formattedData = data.map((brand, brandIndex) => {
         const itemSlug = brand.slug || createSlug(brand.name)
         brand.active = brandSlug ? itemSlug === brandSlug : false
-        // Create unique expandId for each brand to prevent expansion conflicts
         brand.expandId = brand.id ? `brand-${brand.id}` : `brand-idx-${brandIndex}`
         
         if (brand.active) {
           foundBrandID = brand.id
         }
 
-        // Transform categories to childrens structure for sidebar compatibility
         if (brand.categories && brand.categories.length > 0) {
           brand.childrens = brand.categories.map(category => {
             const categorySlug = category.slug || createSlug(category.name)
@@ -299,11 +320,9 @@ const ProductsPage = ({ pageType }) => {
                   foundChildID = child.id
                 }
 
-                // Transform subchildren to childrens structure for expandable items
                 if (child.subchildren && child.subchildren.length > 0) {
                   childData.childrens = child.subchildren.map(subchild => {
                     const subchildSlugValue = subchild.slug || createSlug(subchild.name)
-                    // Create unique ID for subchild
                     const uniqueSubchildId = `${uniqueChildId}-${subchild.id}`
                     const subchildData = { 
                       ...subchild, 
@@ -312,7 +331,6 @@ const ProductsPage = ({ pageType }) => {
                       id: subchild.id
                     }
 
-                    // Check if this is the active subchild category
                     if (brand.active && childData.active && subChildSlug && subchildSlugValue === subChildSlug) {
                       subchildData.active = true
                       foundSubChildID = subchild.id
@@ -353,14 +371,12 @@ const ProductsPage = ({ pageType }) => {
       const formattedData = data.map((deal, dealIndex) => {
         const itemSlug = deal.slug || createSlug(deal.name)
         deal.active = dealSlug ? itemSlug === dealSlug : false
-        // Create unique expandId for each deal to prevent expansion conflicts
         deal.expandId = deal.id ? `deal-${deal.id}` : `deal-idx-${dealIndex}`
         
         if (deal.active) {
           foundType = deal.slug
         }
 
-        // Transform categories to childrens structure for sidebar compatibility
         if (deal.categories && deal.categories.length > 0) {
           deal.childrens = deal.categories.map(category => {
             const categorySlug = category.slug || createSlug(category.name)
@@ -393,11 +409,9 @@ const ProductsPage = ({ pageType }) => {
                   foundChildID = child.id
                 }
 
-                // Transform subchildren to childrens structure for expandable items
                 if (child.subchildren && child.subchildren.length > 0) {
                   childData.childrens = child.subchildren.map(subchild => {
                     const subchildSlugValue = subchild.slug || createSlug(subchild.name)
-                    // Create unique ID for subchild
                     const uniqueSubchildId = `${uniqueChildId}-${subchild.id}`
                     const subchildData = { 
                       ...subchild, 
@@ -406,7 +420,6 @@ const ProductsPage = ({ pageType }) => {
                       id: subchild.id
                     }
 
-                    // Check if this is the active subchild category
                     if (deal.active && childData.active && subChildSlug && subchildSlugValue === subChildSlug) {
                       subchildData.active = true
                       foundSubChildID = subchild.id
@@ -470,7 +483,10 @@ const ProductsPage = ({ pageType }) => {
         category_id: id,
         type: type,
         offset: updatedOffset,
+        limit: 20,
         brand_id: isBrands ? (brandID ?? 0) : 0,
+        // ── pass selected brand IDs for filtering (new) ──
+        brand_ids: selectedBrands.join(','),
         new_arrival: false
       })
 
@@ -486,11 +502,12 @@ const ProductsPage = ({ pageType }) => {
       const response = await ajaxService.get(url)
       return response || null
     },
-    [subChildID, childID, parentID, brandID, dealType, token, user, isCategories, isBrands, isDeals]
+    // ── added selectedBrands to deps (new) ──
+    [subChildID, childID, parentID, brandID, dealType, token, user, isCategories, isBrands, isDeals, selectedBrands]
   )
 
   const handleLoadMoreClick = useCallback(async () => {
-    const updatedOffset = offset + 15
+    const updatedOffset = offset + 20
     setOffset(updatedOffset)
     setLoading(true)
 
@@ -543,6 +560,7 @@ const ProductsPage = ({ pageType }) => {
     
     if (isCategories) {
       loadCategories()
+      loadBrandsList() // ── fetch brands list for filter (new) ──
     } else if (isBrands) {
       loadBrands()
     } else if (isDeals) {
@@ -560,8 +578,19 @@ const ProductsPage = ({ pageType }) => {
     isDeals,
     loadCategories,
     loadBrands,
-    loadDeals
+    loadDeals,
+    loadBrandsList, // ── added (new) ──
   ])
+
+  // Re-fetch products when selectedBrands changes (new)
+  useEffect(() => {
+    if (!sidebarLoading && isCategories) {
+      setOffset(0)
+      setProductsLoading(true)
+      setProducts([])
+      loadProducts()
+    }
+  }, [selectedBrands]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Load products when IDs are available
   useEffect(() => {
@@ -588,7 +617,6 @@ const ProductsPage = ({ pageType }) => {
     if ((isDeals || isBrands) && sideItems.length > 0 && !sidebarLoading) {
       const activeItem = sideItems.find(item => item.active)
       
-      // First, collapse all other items that are currently expanded but not active
       sideItems.forEach(item => {
         if (item !== activeItem && (item.expandId || item.id)) {
           const itemId = item.expandId || item.id
@@ -598,14 +626,12 @@ const ProductsPage = ({ pageType }) => {
         }
       })
       
-      // Then expand the active item and its active categories
       if (activeItem && (activeItem.expandId || activeItem.id)) {
         const activeItemId = activeItem.expandId || activeItem.id
         if (!expandedItems[activeItemId]) {
           toggleExpand(activeItemId)
         }
         
-        // Also expand active categories using uniqueId
         if (activeItem.childrens) {
           const activeParent = activeItem.childrens.find(cat => cat.active)
           if (activeParent && activeParent.uniqueId) {
@@ -695,24 +721,32 @@ const ProductsPage = ({ pageType }) => {
     sidebarLoading
   ])
 
-  const sortedProducts = useMemo(
-    () =>
-      products.sort((a, b) => {
-        switch (sortOption) {
-          case 1:
-            return a.name.localeCompare(b.name)
-          case 2:
-            return b.name.localeCompare(a.name)
-          case 3:
-            return a.price - b.price
-          case 4:
-            return b.price - a.price
-          default:
-            return 0
-        }
-      }),
-    [products, sortOption]
+// ✅ Step 1: Filter by selected brands
+const filteredProducts = useMemo(() => {
+  if (selectedBrands.length === 0) return products
+
+  return products.filter(product =>
+    selectedBrands.includes(product.brand_id)
   )
+}, [products, selectedBrands])
+
+// ✅ Step 2: Sort filtered products
+const sortedProducts = useMemo(() => {
+  return [...filteredProducts].sort((a, b) => {
+    switch (sortOption) {
+      case 1:
+        return a.name.localeCompare(b.name)
+      case 2:
+        return b.name.localeCompare(a.name)
+      case 3:
+        return a.price - b.price
+      case 4:
+        return b.price - a.price
+      default:
+        return 0
+    }
+  })
+}, [filteredProducts, sortOption])
 
   // Generate SEO data based on page type and current selection
   const getSEOData = useMemo(() => {
@@ -723,7 +757,6 @@ const ProductsPage = ({ pageType }) => {
     let url = "/"
     let structuredData = null
 
-    // Get parent category name for context
     const getParentCategoryName = () => {
       if (parentSlug) {
         const parentCategory = sideItems.find(item => {
@@ -735,8 +768,7 @@ const ProductsPage = ({ pageType }) => {
       return 'Products'
     }
 
-  if (isCategories) {
-      // Get category names for hierarchical display
+    if (isCategories) {
       let parentName = ''
       let childName = ''
       let subChildName = ''
@@ -771,7 +803,6 @@ const ProductsPage = ({ pageType }) => {
         }
       }
       
-      // Build chain like "Subchild - Child - Parent"
       const chainParts = [subChildName, childName, parentName].filter(Boolean)
       const chainTitle = chainParts.join(' - ')
 
@@ -813,7 +844,6 @@ const ProductsPage = ({ pageType }) => {
       }
     } else if (isBrands) {
       if (brandSlug) {
-        // Build category context (parent/child/subchild) for brand pages
         let parentName = ''
         let childName = ''
         let subChildName = ''
@@ -857,40 +887,33 @@ const ProductsPage = ({ pageType }) => {
           }
         }
 
-        // Build chain like "Subchild - Child - Parent - BrandName"
         const chainParts = [subChildName, childName, parentName].filter(Boolean)
         const chainTitle = chainParts.length > 0 ? `${chainParts.join(' - ')} - ${heroTitle}` : heroTitle
 
-        // Check SEO map first (only applies when no category context)
         const brandMetaEntry = BRAND_SEO_MAP[brandSlug]
         if (brandMetaEntry && chainParts.length === 0) {
-          // Use SEO map entry when no category context
           title = brandMetaEntry.title
           description = brandMetaEntry.description
           keywords = `${heroTitle?.toLowerCase() || brandSlug}, brands, Buraq`
           url = `/brand/${brandSlug}`
         } else if (chainParts.length > 0) {
-          // Dynamic generation when category context exists
           title = `${chainTitle} Products | Buraq`
           description = `Shop ${chainTitle.toLowerCase()} products by ${heroTitle} at Buraq. Premium quality products with competitive prices and fast delivery.`
           keywords = `${chainParts.map(p => p.toLowerCase()).join(', ')}, ${heroTitle.toLowerCase()}, electrical products, hardware products, Buraq`
           url = brandUrl
         } else {
-          // Fallback when no category context and no SEO map entry
           title = `${heroTitle} - Electrical & Hardware Products | Buraq`
           description = `Shop ${heroTitle} electrical and hardware products at Buraq. Premium quality ${heroTitle} products with competitive prices and fast delivery.`
           keywords = `${heroTitle}, electrical products, hardware products, electrical solutions, hardware solutions, Buraq`
           url = `/brand/${brandSlug}`
         }
       } else {
-        // Check SEO map first for default brands page
         const defaultBrandMeta = BRAND_SEO_MAP['default']
         if (defaultBrandMeta) {
           title = defaultBrandMeta.title
           description = defaultBrandMeta.description
           keywords = "brands, electrical brands, hardware brands, Buraq"
         } else {
-          // Fallback if no SEO map entry
           title = "Brands - Electrical & Hardware Brands | Buraq"
           description = "Discover top electrical and hardware brands at Buraq. Shop from leading manufacturers with quality products and competitive prices."
           keywords = "brands, electrical brands, hardware brands, electrical products, hardware products, Buraq"
@@ -899,7 +922,6 @@ const ProductsPage = ({ pageType }) => {
       }
     } else if (isDeals) {
       if (dealSlug) {
-        // Build category context (parent/child/subchild) for deals pages
         let parentName = ''
         let childName = ''
         let subChildName = ''
@@ -943,26 +965,21 @@ const ProductsPage = ({ pageType }) => {
           }
         }
 
-        // Build chain like "Subchild - Child - Parent - DealName"
         const chainParts = [subChildName, childName, parentName].filter(Boolean)
         const chainTitle = chainParts.length > 0 ? `${chainParts.join(' - ')} - ${heroTitle}` : heroTitle
 
-        // Check SEO map first (only applies when no category context)
         const dealMetaEntry = DEALS_SEO_MAP[dealSlug]
         if (dealMetaEntry && chainParts.length === 0) {
-          // Use SEO map entry when no category context
           title = dealMetaEntry.title
           description = dealMetaEntry.description
           keywords = `${heroTitle?.toLowerCase() || dealSlug}, deals, Buraq`
           url = `/deals/${dealSlug}`
         } else if (chainParts.length > 0) {
-          // Dynamic generation when category context exists
           title = `${chainTitle} Deals | Buraq`
           description = `Explore ${chainTitle.toLowerCase()} deals at Buraq. Save on top-quality products with competitive prices and fast delivery.`
           keywords = `${chainParts.map(p => p.toLowerCase()).join(', ')}, ${heroTitle.toLowerCase()}, deals, Buraq`
           url = dealsUrl
         } else {
-          // Fallback when no category context and no SEO map entry
           title = `${heroTitle} - Special Deals & Offers | Buraq`
           description = `Get amazing deals on ${heroTitle.toLowerCase()} products at Buraq. Limited time offers with huge discounts on quality products.`
           keywords = `${heroTitle}, deals, offers, electrical deals, hardware deals, Buraq`
@@ -976,7 +993,6 @@ const ProductsPage = ({ pageType }) => {
       }
     }
 
-    // Generate structured data
     structuredData = {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
@@ -1004,7 +1020,8 @@ const ProductsPage = ({ pageType }) => {
         structuredData={getSEOData.structuredData}
       />
       <Hero bg={bg} title={displayHeroTitle} />
-      <Grid container className='py-16 px-10 md:px-14 lg:px-36'>
+    
+      <Grid container className='py-16 px-10 bg-white md:px-14 lg:px-36'>
         {(isDeals || isBrands) ? (
           <DealsSidebar
             expandedItems={expandedItems}
@@ -1019,6 +1036,7 @@ const ProductsPage = ({ pageType }) => {
             setMobileDrawerOpen={setMobileDrawerOpen}
           />
         ) : (
+          // ── Pass brands props to ProductSidebar (new) ──
           <ProductSidebar
             expandedItems={expandedItems}
             toggleExpand={toggleExpand}
@@ -1030,6 +1048,9 @@ const ProductsPage = ({ pageType }) => {
             Title={Title}
             mobileDrawerOpen={mobileDrawerOpen}
             setMobileDrawerOpen={setMobileDrawerOpen}
+            brands={brands}
+            selectedBrands={selectedBrands}
+            handleBrandToggle={handleBrandToggle}
           />
         )}
         
@@ -1058,13 +1079,14 @@ const ProductsPage = ({ pageType }) => {
             setIsGridView={setIsGridView}
             sortOption={sortOption}
             products={products}
+            currentCategory={displayHeroTitle}
           />
 
           <Grid container className="mt-10">
             {productsLoading ? (
               <ProductLoadingSkeleton />
             ) : (
-              <>
+             <>
                 {products.length === 0 && !productsLoading ? (
                   <Grid item xs={12} className="px-2.5 mb-5 text-center">
                     This {isCategories ? 'Category' : isBrands ? 'Brand' : 'Deal'} has no products {':)'}
@@ -1082,17 +1104,16 @@ const ProductsPage = ({ pageType }) => {
                     handleModalClick={handleModalClick}
                   />
                 )}
-
                 {products.length < count && !productsLoading && (
                   <Grid item xs={12} className="flex justify-center h-fit">
                     <Button
                       id="loadMoreButton"
-                      className="bg-black text-white text-xs cursor-pointer poppins uppercase p-4 rounded-none"
+                      className="bg-black text-white text-md cursor-pointer poppins uppercase p-4 mt-4 rounded-none"
                       onClick={handleLoadMoreClick}
                       disabled={loading}
                     >
-                      {loading && <CircularProgress size={18} className="text-white mr-2" />}
-                      Load More
+                      {loading && <CircularProgress size={18} className="text-white " />}
+                      {t("product.load_more")}
                     </Button>
                   </Grid>
                 )}
@@ -1108,13 +1129,11 @@ const ProductsPage = ({ pageType }) => {
             />
           )}
         </Grid>
+        <RecentlyView/>
+      <DeliveryTags/>
       </Grid>
-      <Box className="-mt-16 sm:-mt-6">
-        <BrandBanner />
-      </Box>
     </Box>
   )
 }
 
 export default ProductsPage
-

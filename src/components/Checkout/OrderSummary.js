@@ -524,7 +524,7 @@ const OrderSummary = ({
       <Button
         variant='contained'
         className="poppins bg-[#2858a3] w-[100%]"
-        style={{ height: "50px", textTransform: "capitalize" }}
+        style={{ height: "45px", textTransform: "capitalize" }}
         type="submit"
         onClick={handleSubmit}
         sx={{ mt: 3, mb: 2 }}
@@ -667,7 +667,7 @@ const OrderSummary = ({
             flex: 1,
           }}
         >
-          <p variant="h6" style={{ fontWeight: 900, fontSize: "16px" }}>
+          <p variant="h6" style={{ fontWeight: 600, fontSize: "16px" }}>
             {isCouponVisible ? t('checkout.apply_coupon') : t('checkout.coupon_title')}
           </p>
           <Button
@@ -687,6 +687,7 @@ const OrderSummary = ({
           }}
         >
           <TextField
+          className="poppins"
             label={t('checkout.coupon_code')}
             placeholder={t('checkout.enter_coupon')}
             variant="outlined"

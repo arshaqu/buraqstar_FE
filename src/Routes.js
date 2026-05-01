@@ -41,6 +41,7 @@ import CancellationReturnPolicy from "./pages/CancellationReturnPolicy";
 import CustomerSupport from "./pages/CustomerSupport";
 import NotFound from "./pages/NotFound";
 import PaymentFailedPage from "./pages/PaymentFailed";
+import Addresses from "./pages/user/panel/Addresses";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -105,6 +106,13 @@ const AppRoutes = () => {
             <DashboardLayout title="My Profile"><MyProfile /></DashboardLayout>
           </PrivateRoute>
         } />
+
+              <Route path={routes.addresses} element={
+          <PrivateRoute>
+           <DashboardLayout title="My Addresses"><Addresses /></DashboardLayout>
+         </PrivateRoute>
+        } />
+
 
         {/* 404 Not Found - No layout (no header/footer) */}
         <Route path="*" element={<NotFound />} />

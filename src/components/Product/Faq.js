@@ -5,17 +5,19 @@ import {
   AccordionSummary,
   Box,
   Typography,
+  Button,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useTranslation } from "react-i18next"; // Import i18next
+import { useTranslation } from "react-i18next";
 
 const Faq = () => {
-  const { t } = useTranslation(); // Hook for translations
-  const [expanded, setExpanded] = React.useState(false);
+  const { t } = useTranslation();
+  const [expanded, setExpanded] = React.useState(0); // first open
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
 
   const faqData = [
     {
@@ -71,48 +73,109 @@ const Faq = () => {
       answer: t("faq_answer_13"),
     },
   ];
-
   return (
-    <Box className="w-full h-fit mt-10 px-4 sm:px-8 lg:px-16">
-      <Typography className="poppins text-3xl font-bold text-[#2E2E2E] uppercase py-4 text-center">
-        {t("frequently_asked_questions")}
+    <Box
+      sx={{
+        maxWidth: "800px", // 👈 center container like image
+        margin: "0 auto",
+        px: 2,
+        py: 6,
+      }}
+    >
+      {/* TITLE */}
+      <Typography
+        sx={{
+          textAlign: "center",
+          fontWeight: 700,
+          fontSize: { xs: "22px", md: "28px" },
+          mb: 4,
+        }}
+      >
+       {t("frequently_asked_questions")}
       </Typography>
-      {faqData.map((item, index) => (
-        <Accordion
-          key={index}
-          expanded={expanded === `panel${index}`}
-          onChange={handleChange(`panel${index}`)}
-          className={`my-3 rounded-lg shadow-none border-none ${
-            expanded === `panel${index}`
-              ? "bg-[#2858a3] text-white"
-              : "bg-[#F5F5F5] text-[#2E2E2E]"
-          }`}
-          sx={{
-            borderTop: 'none',
-            '&:before': {
-              display: 'none',
-            },
-          }}
-        >
-          <AccordionSummary
-            expandIcon={
-              <ExpandMoreIcon className="bg-white rounded-full h-7 w-7 text-[#2858a3]" />
-            }
-            aria-controls={`panel${index}-content`}
-            id={`panel${index}-header`}
+
+      {faqData.map((item, index) => {
+        const isOpen = expanded === index;
+
+        return (
+          <Accordion
+            key={index}
+            expanded={isOpen}
+            onChange={handleChange(index)}
+            sx={{
+              boxShadow: "none",
+              background: "transparent",
+              borderBottom: "1px solid #e5e7eb", // 👈 always single divider
+              "&:before": { display: "none" },
+            }}
           >
-            <Typography
-              sx={{ width: "100%" }}
-              className="poppins text-sm sm:text-base"
+            {/* QUESTION */}
+            <AccordionSummary
+            
+              expandIcon={
+                <ExpandMoreIcon
+                className="poppins"
+                  sx={{
+                    color: "#6b7280",
+                    transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "0.3s",
+                  }}
+                />
+              }
+              sx={{
+                px: 0,
+              }}
             >
-              {item.question}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails className="bg-white text-xs sm:text-sm poppins text-[#5D5D5D] py-3 px-5">
-            {item.answer}
-          </AccordionDetails>
-        </Accordion>
-      ))}
+              <Typography
+                sx={{
+                  fontSize: { xs: "12px", md: "16px" },
+                  fontWeight: isOpen ? 600 : 400,
+                  color: "#111827",
+                   fontFamily: "'Poppins', sans-serif", // 👈 add here
+                }}
+              >
+                {item.question}
+              </Typography>
+            </AccordionSummary>
+
+            {/* ANSWER */}
+            <AccordionDetails
+              sx={{
+                px: 0,
+                pb: 2,
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: { xs: "10px", md: "13px" },
+                  color: "#6b7280",
+                  mb: 2,
+                  lineHeight: 1.6,
+                   fontFamily: "'Poppins', sans-serif", // 👈 add here
+                }}
+              >
+                {item.answer}
+              </Typography>
+
+              {/* OPTIONAL BUTTON */}
+              {item.button && (
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    textTransform: "none",
+                    borderColor: "#cbd5e1",
+                    color: "#111827",
+                    borderRadius: "6px",
+                  }}
+                >
+                  Shop Now
+                </Button>
+              )}
+            </AccordionDetails>
+          </Accordion>
+        );
+      })}
     </Box>
   );
 };

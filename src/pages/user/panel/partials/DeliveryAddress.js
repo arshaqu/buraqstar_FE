@@ -162,7 +162,7 @@ const DeliveryAddress = () => {
                     display: "flex", justifyContent: "space-between",
                 }}
             >
-                <Typography className="poppins font-semibold uppercase text-lg text-black">
+                <Typography className="poppins font-semibold uppercase text-2xl text-black poppins">
                     {t('delivery_address.title')}
                 </Typography>
                 {showForm ? (
@@ -196,10 +196,10 @@ const DeliveryAddress = () => {
                     <Grid container spacing={2}>
                         {[...Array(6)].map((_, index) => (
                             <Grid item xs={12} sm={6} key={index}>
-                                <Typography variant="body1" color="textSecondary">
+                                <Typography  variant="body1" color="textSecondary">
                                     <Skeleton width="40%" />
                                 </Typography>
-                                <Typography variant="body2">
+                                <Typography  variant="body2">
                                     <Skeleton width="100%" />
                                 </Typography>
                             </Grid>
@@ -233,7 +233,7 @@ const DeliveryAddress = () => {
                     ))}
                 </>
             ) : (
-                <Typography variant="body1" color="textSecondary" sx={{ margin: "20px 0" }}>
+                <Typography variant="body1" color="textSecondary poppins" sx={{ margin: "20px 0" }}>
                     {t('delivery_address.no_addresses')}
                 </Typography>
             )}

@@ -34,80 +34,75 @@ const SocialShare = ({ product }) => {
   };
 
   return (
-    <Box className="w-full px-0 sm:px-0 py-6">
-      <Typography className="text-lg font-semibold text-gray-800 poppins mb-4">
+    <Box className="w-full px-0 sm:px-0 py-6 flex ">
+      <Typography className="text-lg text-gray-800 poppins mt-2">
         {t("product.share", "Share")}:
       </Typography>
       
-      <Box className="flex items-center space-x-3">
+      <Box className="flex items-center space-x-1 ml-2">
         {/* Facebook */}
         <IconButton
           onClick={() => handleShare('facebook')}
-          className="w-12 h-12 bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
           sx={{
             '&:hover': {
-              backgroundColor: '#1877f2',
+              backgroundColor: '#e4e4e4',
               color: 'white'
             }
           }}
         >
-          <Facebook sx={{ color: '#1877f2' }} />
+          <Facebook sx={{ color: '#222222' }} />
         </IconButton>
 
         {/* X (Twitter) */}
         <IconButton
           onClick={() => handleShare('twitter')}
-          className="w-12 h-12 bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
           sx={{
             '&:hover': {
-              backgroundColor: '#000000',
+              backgroundColor: '#e4e4e4',
               color: 'white'
             }
           }}
         >
-          <XIcon sx={{ color: '#000000' }} />
+          <XIcon sx={{ color: '#222222' }} />
         </IconButton>
 
         {/* Pinterest */}
         <IconButton
           onClick={() => handleShare('pinterest')}
-          className="w-12 h-12 bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
           sx={{
             '&:hover': {
-              backgroundColor: '#e60023',
+              backgroundColor: '#e4e4e4',
               color: 'white'
             }
           }}
         >
-          <Pinterest sx={{ color: '#e60023' }} />
+          <Pinterest sx={{ color: '#222222' }} />
         </IconButton>
 
         {/* WhatsApp */}
         <IconButton
           onClick={() => handleShare('whatsapp')}
-          className="w-12 h-12 bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
           sx={{
             '&:hover': {
-              backgroundColor: '#25d366',
+              backgroundColor: '#e4e4e4',
               color: 'white'
             }
           }}
         >
-          <WhatsApp sx={{ color: '#25d366' }} />
+          <WhatsApp sx={{ color: '#222222' }} />
         </IconButton>
 
         {/* Email */}
         <IconButton
           onClick={() => handleShare('email')}
-          className="w-12 h-12 bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
           sx={{
             '&:hover': {
-              backgroundColor: '#ea4335',
+              backgroundColor: '#e4e4e4',
               color: 'white'
             }
           }}
         >
-          <Email sx={{ color: '#ea4335' }} />
+          <Email sx={{ color: '#222222' }} />
         </IconButton>
       </Box>
     </Box>

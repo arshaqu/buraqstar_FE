@@ -4,12 +4,13 @@
   "zilco_description": "ZILCO, established in 1995, has become a leading name in the switchgear industry, renowned for its commitment to safety, reliability, and modern design. Over the years, ZILCO has specialized in providing high-quality electrical solutions, offering a comprehensive range of products that cater to residential, commercial, and industrial needs. ZILCO’s product portfolio includes: ELCBs (Earth Leakage Circuit Breakers), MCBs (Miniature Circuit Breakers), MCCB (Moulded Case Circuit Breakers), RCBOs (Residual Current Breakers with Overload Protection), Isolators, Metal Enclosures and Accessories, Thermal Relays, AC Contactors, Motor Starters & Distribution Boxes.",
   "cavil_description": "Cavil established in 2016 and a renowned Italian brand famous for its pioneering innovations in both residential and commercial applications. Cavil’s extensive range includes, Wall-Mounted Extractor Fans, Ceiling Fan Exhaust Ventilators’ Advanced Air Circulation Systems, Energy-Efficient LED Lighting Appliances, Premium Bath and Sanitary Fittings.",
   "buraq_description": "Buraq is a Pakistan-origin brand established in 2006, specializing in ventilation systems and water pumps designed for comfort, efficiency, and reliability. With a commitment to innovation and quality, Buraq provides solutions that simplify everyday living and deliver optimal performance for both residential and commercial needs.",
-  "who_we_are": "Who We Are",
-  "who_we_are_description": "Buraq Star Trading Co. LLC has been a trusted name in the UAE since 2002, specializing in designing, producing, and distributing premium brands—including NOVEX, ZILCO, BURAQ, and CAVIL—with a strong commitment to excellence and innovation. We deliver high-quality products through a robust international distribution network. Our dedication to staying ahead of market trends is reflected in our growing e-commerce platform, offering customers convenient access to our diverse range of products anytime, anywhere.",
+  "who_we_are": "Who We Are ?",
+  "who_we_are_description1": "Buraq Star Trading Co. LLC is a UAE-based supplier and brand house specializing in building materials, electrical, sanitary, hardware , and project essentials. Since 2002, we have earned the trust of contractors, retailers, maintenance teams, and homeoners by consistently delivery quality , reliability , and value.",
+  "who_we_are_description2": "We design, develop , and distribute premium brands including NOVEX, ZILCO, BURAQ, an VACIL , supported by a strong international supply chain and a growing eCommerce platform that makes professional-grade  products available anytime, anywhere.",
+
   "our_operations": "Our Operations",
-  "our_operations_description_1": "Buraq Star Trading Co. L.L.C. operates from Dubai & Sharjah, UAE, where we manage expansive, state-of-the-art showrooms for customers to see and test each product. We have warehouses with significant storage capacity to efficiently handle our wide range of products.",
-  "our_operations_description_2": "In addition to our extensive warehousing capabilities, we boast a robust delivery network that ensures our products reach customers across the UAE and beyond with reliability. Our retail outlets and showrooms further exemplify our commitment to providing direct access to our premium brands, including Buraq, Novex, Zilco, and Cavil.",
-  "our_operations_description_3": "With a strong presence in the UAE, Qatar, Oman, Bahrain, and Pakistan reinforcing our regional footprint, we continue to serve a growing customer base with excellence and innovation.",
+  "our_operations_description_1": "Buraq Star operates from Dubai & Sharjah, with expansive showrooms where customers can view and evaluate products in-person. Our warehouses hold significant inventory to ensure smooth fulfillment and fast dispatch for both retail and project requirements.",
+  "our_operations_description_2": "Our robust delivery capability serves customers across the UAE and supports regional supply through our wider network.",
   "vision": "Vision",
   "vision_description": "To be a global leader in innovative, high-quality products that enrich lives and set new standards of excellence.",
   "mission": "Mission",
@@ -157,11 +158,12 @@
     "title": "About Us"
   },
   "drawer": {
-    "items": "Item(s)",
+    "items": "Cart Items - ",
     "sub_total": "Sub Total",
     "checkout": "Checkout",
     "empty_cart": "Empty Cart",
-    "cart_empty": "Your Cart is Empty"
+    "cart_empty": "Your Cart is Empty",
+    "view_cart": "View Cart"
   },
   "contact_us_description": "For any questions or inquiries regarding this policy, please contact us: Buraq Star Trading Co. LLC Phone: 800 66839 Email: info@buraqstar.com",
   "find_nearest_stores": "Find our nearest stores and visit us today!",
@@ -253,13 +255,22 @@
   "partner_with_us": "Partner With Us",
   "expand_your_business": "Expand your business with a trusted partner in high-quality consumer goods. We specialize in:",
   "power_hand_tools": "Power & Hand Tools",
+  "power_hand_tools_desc" : "Durable, high-performance tools designed for professionals and everyday use, ensuring precision and reliability in every task.",
   "switch_sockets": "Switches & Sockets",
+  "switch_sockets_desc" : "Modern, safe, and long-lasting electrical fittings that combine functionality with sleek design for residential and commercial spaces.",
   "wire_cables": "Wires & Cables",
+  "wire_cables_desc" : "Premium-quality wiring solutions built for safety, efficiency, and consistent power distribution across all applications.",
   "hardware": "Hardware",
+  "hardware_desc":"A complete range of sturdy and dependable hardware products suitable for construction, maintenance, and repair projects.",
   "fan_ventilation_systems": "Fan & Ventilation Systems",
+  "fan_ventilation_systems_desc":"Energy-efficient ventilation solutions that improve airflow, enhance comfort, and maintain a healthy environment.",
   "water_pumps_pressure_kits": "Water Pumps & Pressure Kits",
+  "water_pumps_pressure_kits_desc" : "Reliable pumping systems engineered for smooth water flow, strong pressure control, and long-term performance.",
   "sanitary_bath_fittings": "Sanitary & Bath Fittings",
+  "sanitary_bath_fittings_desc" : "Stylish and durable bathroom fittings that deliver both elegance and everyday functionality.",
   "led_lamps_light_fittings": "LED Lamps & Light Fittings",
+  "led_lamps_light_fittings_desc": "Energy-saving lighting solutions offering bright illumination, modern designs, and extended lifespan.",
+
   "access_premium_brands": "Access to premium brands and quality products",
   "reliable_supply_chain": "Reliable supply chain and logistics support",
   "enter_city": "Enter city",
@@ -376,7 +387,6 @@
     "all_items": "All Items",
     "View All Items": "View All Items",
     "shop_now": "Shop Now",
-    "VIEW ALL ITEMS": "View All Items",
     "ELECTRICAL": "Electrical",
     "HARDWARE": "Hardware",
     "SANITARY": "Sanitary",
@@ -529,7 +539,9 @@
     "logout": "Logout",
     "view_profile": "View Profile",
     "my_profile": "My Profile",
-    "home": "Home"
+    "home": "Home",
+    "addres":"Address",
+    "track_order":"Track Order"
   },
   "address_card": {
     "address": "Address",
@@ -570,11 +582,13 @@
     "subscription_error": "Please enter a valid email address.",
     "contact_us": "Contact Us",
     "service_time": "Service Time",
-    "your_email": "Your Email",
+    "your_email": "Enter Your Email address.",
     "copyright": "Copyright 2024. All Rights Reserved Buraq Star Trading Co. LLC",
     "address": "Showroom # 5,6 & 7 Nakheel Road, Deira Dubai.",
     "toll_free": "800 (NOVEX) 66839",
-    "timings": "24-hour (Monday - Sunday)"
+    "timings": "24-hour (Monday - Sunday)",
+    "discounts_offers": "Be the first to know about our offers , new products and discounted products.",
+    "weaccept" : "We accept : "
   },
   "footer_links": {
     "About Us": "About Us",
@@ -606,6 +620,7 @@
     "login": "Login",
     "logout": "Logout",
     "register": "Registration",
+    "signup": "Sign up",
     "or": "Or",
     "no_products_found": "No products found.",
     "searching": "Searching..."
@@ -620,7 +635,7 @@
     "level_three": "Level Three"
   },
   "product": {
-    "stock_availability": "Stock Availability",
+    "stock_availability": "In Stock",
     "stock_unavailability": "Stock Unavailability",
     "by": "By",
     "availability": "Availability",
@@ -632,12 +647,13 @@
     "off": "Off",
     "share": "Share",
     "reviews": "Reviews",
-    "overview": "Overview",
+    "overview": "Product Overview",
     "specifications": "Specifications",
     "data_sheet_option": "Data Sheet Option",
     "view": "View",
     "download": "Download",
-    "no_datasheet": "No datasheet available"
+    "no_datasheet": "No datasheet available",
+    "load_more": "Load More"
   },
   "main_products": {
     "PEDESTAL FAN": "PEDESTAL FAN",
@@ -1993,5 +2009,21 @@
     "select_city": "Select City",
     "address_placeholder": "e.g. Unit 1, 123 Main Street",
     "postcode_placeholder": "e.g. 12345"
+  },
+  "delivery_tags" : {
+    "free_title": "Free Delivery",
+    "free_description": "Free shipping for orders over AED 150",
+     "best_title": "Best Quality",
+    "best_description": "We sell only Best quality Brands",
+     "return_title": "7 Days Return",
+    "return_description": "Free Return Policy for most products",
+     "feedback_title": "Feedback",
+    "feedback_description": "99% Real Data and Customer Feedback",
+     "payment_title": "Payment",
+    "payment_description": "Secure Payment Options with COD and Online Payments"
+  },
+  "side_categories":{
+    "all_categories": "All Categories",
+    "view_all": "View All Items"
   }
 }

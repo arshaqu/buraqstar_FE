@@ -10,12 +10,15 @@ import {
 import {
   KeyboardArrowUpOutlined as ArrowUpIcon,
   KeyboardArrowDownOutlined as ArrowDownIcon,
-  ViewColumn as ViewColumnIcon,
-  FormatListBulleted as ListIcon,
   ViewModule as GridViewIcon,
   ViewList as ListViewIcon
 } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
+import { PiDotsNine } from "react-icons/pi";
+import { PiListBulletsLight } from "react-icons/pi";
+
+import { BsArrowDownUp } from "react-icons/bs";
+import { RiSortAlphabetAsc } from "react-icons/ri";
 
 const ProductControls = ({
   sortOn,
@@ -28,12 +31,16 @@ const ProductControls = ({
   isGridView,
   setIsGridView,
   sortOption,
-  products
+  products,
+  currentCategory
 }) => {
+
+  console.log(products , " projeifjjthtjhfjtejfi");
+  
   const { t } = useTranslation()
 
   return (
-    <Box className='sticky top-0 z-[1] bg-[#f5f5f5] py-2'>
+    <Box className='sticky top-0 z-[1] bg-white py-2'>
       {/* Mobile Status Bar */}
       <Box className='sm:hidden flex justify-between items-center mb-2 px-2'>
         <Box className='flex items-center gap-2'>
@@ -73,13 +80,38 @@ const ProductControls = ({
 
       {/* Desktop Controls */}
       <Box className='hidden sm:flex justify-between items-center'>
-        <Box className='flex gap-2'>
-          <Box className='relative min-w-[150px] sm:w-auto' onClick={() => setSortOn(!sortOn)}>
-            <Button
-              variant='outlined'
-              onClick={() => setSortOn(!sortOn)}
-              className='w-fit bg-transparent rounded-none border-black border text-black uppercase text-sm poppins h-12'
+   <p className='text-xl font-medium'>
+  {t("header_categories.shop")} &nbsp;- &nbsp; {currentCategory}
+</p>
+
+
+        
+
+
+        <Box className='flex gap-3'>
+          <Box className='w-fit flex flex-col md:flex-row ml-2 gap-x-3'>
+            <Typography
+              className='md:text-xl text-md text-black cursor-pointer border rounded-md p-1' 
+              onClick={() => setIsGridView(true)}
             >
+              < PiDotsNine size={28} className='text-gray-600' /> {/* increased size */}
+
+            </Typography>
+            <Typography
+              className='md:text-xl text-md text-black cursor-pointer border rounded-md p-1'
+              onClick={() => setIsGridView(false)}
+            >
+              <PiListBulletsLight size={28} className='text-gray-600' /> {/* increased size */}
+            </Typography>
+          </Box>
+          <Box  className='relative min-w-[10px] sm:w-auto' onClick={() => setSortOn(!sortOn)}>
+            <Button
+            style={{ borderRadius: '8px' }}
+            variant='outlined'
+            onClick={() => setSortOn(!sortOn)}
+            className='w-fit bg-transparent border-gray-300 border text-black uppercase text-sm poppins h-12'
+            >
+            <BsArrowDownUp className='m-2 '/>
               {priceSortText}
               {sortOn ? (
                 <ArrowUpIcon className='text-base ms-2' />
@@ -88,14 +120,14 @@ const ProductControls = ({
               )}
             </Button>
             {sortOn && (
-              <Box className='absolute gap-y-2 p-2.5 z-50 top-full w-full left-0 bg-white border-t-0 border-r border-b border-l'>
+              <Box  className='absolute gap-y-2 p-2.5 z-50 top-full w-full left-0 bg-white border-t-0 border-r border-b border-l'>
                 {[3, 4].map((index, i) => (
                   <React.Fragment key={index}>
                     {i > 0 && <Divider className='my-1' />}
                     <Typography
                       className='text-sm text-black poppins cursor-pointer'
                       onClick={() => handleSortOptionChange(index)}
-                    >
+                      >
                       {index === 3 ? 'Low to High' : 'High to Low'}
                     </Typography>
                   </React.Fragment>
@@ -104,12 +136,14 @@ const ProductControls = ({
             )}
           </Box>
 
-          <Box className='relative min-w-[130px] sm:w-auto' onClick={() => setSortingOn(!sortingOn)}>
+          <Box className='relative min-w-[10px] sm:w-auto' onClick={() => setSortingOn(!sortingOn)}>
             <Button
+              style={{ borderRadius: '8px' }}
               variant='outlined'
               onClick={() => setSortingOn(!sortingOn)}
-              className='w-fit bg-transparent rounded-none border-black border text-black uppercase text-sm poppins h-12'
-            >
+              className='w-fit bg-transparent border-gray-300 border text-black uppercase text-sm poppins h-12 '
+              >
+                <RiSortAlphabetAsc className='m-2'/>
               {alphaSortText}
               {sortingOn ? (
                 <ArrowUpIcon className='text-base ms-2' />
@@ -134,20 +168,7 @@ const ProductControls = ({
             )}
           </Box>
         </Box>
-        <Box className='w-fit flex flex-col md:flex-row ml-2 gap-x-3'>
-          <Typography
-            className='md:text-xs text-md text-black cursor-pointer'
-            onClick={() => setIsGridView(true)}
-          >
-            <ViewColumnIcon />
-          </Typography>
-          <Typography
-            className='md:text-xs text-md text-black cursor-pointer'
-            onClick={() => setIsGridView(false)}
-          >
-            <ListIcon />
-          </Typography>
-        </Box>
+
       </Box>
     </Box>
   )

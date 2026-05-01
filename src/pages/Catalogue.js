@@ -1,4 +1,5 @@
 import React from "react";
+import Banner from "../assets/shop2.png"
 import {
   Box,
   Grid,
@@ -7,9 +8,8 @@ import {
   Button,
   CardActions,
 } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import DownloadIcon from "@mui/icons-material/Download";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import { FaFilePdf } from "react-icons/fa";
 import { styled } from "@mui/system";
 import contactImage from "../assets/contactsvg.svg";
 import { Hero } from "../components";
@@ -133,91 +133,90 @@ const Catalogue = () => {
         }}
       />
       {/* Header */}
-      <Hero title={t("our_catalogues")} color={"#fff"} />
+      <Hero  bg={Banner}  title={t("our_catalogues")} color={"#fff"} />
 
       {/* Catalogue Grid */}
-      <Grid container spacing={3} className="px-16 py-8">
-        {catalogues.map((catalogue, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-            {/* We use StyledCard here instead of MUI's <Card> */}
-            <StyledCard>
-              {/* PDF Icon placeholder (instead of an image) */}
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  minHeight: 150,
-                }}
-              >
-                <PictureAsPdfIcon
-                  sx={{ fontSize: 60, color: "#2858A3" }}
-                  aria-label="PDF Icon"
-                />
-              </Box>
+    <Grid container spacing={2} className="px-4 sm:px-6 md:px-10 lg:px-16 py-6 mt-10">
+  {catalogues.map((catalogue, index) => (
+    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+      
+      <StyledCard className="bg-gray-200 h-full">
+        
+        {/* Icon */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: 120,
+          }}
+        >
+          <FaFilePdf className="text-6xl sm:text-7xl text-red-600" />
+        </Box>
 
-              {/* Catalogue Name */}
-              <CardContent>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  className="poppins"
-                  sx={{
-                    color: "#333",
-                    fontWeight: 600,
-                    textAlign: "center",
-                    fontSize: "1rem",
-                    height: '80px'
-                  }}
-                >
-                  {t(catalogue.name)}
-                </Typography>
-              </CardContent>
+        {/* Title */}
+        <CardContent>
+          <Typography
+            variant="h6"
+            className="poppins text-center"
+            sx={{
+              color: "#333",
+              fontWeight: 600,
+              fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.4rem" },
+            }}
+          >
+            {t(catalogue.name)}
+          </Typography>
+        </CardContent>
 
-              {/* Actions: View / Download */}
-              <CardActions
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: 2,
-                  paddingBottom: "1rem",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  startIcon={<VisibilityIcon />}
-                  sx={{
-                    backgroundColor: "#2858A3",
-                    color: "#fff",
-                    "&:hover": { backgroundColor: "#1E4682" },
-                  }}
-                  href={catalogue.file}
-                  target="_blank"
-                >
-                  {t("view")}
-                </Button>
-                <Button
-                  variant="outlined"
-                  startIcon={<DownloadIcon />}
-                  sx={{
-                    borderColor: "#2858A3",
-                    color: "#2858A3",
-                    "&:hover": {
-                      backgroundColor: "#2858A3",
-                      color: "#fff",
-                      borderColor: "#2858A3",
-                    },
-                  }}
-                  href={catalogue.file}
-                  download
-                >
-                  {t("download")}
-                </Button>
-              </CardActions>
-            </StyledCard>
-          </Grid>
-        ))}
-      </Grid>
+        {/* Buttons */}
+        <CardActions
+          className="flex flex-col sm:flex-row gap-2 justify-center px-4 pb-6"
+        >
+          <Button
+            
+            variant="contained"
+            sx={{
+              width: "40%",
+              backgroundColor: "#2858A3",
+              color: "#fff",
+              borderRadius: "30px",
+              py: 1.4,
+              "&:hover": { backgroundColor: "#1E4682" },
+            }}
+            href={catalogue.file}
+            target="_blank"
+          >
+            {t("view")}
+          </Button>
+
+          <Button
+            
+            variant="outlined"
+            sx={{
+              width: "40%",
+              borderColor: "#2858A3",
+              color: "#000",
+              borderRadius: "30px",
+              backgroundColor: "white",
+              py: 1.4,
+              "&:hover": {
+                backgroundColor: "#2858A3",
+                color: "#fff",
+                borderColor: "#2858A3",
+              },
+            }}
+            href={catalogue.file}
+            download
+          >
+            {t("download")}
+          </Button>
+        </CardActions>
+
+      </StyledCard>
+    </Grid>
+  ))}
+</Grid>
     </Box>
   );
 };

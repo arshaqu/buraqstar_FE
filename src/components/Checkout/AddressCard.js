@@ -102,7 +102,8 @@ const AddressCard = ({ index, address, selectedAddress, onSelect, fetchAddresses
               <Box display="flex" alignItems="center" justifyContent={{ xs: 'space-between', sm: 'flex-start' }} gap={1} width={{ xs: '100%', sm: 'auto' }}>
                 <FormControlLabel
                   control={
-                    <Radio
+                    <Radio 
+                    className='poppins'
                       checked={selectedAddress === address.id}
                       onChange={() => onSelect(address.id)}
                       value={address.id}
@@ -126,7 +127,7 @@ const AddressCard = ({ index, address, selectedAddress, onSelect, fetchAddresses
                       if (onEdit) onEdit(address);
                     }}
                     sx={{
-                      color: '#2858a3',
+                      color: '#000000',
                       '&:hover': {
                         backgroundColor: '#2858a310',
                       }
@@ -137,6 +138,7 @@ const AddressCard = ({ index, address, selectedAddress, onSelect, fetchAddresses
                   </IconButton>
                   {!address.default_shipping && (
                     <IconButton
+                    
                       onClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
@@ -166,11 +168,12 @@ const AddressCard = ({ index, address, selectedAddress, onSelect, fetchAddresses
                     e.stopPropagation();
                     handleMakeDefault();
                   }}
+                  className='poppins'
                   sx={{ 
                     textTransform: 'capitalize', 
                     padding: '6px 16px', 
                     fontWeight: 500, 
-                    borderRadius: 2,
+                    borderRadius: 6,
                     minWidth: '120px',
                     width: { xs: '100%', sm: 'auto' },
                     display: 'flex',
@@ -195,11 +198,11 @@ const AddressCard = ({ index, address, selectedAddress, onSelect, fetchAddresses
             <Grid item xs={12} sm={6} key={index}>
               <Box display="flex" alignItems="center">
                 {field.icon}
-                <Typography variant="subtitle2" color="textSecondary" sx={{ ml: 1 }}>
+                <Typography className='poppins' variant="subtitle2" color="textSecondary" sx={{ fontWeight: 600, ml: 1 }}>
                   {field.label}:
                 </Typography>
               </Box>
-              <Typography variant="body1" sx={{ fontWeight: 600, ml: 3 }}>
+              <Typography className='poppins' variant="body1" sx={{ fontWeight: 500, ml: 3 }}>
                 {field.value}
               </Typography>
             </Grid>

@@ -8,99 +8,143 @@ import { useTranslation } from 'react-i18next'
 import defaultImage from "../../assets/contactsvg.svg"
 import { getName } from '../../utils'
 
-const ProductGrid = React.memo(({ sortedProducts, navigate, handleModalClick }) => {
+const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
   const { i18n } = useTranslation()
+
   const [refs, getClass] = useScrollAnimationProducts(
     sortedProducts.length,
     "opacity-10 translate-y-10",
-    "opacity-100 translate-y-0 transition-all duration-700 ease-out hover:scale-105 hover:rotate-1"
+    "opacity-100 translate-y-0 transition-all duration-700 ease-out"
   )
 
   const { currency, exchangeRate } = useContext(AuthContext)
 
   return (
-    <>
-      {sortedProducts.map((prod, i) => (
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={4}
-          ref={(el) => refs.current[i] = el}
-          className={`px-2.5 ${getClass(i)}`}
-          style={{ transition: "transform 0.7s ease-in, opacity 0.7s ease-in" }}
-          key={prod.id || i}
-        >
-          <ButtonBase
-            onClick={() => navigate('/product/' + prod.slug)}
-            sx={{ width: '100%' }}
+    <Box className="border-2 border-gray-300 p-10 rounded-xl overflow-hidden">
+     <Grid container spacing={2} justifyContent="flex-start">
+        {sortedProducts.map((prod, i) => (
+         <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            key={prod.id || i}
+            ref={(el) => (refs.current[i] = el)}
+            className={`${getClass(i)}`}
+            sx={{
+              display: 'flex',
+              minWidth: '250px',   // ✅ FIX
+              maxWidth: '300px',   // ✅ FIX
+            }}
           >
-            <Box className="w-[41vh] h-96 products-box">
-              <Box className="bg-white relative h-[70%] w-full flex justify-center items-center rounded-2xl border-2 border-[#2858a3] hover:border-[#1e4080] transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02]">
-                <div className="image-div">
-                  <img
-                    className="h-[75%] w-auto hover-image2"
-                    src={prod.images?.length > 0 ? ImageURL + prod.images[0] : defaultImage}
-                    alt={prod.name}
-                  />
-                  <img
-                    className="h-[75%] w-auto object-fit hover-img"
-                    src={
-                      prod.images?.length > 1
-                        ? ImageURL + prod.images[1]
-                        : prod.images?.length === 1
-                          ? ImageURL + prod.images[0]
-                          : defaultImage
-                    }
-                    alt={prod.name}
-                  />
-                </div>
-                <Box className="absolute top-2.5 px-2.5 flex w-full h-fit justify-between">
-                  {prod.hot && (
-                    <Box className="bg-[#FF0F0F] px-2 py-1 uppercase poppins text-white text-xs h-[24px]">
-                      Hot
+            <ButtonBase
+              onClick={() => {
+                const stored = JSON.parse(localStorage.getItem("recentProducts")) || [];
+                
+                
+                const productData = {
+                  id: prod.id,
+                  name: prod.name,
+                  image: prod.images?.length > 0
+                  ? ImageURL + prod.images[0]
+                  : defaultImage,
+                  price: prod.discount_price || prod.price,
+                  slug: prod.slug,
+                  code: prod.item_code
+                };
+                console.log(prod, '---------------------------');
+
+                const updated = [
+                  productData,
+                  ...stored.filter((item) => item.id !== prod.id),
+                ].slice(0, 7);
+
+                localStorage.setItem("recentProducts", JSON.stringify(updated));
+
+                navigate('/product/' + prod.slug);
+              }}
+              sx={{ width: "100%", textAlign: "left", alignItems: "stretch" }}
+            >
+              <Box className="bg-white border-r border-b p-3 hover:shadow-md transition-all duration-300 flex flex-col w-full h-full">
+
+                {/* IMAGE */}
+                <Box className="relative w-full aspect-square rounded-md overflow-hidden flex items-center justify-center">
+                 <img
+                  loading="lazy"
+                  src={prod.images?.length > 0 ? ImageURL + prod.images[0] : defaultImage}
+                  alt={prod.name}
+                  className="w-full h-full object-contain p-2"
+                />
+
+                  {/* LEFT BADGES */}
+                  <Box className="absolute top-2 left-2 flex flex-col gap-1">
+                    {prod.is_new && (
+                      <span className="bg-gray-200 text-xs font-semibold px-3 py-1 rounded">NEW</span>
+                    )}
+                    {prod.hot && (
+                      <span className="bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded">HOT</span>
+                    )}
+                  </Box>
+
+                  {/* RIGHT BADGES */}
+                  <Box className="absolute top-2 right-2 flex flex-col items-end gap-1">
+                    <Box
+                      onClick={(e) => e.stopPropagation()} // IMPORTANT
+                      className="bg-white rounded-full shadow"
+                    >
+                      <AddToWishlist
+                        product={prod}
+                        products={[]}
+                        setProducts={() => {}}
+                        viaCategory={true}
+                        open={false}
+                        setOpen={() => {}}
+                      />
                     </Box>
-                  )}
-                  <AddToWishlist
-                    product={prod}
-                    products={[]}
-                    setProducts={() => { }}
-                    viaCategory={true}
-                    open={false}
-                    setOpen={() => { }}
-                  />
+
+                    {prod.discount_price && (
+                      <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
+                        -{Math.round(((prod.price - prod.discount_price) / prod.price) * 100)}%
+                      </span>
+                    )}
+                  </Box>
                 </Box>
 
-                <Box className="absolute bottom-2.5 left-0 px-2.5 flex w-full h-fit justify-end">
-                  {/* <IconButton onClick={(e) => handleModalClick(e, prod)}>
-                    <AddShoppingCartIcon className="text-gray-600 text-xl" />
-                  </IconButton> */}
-                </Box>
-              </Box>
-              <Box className="text-center py-6 px-3">
-                <Typography className="poppins uppercase text-xs">
-                  {getName(prod, i18n.language)}
-                </Typography>
-                <Box className="flex justify-center gap-x-4 pt-1">
-                  {prod.discount_price && (
-                    <Typography className="poppins uppercase text-sm text-[#FF0F0F]">
-                      {currency} {Math.round(prod.discount_price * exchangeRate * 100) / 100}
-                    </Typography>
-                  )}
-                  <Typography
-                    className={`poppins uppercase text-md font-bold ${prod.discount_price && "line-through"}`}
-                  >
-                    {currency}  {Math.round(prod.price * exchangeRate * 100) / 100}
+                {/* CONTENT */}
+                <Box className="pt-3 flex flex-col flex-grow p-4">
+                  <Box className="flex items-center gap-1 text-gray-700 text-md ">
+                    {prod.stocks}
+                    <span className="text-gray-500 ml-1 poppins">Stocks</span>
+                  </Box>
+
+                  <Typography className="text-gray-400 text-md mt-1 poppins">
+                    {prod.item_code}
                   </Typography>
+
+                  <Typography className="text-lg text-[#2858A3] mt-1 hover:underline line-clamp-2 min-h-[40px] poppins">
+                    {getName(prod, i18n.language)}
+                  </Typography>
+
+                  <Box className="flex items-center gap-2 mt-auto ">
+                    <Typography className="font-semibold text-xl poppins">
+                      {currency} {Math.round((prod.discount_price || prod.price) * exchangeRate)}
+                    </Typography>
+
+                    {prod.discount_price && (
+                      <Typography className="text-gray-400 line-through text-xl">
+                        {currency} {Math.round(prod.price * exchangeRate)}
+                      </Typography>
+                    )}
+                  </Box>
                 </Box>
+
               </Box>
-            </Box>
-          </ButtonBase>
-        </Grid>
-      ))}
-    </>
+            </ButtonBase>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   )
 })
 
 export default ProductGrid
-

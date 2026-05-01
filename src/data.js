@@ -203,7 +203,19 @@ export const footerSocials = [
   { icon: <XIcon />, link: "https://x.com/BuraqstarUAE" },
   { icon: <PinterestIcon />, link: "https://www.pinterest.com/buraqstartrading/" }, // Uncomment and add the correct link
   { icon: <FaTiktok className="text-base mb-1" />, link: "https://www.tiktok.com/@buraq.star?lang=en" },
+  
 ];
+
+export const HeaderSocials = [
+  { icon: <FacebookOutlinedIcon />, link: "https://www.facebook.com/buraqstartrading" },
+  { icon: <XIcon />, link: "https://x.com/BuraqstarUAE" },
+  { icon: <YouTube />, link: "https://www.youtube.com/channel/UC7jBbp5U9O2PPa99zjGDXtA" },
+  // { icon: <LinkedIn />, link: "https://www.linkedin.com/company/buraq-star-trading-co-llc" },
+  { icon: <InstagramIcon />, link: "https://www.instagram.com/buraqstar/?next=%2F&hl=en" },
+  { icon: <PinterestIcon />, link: "https://www.pinterest.com/buraqstartrading/" }, // Uncomment and add the correct link
+  // { icon: <FaTiktok className="text-base mb-1" />, link: "https://www.tiktok.com/@buraq.star?lang=en" },
+];
+
 
 export const novexProducts = [
   {

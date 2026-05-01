@@ -141,10 +141,10 @@ const FloatingCart = () => {
                 >
                     <p style={{ fontSize: '.75rem', margin: 0 }}>
                         <ShoppingCartCheckoutIcon /> 
-                        <span>{totalUniqueItems} {totalUniqueItems === 1 ? t('floating_cart.item') : t('floating_cart.items_plural')}</span>
+                        <span className="poppins font-semibold">{totalUniqueItems} {totalUniqueItems === 1 ? t('floating_cart.item') : t('floating_cart.items_plural')}</span>
                     </p>
                     <Box 
-                        className='bg-[#fff] text-[#2858a3] p-1.5 mt-1.5' 
+                        className='bg-[#fff] text-[#2858a3] p-1.5 mt-1.5 poppins font-semibold' 
                         style={{ fontSize: '12px', borderRadius: '4px' }}
                     > 
                         {currency} {Math.round(cartTotal * exchangeRate * 100) / 100}

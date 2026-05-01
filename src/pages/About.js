@@ -5,6 +5,7 @@ import { Banner, Banner2, Brands, Certifications, Gallery, Hero, Message, Wrappe
 import { useTranslation } from "react-i18next";
 import SEO from "../components/SEO";
 import { SITE_URL } from "../constants";
+import ReadyBanner from "../components/Layout/ReadyBanner";
 
 const About = () => {
   const { t } = useTranslation(); // Hook for translations
@@ -74,9 +75,9 @@ const About = () => {
       {/* <Banner /> */}
 
       <Brands t={t} />
-      <Box className="flex justify-center">
+      {/* <Box className="flex justify-center">
         <Divider className="bg-[#CCCCCC] w-[90%] my-16" />
-      </Box>
+      </Box> */}
       <Certifications />
       {/* <Banner2 /> */}
       {/* <Gallery /> */}
@@ -84,6 +85,7 @@ const About = () => {
         <Divider className="bg-[#CCCCCC] w-[90%] mb-10" />
       </Box> */}
       {/* <Wrapper /> */}
+      <ReadyBanner/>
     </Box>
   );
 };

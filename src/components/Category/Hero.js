@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
+
 const Hero = ({ bg, title, desc = null, color = null }) => {
   return (
     <Box
@@ -8,26 +9,43 @@ const Hero = ({ bg, title, desc = null, color = null }) => {
         position: "relative",
         color: "white",
         textAlign: "center",
-        background: "linear-gradient(90deg, #2858a3 0%, #2858a3 100%)",
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
-      className=""
+      className="w-full h-[27rem] flex items-center justify-center"
     >
-      <Box sx={{ py: 8, position: "relative", zIndex: 2 }}>
+      {/* Overlay (dark gradient for readability) */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+        }}
+      />
+
+      {/* Content */}
+      <Box sx={{ position: "relative", zIndex: 2 }}>
         <Typography
           variant="h4"
-          className="poppins font-bold justify-center align-middle"
+          className="poppins font-semibold text-3xl sm:text-5xl"
           sx={{ color: "#fff" }}
         >
           {title}
         </Typography>
-        {
-          !desc ?? <>
-            <Typography variant="body1" className="poppins" sx={{ color: "#fefefe" }}>
-              Find our nearest stores and visit us today!
-            </Typography>
-          </>
-        }
+
+        {/* Fix condition */}
+        {desc && (
+          <Typography
+            variant="body1"
+            className="poppins mt-2"
+            sx={{ color: "#fefefe" }}
+          >
+            {desc}
+          </Typography>
+        )}
       </Box>
+  
 
       {/* Wave SVG at the bottom of the header */}
       {/* <Box
@@ -63,3 +81,4 @@ className="w-full h-56 bg-cover bg-no-repeat bg-center px-10 sm:px-24 flex items
 </Box> */}
 
 export default Hero;
+

@@ -33,7 +33,7 @@ const DeliveryOptions = ({ deliveryType, setDeliveryType, deliveryOptions, curre
       role="presentation"
     >
       <Box className="px-5 pt-5 pb-2" style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <p style={{ fontWeight: 900, fontSize: '16px' }}>{t('checkout.delivery_options')}</p>
+        <p style={{ fontWeight: 600, fontSize: '16px' }}>{t('checkout.delivery_options')}</p>
       </Box>
       <RadioGroup
         value={deliveryType}
@@ -61,18 +61,18 @@ const DeliveryOptions = ({ deliveryType, setDeliveryType, deliveryOptions, curre
                 control={<Radio />}
                 label={
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                    <Typography className="poppins" variant="body1" sx={{ fontWeight: 500 }}>
                       {getLabel(option.type)}
                     </Typography>
                     {description && (
-                      <Typography variant="caption" color="textSecondary" sx={{ fontSize: '0.75rem' }}>
+                      <Typography className="poppins" variant="caption" color="textSecondary" sx={{ fontSize: '0.75rem' }}>
                         {description}
                       </Typography>
                     )}
                   </Box>
                 }
               />
-              <Typography variant="body1" sx={{ fontWeight: 600, marginLeft: '16px' }}>
+              <Typography className="poppins"  variant="body1" sx={{ fontWeight: 600, marginLeft: '16px' , }}>
                 {currency} {Math.round((option.cost || 0) * exchangeRate * 100) / 100}
               </Typography>
             </Box>

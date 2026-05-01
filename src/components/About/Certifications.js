@@ -5,6 +5,8 @@ import certificate2 from "../../assets/certificate2.jpg";
 import certificate3 from "../../assets/certificate3.jpg";
 import certificate4 from "../../assets/certificate4.jpg";
 import certificate5 from "../../assets/certificate5.jpg";
+import buraqlog from "../../assets/buraqlog.png";
+
 
 const Certifications = () => {
   const certificates = [
@@ -15,14 +17,33 @@ const Certifications = () => {
     certificate5,
   ];
   return (
-    <Box className="w-full h-fit pb-16">
-      <Typography className="poppins text-center capitalize text-3xl font-bold w-full text-[#2E2E2E] mb-5 sm:mb-10 py-2">
-        Our Certifications
-      </Typography>
-      <Grid container className="px-5 sm:px-10 flex justify-center">
+    <Box className="w-full h-fit ">
+           <Box className="text-center mb-10 mt-10">
+        <Typography className="text-3xl sm:text-4xl font-semibold text-[#2E2E2E] poppins">
+         Our Certificates
+        </Typography>
+
+        <Typography className="text-gray-500 mt-2 max-w-xl mx-auto poppins">
+         Our standards are supported by certified quality practices and compliance, ensuring reliability across product lines and markets.
+        </Typography>
+
+        <div className="flex items-center justify-center gap-4">
+          <div className="w-20 h-[1px] bg-gray-400"></div>
+          <img
+            src={buraqlog}
+            alt="logo"
+            className="w-8 h-8 object-contain"
+            loading="lazy"
+          />
+          <div className="w-20 h-[1px] bg-gray-400"></div>
+        </div>
+      </Box>
+
+      
+      <Grid container className="px-5 sm:px-10 flex justify-center gap-5" >
         {certificates.map((cert, i) => (
-          <Grid item xs={12} sm={4} key={i} className="p-2.5">
-            <Box className="w-full h-fit bg-[#e8f8fd]">
+          <Grid item xs={12} sm={2} key={i}>
+            <Box className="w-full h-fit  border-[6px] border-gray-50 rounded-lg ">
               <img
                 src={cert}
                 alt={`certificate${i}`}

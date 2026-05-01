@@ -23,24 +23,82 @@ const Description = ({ description, specifications, brand, datasheet }) => {
 
   return (
     <>
-      <Grid item xs={12} className="mt-10">
-        <Box className="w-full h-fit">
-          <Box className="flex gap-x-3">
-            <Button
-              onClick={() => setMode(1)}
-              className={`${mode === 1 ? 'bg-black' : 'bg-[#1E55AC]'} py-4 px-10 text-lg text-white font-semibold poppins capitalize`}
-            >
-              {t('product.overview')}
-            </Button>
-            <Button
-              onClick={() => setMode(2)}
-              className={`${mode === 2 ? 'bg-black' : 'bg-[#1E55AC]'} py-4 px-10 text-lg text-white font-semibold poppins capitalize`}
-            >
-              {t('product.specifications')}
-            </Button>
-          </Box>
+   <Grid item xs={12} className="mt-10">
+  <Box className="w-full h-fit">
+    {/* Tab Bar */}
+    <Box
+      className="flex gap-x-0"
+      sx={{ borderBottom: '1px solid #e5e7eb' }}
+    >
+      <Button
+        onClick={() => setMode(1)}
+        disableRipple
+        sx={{
+          py: '12px',
+          px: '24px',
+          fontSize: '14px',
+          fontWeight: 600,
+          color: mode === 1 ? '#2858a3' : '#6b7280',
+          backgroundColor: 'transparent',
+          borderBottom: mode === 1 ? '4px solid #2858a3' : '4px solid transparent',
+          backgroundColor: mode === 1 ? ' #2858A41A' : '4px solid transparent',
+          borderRadius: '10px 10px 0 0',
+          textTransform: 'capitalize',
+          fontFamily: 'inherit',
+          minWidth: 'auto',
+          '&:hover': {
+            color: '#2858a3',
+          },
+          mb: '-1px', // overlap the bottom border
+        }}
+      >
+        {t('product.overview')}
+      </Button>
+
+      <Button
+        onClick={() => setMode(2)}
+        disableRipple
+        sx={{
+          py: '12px',
+          px: '24px',
+          fontSize: '14px',
+          fontWeight: 600,
+          color: mode === 2 ? '#2858a3' : '#6b7280',
+          backgroundColor: 'transparent',
+          borderBottom: mode === 2 ? '4px solid #2858a3' : '4px solid transparent',
+          borderRadius: 0,
+          backgroundColor: mode === 2 ? ' #2858A41A' : '4px solid transparent',
+          textTransform: 'capitalize',
+          borderRadius: '10px 10px 0 0',
+          fontFamily: 'inherit',
+          minWidth: 'auto',
+          '&:hover': {
+            color: '#2858a3',
+          },
+          mb: '-1px',
+        }}
+      >
+        {t('product.specifications')}
+      </Button>
+    </Box>
+
+    {/* Tab Content */}
+    <Box className="mt-6">
+      {mode === 1 && (
+        <Box sx={{ color: '#374151', fontSize: '14px', lineHeight: 1.75 }}>
+          {/* your overview content here */}
         </Box>
-      </Grid>
+      )}
+      {mode === 2 && (
+        <Box sx={{ color: '#374151', fontSize: '14px', lineHeight: 1.75 }}>
+          {/* your specifications content here */}
+        </Box>
+      )}
+    </Box>
+  </Box>
+</Grid>
+
+
       {mode === 1 && (
         <Grid item xs={12} sm={7} className="mt-10">
           <Typography 
@@ -48,7 +106,8 @@ const Description = ({ description, specifications, brand, datasheet }) => {
             style={{ 
               textAlign: 'justify',
               textJustify: 'inter-word',
-              wordSpacing: '0.05em'
+              wordSpacing: '0.05em',
+             
             }}
           >
             <div dangerouslySetInnerHTML={{ __html: description }} />

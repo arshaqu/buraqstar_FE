@@ -1,4 +1,4 @@
-import { Box, Divider, Grid } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ajaxService from "../services/ajax-service";
@@ -10,6 +10,8 @@ import { getDescription } from "../utils";
 import SEO from "../components/SEO";
 import defaultImage from "../assets/contactsvg.svg";
 import { Notification } from "../components/AddToWishlist";
+import DeliveryTags from "../components/Product/DeliveryTags";
+import RecentlyView from "../components/RecentlyView";
 
 const Product = () => {
   const { slug } = useParams();
@@ -99,10 +101,13 @@ const Product = () => {
           }}
         />
       )}
+            <Typography className="text-gray-700 leading-relaxed  ml-10 pl-5 pt-5 poppins text-lg">
+          {t('dashboard_sidebar.home')} &nbsp; &gt; &nbsp; <span className="text-[#2858A3] ">{t('Product Detail')}</span>
+        </Typography>
       {loading ? (
         <ProductViewSkeleton />
       ) : (
-        <Grid container className="pt-16 px-5 sm:p-16 sm:pb-0">
+        <Grid container className="px-5 sm:p-16 sm:pt-0">
           <Grid
             item
             sm={4}
@@ -118,7 +123,7 @@ const Product = () => {
           </Grid>
           <Grid
             item
-            sm={7}
+            sm={6}
             xs={12}
             className="pt-6 sm:pt-0 animate-fadeInLeft"
             sx={{
@@ -165,26 +170,11 @@ const Product = () => {
               animationFillMode: "forwards",
             }}
           >
-            <Divider className="bg-black mt-16" />
+  
           </Grid>
         </Grid>
       )}
 
-      {/* Alternative Products Section */}
-      {!loading && product.alternative_products && product.alternative_products.data && product.alternative_products.data.length > 0 && (
-        <Grid
-          item
-          xs={12}
-          className="animate-fadeInLeft"
-          sx={{
-            animationDuration: "1s",
-            animationDelay: "1s",
-            animationFillMode: "forwards",
-          }}
-        >
-          <AlternativeProducts alternativeProducts={product.alternative_products.data} />
-        </Grid>
-      )}
 
       <Grid
         item
@@ -196,7 +186,7 @@ const Product = () => {
           animationFillMode: "forwards",
         }}
       >
-        <Popular />
+        <RecentlyView />
       </Grid>
 
       <Grid
@@ -209,8 +199,8 @@ const Product = () => {
           animationFillMode: "forwards",
         }}
       >
-        <Box className="-mt-3 sm:-mt-4">
-          <BrandBanner />
+        <Box className="pb-8 p-2 sm:-mt-4">
+          <DeliveryTags />
         </Box>
       </Grid>
 

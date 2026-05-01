@@ -27,7 +27,7 @@ const AddressForm = ({ formData, handleChangeLocation, errors, handleChange, set
                     helperText={errors.delivery_address}
                 />
                 {errors.delivery_address && (
-                    <Typography variant="body2" color="error">
+                    <Typography variant="body2" className='poppins' color="error">
                         {errors.delivery_address}
                     </Typography>
                 )}
@@ -187,7 +187,7 @@ const AddressForm = ({ formData, handleChangeLocation, errors, handleChange, set
                         }}
                     />
                     {errors.phone && (
-                        <Typography variant="caption" sx={{ color: '#d32f2f', mt: 0.5, ml: 1, display: 'block', fontSize: '0.75rem' }}>
+                        <Typography variant="caption" className='poppins' sx={{ color: '#d32f2f', mt: 0.5, ml: 1, display: 'block', fontSize: '0.75rem' }}>
                             {errors.phone}
                         </Typography>
                     )}

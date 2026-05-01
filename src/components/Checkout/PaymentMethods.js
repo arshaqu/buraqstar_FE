@@ -21,17 +21,22 @@ const PaymentMethods = ({ paymentType, setPaymentType, t }) => {
       role="presentation"
     >
       <Box className="px-5 pt-5 pb-2" style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <p style={{ fontWeight: 900, fontSize: '16px' }}>{t('checkout.payment_methods')}</p>
+        <p className="poppins" style={{ fontWeight: 600, fontSize: '16px' }}>{t('checkout.payment_methods')}</p>
       </Box>
       <RadioGroup
         value={paymentType}
         onChange={handleMethodChange}
       >
-        <Box className="px-5" style={{ height: '50px', width: 'auto', display: 'flex', alignItems: 'center' }}>
+        <Box className="px-5 " style={{ height: '50px', width: 'auto', display: 'flex', alignItems: 'center' }}>
           <FormControlLabel
             value="cash_on_delivery"
             control={<Radio />}
             label={t('checkout.cash_on_delivery')}
+            sx={{
+              '& .MuiFormControlLabel-label': {
+                fontFamily: 'Poppins'
+              }
+            }}
           />
         </Box>
         <Box className="px-5" style={{ height: '50px', width: 'auto', display: 'flex', alignItems: 'center' }}>
