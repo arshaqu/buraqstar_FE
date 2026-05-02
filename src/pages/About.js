@@ -29,7 +29,7 @@ const About = () => {
           }
         }}
       />
-      <Hero bg={bg} title={t('about_us.title')} color={"#fff"} />
+      <Hero bg={bg} title={t('about_us.title')}  color={"#fff"} />
       {/* <Box
         sx={{
           position: "relative",

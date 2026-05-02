@@ -83,15 +83,19 @@ const ResetPassword = () => {
                     "url": `${SITE_URL}/user/reset-password`,
                 }}
             />
+             <Typography className="text-gray-700 leading-relaxed mb-6 ml-10 p-5 poppins text-2xl">
+                          {t('dashboard_sidebar.home')} &nbsp; &gt; &nbsp; <span className="text-[#2858A3] ">{t('OTP verification')}</span>
+                        </Typography>
             <Grid className='poppins my-7' container component="main" sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={12} sm={8} md={4} component={Paper} elevation={6} square>
                     <Box sx={{ my: 10, mx: 4 }}>
-                        <Typography component="h1" variant="h5" className='poppins' style={{ color: '#2858a3', fontWeight: 900 }}>
+                          <Typography variant="body2" className='poppins ' sx={{ mt: 1, color: '#666' }}>A OTP is sent to your given email address.</Typography>
+                        <Typography component="h1" variant="h5" className='poppins ' style={{ color: '#2858a3', fontWeight: 900 }}>
                             {t('reset_password')}
                         </Typography>
-                        <Typography variant="body2" sx={{ mt: 1, color: '#666' }}>{email}</Typography>
+                        <Typography variant="body2" className='poppins ' sx={{ mt: 1, color: '#666' }}>{email}</Typography>
                         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
                             <TextField
+                            className='bg-white'
                                 fullWidth
                                 id="code"
                                 label={t('enter_code')}
@@ -102,6 +106,7 @@ const ResetPassword = () => {
                                 onChange={onChange}
                             />
                             <TextField
+                                className='bg-white'
                                 fullWidth
                                 sx={{ mt: 2 }}
                                 id="password"
@@ -115,17 +120,17 @@ const ResetPassword = () => {
                             />
                             <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
                                 <Button
-                                    className='poppins bg-[#2858a3]'
+                                    className='poppins bg-[#2858a3] hover:bg-[#02AFF3] w-full'
                                     style={{ height: '50px', textTransform: 'capitalize' }}
                                     type="submit"
                                     variant="contained"
                                     disabled={loading}
                                 >
-                                    {loading && <CircularProgress size={25} className="text-white" />}
+                                    {loading && <CircularProgress size={25} className="text-white poppins" />}
                                     {!loading && t('reset_password')}
                                 </Button>
                                 <Button
-                                    className='poppins'
+                                    className='poppins hover:bg-[#2858a3] hover:text-white  w-full'
                                     style={{ height: '50px', textTransform: 'capitalize' }}
                                     type="button"
                                     variant="outlined"
@@ -139,7 +144,6 @@ const ResetPassword = () => {
                         </Box>
                     </Box>
                 </Grid>
-            </Grid>
 
             <NotificationBar open={open} setOpen={setOpen} type="error" message={message} />
         </>

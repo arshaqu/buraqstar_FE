@@ -541,7 +541,8 @@
     "my_profile": "My Profile",
     "home": "Home",
     "addres":"Address",
-    "track_order":"Track Order"
+    "track_order":"Track Order",
+    "addresses" : "Addresses"
   },
   "address_card": {
     "address": "Address",
@@ -606,7 +607,7 @@
   },
   "cart": {
     "add_to_cart": "Add to cart",
-    "product_added": "Product added to cart",
+    "product_added": "added",
     "out_of_stock": "Out of stock. Please check back later."
   },
 

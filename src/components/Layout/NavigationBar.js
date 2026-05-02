@@ -62,14 +62,14 @@ const NavigationBar = () => {
         </Link>
         <Box className="w-[2px] h-7 bg-gray-800" />
 
-        <Categories t={t} />
+        <Categories className='' t={t} />
         <Box className="w-[2px] h-7 bg-gray-800" />
 
         {routes.map((route, i) => {
           if (route.title === "brands")
             return (
               <React.Fragment key={i}>
-                <Brands title={t("navigation.brands")} />
+                <Brands className="hover:bg-white/20" title={t("navigation.brands")} />
                 <Box className="w-[2px] h-7 bg-gray-800" />
               </React.Fragment>
             );

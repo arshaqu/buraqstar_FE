@@ -158,17 +158,18 @@ const Login = () => {
                                 // alignItems: 'center',
                             }}
                         >
-                            <Typography component="h1" variant="h6" style={{ color: '#b5b5bf' }}>
+                            <Typography component="h1" className='poppins' variant="h6" style={{ color: '#b5b5bf' }}>
                                 {t('login_with')}
                             </Typography>
                             <Typography component="h1" variant="h4" className='poppins' style={{ color: '#2858a3', fontWeight: 900 }}>
                                 {t('buraq_star')}
                             </Typography>
-                            <Typography component="h1" variant="h6" style={{ color: '#b5b5bf' }}>
+                            <Typography className='poppins' component="h1" variant="h6" style={{ color: '#b5b5bf' }}>
                                 {t('account')}
                             </Typography>
                             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                                 <TextField
+                                className='poppins'
                                     autoFocus
                                     fullWidth
                                     margin="normal"
@@ -195,7 +196,7 @@ const Login = () => {
                                     onChange={handleChange}
                                 />
                                 <Button
-                                    className='poppins bg-[#2858a3] w-full sm:w-[30%]'
+                                    className='poppins bg-[#2858a3] w-full sm:w-[30%] poppins'
                                     style={{ height: '50px', textTransform: 'capitalize' }}
                                     type="submit"
                                     variant="contained"
@@ -207,12 +208,12 @@ const Login = () => {
                                 </Button>
                                 <Grid container className="flex-col sm:flex-row">
                                     <Grid item xs={12} sm className="mb-2 sm:mb-0">
-                                        <Link className='cursor-pointer' onClick={() => navigate('/user/forgot-password')} variant="body2">
+                                        <Link className='cursor-pointer poppins' onClick={() => navigate('/user/forgot-password')} variant="body2">
                                             {t('forgot_password')}
                                         </Link>
                                     </Grid>
-                                    <Grid item xs={12} sm className="text-left sm:text-right">
-                                        <Link className='cursor-pointer' onClick={() => navigate('/user/registration')} variant="body2">
+                                    <Grid item xs={12} sm className="text-left sm:text-right poppins">
+                                        <Link className='cursor-pointer poppins' onClick={() => navigate('/user/registration')} variant="body2">
                                             {t('dont_have_account')}
                                         </Link>
                                     </Grid>

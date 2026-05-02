@@ -93,7 +93,7 @@ const Categories = () => {
             key={`${dropdownKey}-${i18n.language}`}
             position="right"
             title={<>{t("header_categories.shop")} {categoryOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</>}
-            className="poppins text-sm text-white flex items-center relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105 group"
+            className="poppins text-md text-white flex items-center relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105 group"
             onClick={() => setCategoryOpen(!categoryOpen)}
             menuClassName="border-b-[3px] border-[#2858a3] rounded-b-md bg-[#f1f1f1] text-black h-fit absolute z-50 top-9 left-0 block"
         >

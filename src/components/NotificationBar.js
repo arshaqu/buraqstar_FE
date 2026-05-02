@@ -9,10 +9,17 @@ const NotificationBar = ({ open, setOpen, type, message }) => {
                 onClose={() => setOpen(false)}
                 severity={type}
                 variant="filled"
-                sx={{ width: '100%' }}
-            >
+                sx={{
+                    width: "100%",
+                    borderRadius: "12px",
+                    fontSize: "10px",
+                    fontWeight: 300,
+                    boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
+                    backgroundColor:'rgba(0,0,0,0.2)'
+                }}
+                >
                 {message}
-            </Alert>
+                </Alert>
         </Snackbar>
     )
 }

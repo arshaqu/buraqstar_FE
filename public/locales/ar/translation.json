@@ -581,7 +581,8 @@
     "logout": "تسجيل الخروج",
     "view_profile": "عرض الملف الشخصي",
     "my_profile": "ملفي الشخصي",
-    "home": "الرئيسية"
+    "home": "الرئيسية" ,
+     "addresses" : "العناوين"
   },
   "address_card": {
     "address": "العنوان",

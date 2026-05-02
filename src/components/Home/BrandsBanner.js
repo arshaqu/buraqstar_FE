@@ -9,6 +9,9 @@ import ajaxService from "../../services/ajax-service";
 import { AuthContext } from "../../AuthContext";
 import defaultImage from "../../assets/contactsvg.svg";
 
+import { AddToCart, AddToWishlist } from "../index";
+
+
 // ─── Constants ────────────────────────────────────────────────────────────────
 const BRAND_TABS = [
   { name: BRANDS.NOVEX, label: "NOVEX" },
@@ -63,15 +66,13 @@ const ProductCard = ({ product, onClick, cardWidth }) => {
     return null;
   };
 
-  const badge           = getBadge();
-  const rawPrice        = parseFloat(product.price || 0);
+  const badge            = getBadge();
+  const rawPrice         = parseFloat(product.price || 0);
   const rawDiscountPrice = parseFloat(product.discount_price || 0);
-  const hasDiscount     = product.discount_price && rawDiscountPrice !== rawPrice;
-  const displayPrice    = Math.round(rawPrice        * exchangeRate * 100) / 100;
-  const displayDiscount = Math.round(rawDiscountPrice * exchangeRate * 100) / 100;
-
-  // Same image logic as SaleSection
-  const imgSrc = product?.images?.[0] ? ImageURL + product.images[0] : defaultImage;
+  const hasDiscount      = product.discount_price && rawDiscountPrice !== rawPrice;
+  const displayPrice     = Math.round(rawPrice         * exchangeRate * 100) / 100;
+  const displayDiscount  = Math.round(rawDiscountPrice * exchangeRate * 100) / 100;
+  const imgSrc           = product?.images?.[0] ? ImageURL + product.images[0] : defaultImage;
 
   return (
     <ButtonBase
@@ -85,8 +86,13 @@ const ProductCard = ({ product, onClick, cardWidth }) => {
         borderRadius: "12px", overflow: "hidden", background: "#fff",
         transition: "box-shadow 0.18s",
         "&:hover": { boxShadow: "0 4px 20px rgba(0,0,0,0.10)" },
+        // ✅ needed so child "group-hover" Tailwind classes work
+        "&:hover .add-to-cart-overlay": { opacity: 1, transform: "translateY(0)" },
+        "&:hover .wishlist-overlay": { opacity: 1, transform: "translateX(0)" },
       }}
+      className="group"  // ✅ enables Tailwind group-hover
     >
+      {/* IMAGE AREA */}
       <Box
         sx={{
           position: "relative", width: "100%",
@@ -97,14 +103,72 @@ const ProductCard = ({ product, onClick, cardWidth }) => {
         }}
       >
         {badge && <BadgeChip type={badge.type} text={badge.text} />}
+
         <img
           src={imgSrc}
           alt={product.name}
           style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
           onError={(e) => { e.target.src = defaultImage; }}
         />
+
+        {/* ✅ ADD TO CART OVERLAY */}
+        <Box
+          className="add-to-cart-overlay"
+          sx={{
+            position: "absolute",
+            bottom: 10,
+            transform: "translateY(16px)",
+            opacity: 0,
+            transition: "opacity 0.3s ease, transform 0.3s ease",
+            zIndex: 10,
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <AddToCart
+            product={product}
+            quantity={1}
+            className="poppins text-sm w-48 h-10 flex items-center justify-center bg-[#1E55AC] text-white rounded-full font-semibold shadow-md hover:bg-[#02AFF3] transition-all duration-200"
+          />
+        </Box>
+
+        {/* ✅ WISHLIST + DISCOUNT OVERLAY (top-right) */}
+        <Box
+          className="wishlist-overlay"
+          sx={{
+            position: "absolute",
+            top: 8,
+            right: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+            gap: "4px",
+            opacity: 0,
+            transform: "translateX(16px)",
+            transition: "opacity 0.3s ease, transform 0.3s ease",
+            zIndex: 10,
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Box className="bg-white rounded-full shadow">
+            <AddToWishlist
+              product={product}
+              products={[]}
+              setProducts={() => {}}
+              viaCategory={true}
+              open={false}
+              setOpen={() => {}}
+            />
+          </Box>
+
+          {product.discount_price && (
+            <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
+              -{Math.round(((product.price - product.discount_price) / product.price) * 100)}%
+            </span>
+          )}
+        </Box>
       </Box>
 
+      {/* CONTENT */}
       <Box sx={{ p: "12px 14px 14px", flex: 1 }}>
         <Typography className="poppins" sx={{ fontSize: 11, color: "text.secondary", mb: "2px" }}>
           {product.category_name || product.category}
@@ -120,7 +184,7 @@ const ProductCard = ({ product, onClick, cardWidth }) => {
           {product.name}
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-          <Typography className="poppins " sx={{ fontSize: 14, fontWeight: 600 }}>
+          <Typography className="poppins" sx={{ fontSize: 14, fontWeight: 600 }}>
             {currency} {displayPrice.toFixed(2)}
           </Typography>
           {hasDiscount && (

@@ -208,12 +208,11 @@ const MyOrder = () => {
             if (response.data.success && response.data.payment_link) {
                 window.location.href = response.data.payment_link;
             } else {
-                setSnackbar({ open: true, message: response.data.message || 'Unable to process payment.', severity: 'error' });
+             
             }
         } catch (err) {
             const msg = err.response?.data?.message || 'Something went wrong. Please try again.';
-            setSnackbar({ open: true, message: msg, severity: 'error' });
-        } finally {
+          
             setRetryLoading(null);
         }
     };
@@ -269,7 +268,7 @@ const MyOrder = () => {
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={4}>
                             <Paper elevation={0} className="bg-white/40 backdrop-blur-md shadow-lg" sx={{ p: 3, borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.4)', display: 'flex', alignItems: 'center', gap: 2 }}>
-                                <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: 'rgba(37, 99, 235, 0.1)', color: '#2563EB' }}>
+                                <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: 'rgba(255, 255, 255, 0.1)', color: '#2563EB' }}>
                                     <ReceiptLong />
                                 </Box>
                                 <Box>
@@ -341,47 +340,47 @@ const MyOrder = () => {
                     />
                 </Box>
 
-                <Paper elevation={0} className="bg-white/40 backdrop-blur-md shadow-lg" sx={{ borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.4)', overflow: 'hidden' }}>
+                <Paper elevation={0} className="bg-white/10 backdrop-blur-md shadow-lg" sx={{ borderRadius: '16px', border: '1px solid rgba(168, 168, 168, 0.4)', overflow: 'hidden' }}>
                     <TableContainer className='overflow-x-auto w-full' sx={{ backgroundColor: 'transparent' }}>
                         <Table sx={{ minWidth: 800 }} aria-label="premium order table">
-                            <TableHead>
-                                <TableRow>
+                            <TableHead >
+                                <TableRow >
                                     <StyledTableCell sortDirection={orderBy === 'code' ? order : false}>
-                                        <TableSortLabel active={orderBy === 'code'} direction={orderBy === 'code' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'code')}>
+                                        <TableSortLabel className='text-gray-700 bg-white'  active={orderBy === 'code'} direction={orderBy === 'code' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'code')}>
                                             {t('my_order.order_code')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center" sortDirection={orderBy === 'product_count' ? order : false}>
+                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'product_count' ? order : false}>
                                         <TableSortLabel active={orderBy === 'product_count'} direction={orderBy === 'product_count' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'product_count')}>
                                             {t('my_order.items')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center" sortDirection={orderBy === 'payment_type' ? order : false}>
+                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'payment_type' ? order : false}>
                                         <TableSortLabel active={orderBy === 'payment_type'} direction={orderBy === 'payment_type' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'payment_type')}>
                                             {t('my_order.payment_type')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center" sortDirection={orderBy === 'delivery_status' ? order : false}>
+                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'delivery_status' ? order : false}>
                                         <TableSortLabel active={orderBy === 'delivery_status'} direction={orderBy === 'delivery_status' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'delivery_status')}>
                                             {t('my_order.delivery_status')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center" sortDirection={orderBy === 'payment_status' ? order : false}>
+                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'payment_status' ? order : false}>
                                         <TableSortLabel active={orderBy === 'payment_status'} direction={orderBy === 'payment_status' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'payment_status')}>
                                             {t('my_order.payment_status')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center" sortDirection={orderBy === 'grand_total' ? order : false}>
+                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'grand_total' ? order : false}>
                                         <TableSortLabel active={orderBy === 'grand_total'} direction={orderBy === 'grand_total' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'grand_total')}>
                                             {t('my_order.amount')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center" sortDirection={orderBy === 'created_at' ? order : false}>
+                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'created_at' ? order : false}>
                                         <TableSortLabel active={orderBy === 'created_at'} direction={orderBy === 'created_at' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'created_at')}>
                                             {t('my_order.date')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell align="right">
+                                    <StyledTableCell className='text-gray-700 bg-white' align="right">
                                         {t('my_order.actions')}
                                     </StyledTableCell>
                                 </TableRow>

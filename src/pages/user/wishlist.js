@@ -53,6 +53,10 @@ const initialize = async () => {
         }, 1000);
     }
 
+    useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
 
 
     const ProductCard = ({ prod }) => {
@@ -64,6 +68,7 @@ const initialize = async () => {
         return (
             <Box
                 sx={{
+                   
                     background: "#ffffff",
                     borderRadius: "12px",
                     overflow: "hidden",

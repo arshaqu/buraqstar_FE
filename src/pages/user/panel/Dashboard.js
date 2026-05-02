@@ -76,6 +76,10 @@ const DashboardComponent = () => {
     }
   };
 
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
   const handleLogout = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');

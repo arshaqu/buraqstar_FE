@@ -7,6 +7,8 @@ import { routes } from '../../../utils';
 import SEO from '../../../components/SEO';
 import { SITE_URL } from '../../../constants';
 import { NotificationBar } from '../../../components';
+import buraqlog from "../../../assets/buraqlog.png";
+
 
 const ForgotPassword = () => {
     const { t } = useTranslation();
@@ -57,14 +59,28 @@ const ForgotPassword = () => {
                     "url": `${SITE_URL}/user/forgot-password`,
                 }}
             />
-            <Grid className='poppins my-7' container component="main" sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={12} sm={8} md={4} component={Paper} elevation={6} square>
+               <Typography className="text-gray-700 leading-relaxed mb-6 ml-10 p-5 poppins text-2xl">
+              {t('dashboard_sidebar.home')} &nbsp; &gt; &nbsp; <span className="text-[#2858A3] ">{t('reset_password')}</span>
+            </Typography>
+            
+            <Grid className='poppins my-7'  component="main" sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Box sx={{ my: 10, mx: 4 }}>
-                        <Typography component="h1" variant="h5" className='poppins' style={{ color: '#2858a3', fontWeight: 900 }}>
-                            {t('forgot_password')}
+                        <Typography component="h6" variant="h5" className='poppins max-w-2xl' style={{ color: '#686868', fontWeight: 400 ,fontSize:'1rem', textAlign: 'left' }}>
+                            Lost your password? Please enter your email address. You will receive a link to create a new password via email.
                         </Typography>
+                           <div className="flex items-center justify-center gap-4">
+          <div className="w-20 h-[1px] bg-gray-400"></div>
+          <img
+            src={buraqlog}
+            alt="logo"
+            className="w-8 h-8 object-contain"
+            loading="lazy"
+          />
+          <div className="w-20 h-[1px] bg-gray-400"></div>
+        </div>
                         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
                             <TextField
+                            className='bg-white border border-gray-300 rounded-2xl  w-full poppins'
                                 fullWidth
                                 id="email"
                                 label={t('email_address')}
@@ -76,8 +92,8 @@ const ForgotPassword = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                             <Button
-                                className='poppins bg-[#2858a3] w-[50%]'
-                                style={{ height: '50px', textTransform: 'capitalize' }}
+                                className='poppins bg-[#2858a3] w-full hover:bg-[#02AFF3] '
+                                style={{ height: '40px', textTransform: 'capitalize' ,borderRadius:'20px' , backgroundColor:'#2858a3' }}
                                 type="submit"
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
@@ -89,7 +105,6 @@ const ForgotPassword = () => {
                         </Box>
                     </Box>
                 </Grid>
-            </Grid>
 
             <NotificationBar open={open} setOpen={setOpen} type="error" message={message} />
         </>

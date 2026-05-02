@@ -295,7 +295,7 @@ const HeaderBar = () => {
     onKeyDown={handleKeyDown}
   />
   
-  <Box style={isRTL ? { marginLeft: '-9px' } : { marginRight: '-9px' }} className='  border border-[#2858A3] rounded-3xl p-1.5 bg-[#2858A3]'>
+  <Box style={isRTL ? { marginLeft: '-9px' } : { marginRight: '-9px' }} className='  border border-[#2858A3] rounded-3xl p-1.5 bg-[#2858A3] hover:bg-[#02AFF3] transition-colors duration-200'>
     <FiSearch className="text-3xl text-white cursor-pointer" />
 
   </Box>

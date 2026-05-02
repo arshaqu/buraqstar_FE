@@ -1,29 +1,29 @@
-import React, { useContext } from 'react'
-import { Box, ButtonBase, Grid, Typography } from '@mui/material'
-import { ImageURL } from '../../constants'
-import { AddToWishlist } from '../index'
-import useScrollAnimationProducts from '../../hooks/ScrollAnimationProducts'
-import { AuthContext } from '../../AuthContext'
-import { useTranslation } from 'react-i18next'
-import defaultImage from "../../assets/contactsvg.svg"
-import { getName } from '../../utils'
+import React, { useContext } from "react";
+import { Box, ButtonBase, Grid, Typography } from "@mui/material";
+import { ImageURL } from "../../constants";
+import { AddToCart, AddToWishlist } from "../index";
+import useScrollAnimationProducts from "../../hooks/ScrollAnimationProducts";
+import { AuthContext } from "../../AuthContext";
+import { useTranslation } from "react-i18next";
+import defaultImage from "../../assets/contactsvg.svg";
+import { getName } from "../../utils";
 
 const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
-  const { i18n } = useTranslation()
+  const { i18n } = useTranslation();
 
   const [refs, getClass] = useScrollAnimationProducts(
     sortedProducts.length,
     "opacity-10 translate-y-10",
-    "opacity-100 translate-y-0 transition-all duration-700 ease-out"
-  )
+    "opacity-100 translate-y-0 transition-all duration-700 ease-out",
+  );
 
-  const { currency, exchangeRate } = useContext(AuthContext)
+  const { currency, exchangeRate } = useContext(AuthContext);
 
   return (
     <Box className="border-2 border-gray-300 p-10 rounded-xl overflow-hidden">
-     <Grid container spacing={2} justifyContent="flex-start">
+      <Grid container spacing={2} justifyContent="flex-start">
         {sortedProducts.map((prod, i) => (
-         <Grid
+          <Grid
             item
             xs={12}
             sm={6}
@@ -32,27 +32,28 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
             ref={(el) => (refs.current[i] = el)}
             className={`${getClass(i)}`}
             sx={{
-              display: 'flex',
-              minWidth: '250px',   // ✅ FIX
-              maxWidth: '300px',   // ✅ FIX
+              display: "flex",
+              minWidth: "250px", // ✅ FIX
+              maxWidth: "300px", // ✅ FIX
             }}
           >
             <ButtonBase
               onClick={() => {
-                const stored = JSON.parse(localStorage.getItem("recentProducts")) || [];
-                
-                
+                const stored =
+                  JSON.parse(localStorage.getItem("recentProducts")) || [];
+
                 const productData = {
                   id: prod.id,
                   name: prod.name,
-                  image: prod.images?.length > 0
-                  ? ImageURL + prod.images[0]
-                  : defaultImage,
+                  image:
+                    prod.images?.length > 0
+                      ? ImageURL + prod.images[0]
+                      : defaultImage,
                   price: prod.discount_price || prod.price,
                   slug: prod.slug,
-                  code: prod.item_code
+                  code: prod.item_code,
                 };
-                console.log(prod, '---------------------------');
+                console.log(prod, "---------------------------");
 
                 const updated = [
                   productData,
@@ -61,53 +62,115 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
 
                 localStorage.setItem("recentProducts", JSON.stringify(updated));
 
-                navigate('/product/' + prod.slug);
+                navigate("/product/" + prod.slug);
               }}
               sx={{ width: "100%", textAlign: "left", alignItems: "stretch" }}
             >
-              <Box className="bg-white border-r border-b p-3 hover:shadow-md transition-all duration-300 flex flex-col w-full h-full">
-
+              <Box className="group bg-white border-r border-b p-3 hover:shadow-md transition-all duration-300 flex flex-col w-full h-full">
                 {/* IMAGE */}
                 <Box className="relative w-full aspect-square rounded-md overflow-hidden flex items-center justify-center">
-                 <img
-                  loading="lazy"
-                  src={prod.images?.length > 0 ? ImageURL + prod.images[0] : defaultImage}
-                  alt={prod.name}
-                  className="w-full h-full object-contain p-2"
-                />
+                  <img
+                    loading="lazy"
+                    src={
+                      prod.images?.length > 0
+                        ? ImageURL + prod.images[0]
+                        : defaultImage
+                    }
+                    alt={prod.name}
+                    className="w-full h-full object-contain p-2"
+                  />
 
                   {/* LEFT BADGES */}
                   <Box className="absolute top-2 left-2 flex flex-col gap-1">
                     {prod.is_new && (
-                      <span className="bg-gray-200 text-xs font-semibold px-3 py-1 rounded">NEW</span>
+                      <span className="bg-gray-200 text-xs font-semibold px-3 py-1 rounded">
+                        NEW
+                      </span>
                     )}
                     {prod.hot && (
-                      <span className="bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded">HOT</span>
+                      <span className="bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded">
+                        HOT
+                      </span>
                     )}
                   </Box>
 
+              <Box
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 
+                          flex flex-col items-center gap-1
+                          opacity-0 translate-y-6
+                          group-hover:opacity-100 group-hover:translate-y-0
+                          transition-all duration-400 ease-out"
+              >
+                <Box onClick={(e) => e.stopPropagation()}>
+                  <AddToCart
+                    product={prod}
+                    quantity={1}
+              
+                    className=" poppins text-sm
+                      w-60 h-11 
+                      flex items-center justify-center 
+                      bg-[#1E55AC] 
+                      text-white 
+                      rounded-full 
+                      font-semibold 
+                      shadow-md 
+                      hover:bg-[#02AFF3] 
+                      transition-all duration-200
+                    "
+                  />
+                </Box>
+              </Box>
+
                   {/* RIGHT BADGES */}
-                  <Box className="absolute top-2 right-2 flex flex-col items-end gap-1">
-                    <Box
-                      onClick={(e) => e.stopPropagation()} // IMPORTANT
-                      className="bg-white rounded-full shadow"
-                    >
-                      <AddToWishlist
-                        product={prod}
-                        products={[]}
-                        setProducts={() => {}}
-                        viaCategory={true}
-                        open={false}
-                        setOpen={() => {}}
-                      />
+                   <Box className="
+  absolute top-2 right-2
+  flex flex-col items-end gap-1
+
+  opacity-0 translate-x-6
+  group-hover:opacity-100 group-hover:translate-x-0
+
+  transition-all duration-300 ease-out
+">
+                      {/* ADD TO CART */}
+
+                      {/* WISHLIST */}
+                      <Box
+                        onClick={(e) => e.stopPropagation()}
+                        className="bg-white rounded-full shadow "
+                      >
+                        <AddToWishlist
+                          product={prod}
+                          products={[]}
+                          setProducts={() => {}}
+                          viaCategory={true}
+                          open={false}
+                          setOpen={() => {}}
+                        />
+                      </Box>
+
+                      {/* DISCOUNT */}
+                      {prod.discount_price && (
+                        <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
+                          -
+                          {Math.round(
+                            ((prod.price - prod.discount_price) / prod.price) *
+                              100,
+                          )}
+                          %
+                        </span>
+                      )}
                     </Box>
 
                     {prod.discount_price && (
                       <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
-                        -{Math.round(((prod.price - prod.discount_price) / prod.price) * 100)}%
+                        -
+                        {Math.round(
+                          ((prod.price - prod.discount_price) / prod.price) *
+                            100,
+                        )}
+                        %
                       </span>
                     )}
-                  </Box>
                 </Box>
 
                 {/* CONTENT */}
@@ -127,7 +190,10 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
 
                   <Box className="flex items-center gap-2 mt-auto ">
                     <Typography className="font-semibold text-xl poppins">
-                      {currency} {Math.round((prod.discount_price || prod.price) * exchangeRate)}
+                      {currency}{" "}
+                      {Math.round(
+                        (prod.discount_price || prod.price) * exchangeRate,
+                      )}
                     </Typography>
 
                     {prod.discount_price && (
@@ -137,14 +203,13 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
                     )}
                   </Box>
                 </Box>
-
               </Box>
             </ButtonBase>
           </Grid>
         ))}
       </Grid>
     </Box>
-  )
-})
+  );
+});
 
-export default ProductGrid
+export default ProductGrid;

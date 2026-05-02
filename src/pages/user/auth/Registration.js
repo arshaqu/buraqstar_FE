@@ -252,19 +252,20 @@ const Registration = () => {
                                 // alignItems: 'center',
                             }}
                         >
-                            <Typography component="h1" variant="h6" style={{ color: '#b5b5bf' }}>
+                            <Typography component="h1" variant="h6" className='poppins' style={{ color: '#b5b5bf' }}>
                                 {t('welcome_to')}
                             </Typography>
                             <Typography component="h1" variant="h4" className='poppins' style={{ color: '#2858a3', fontWeight: 900 }}>
                                 {t('buraq_star')}
                             </Typography>
 
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                            <Box component="form"  noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                                 <TextField
                                     margin="normal"
                                     required
                                     fullWidth
                                     id="name"
+                                    className='poppins'
                                     label={t('full_name')}
                                     name="name"
                                     autoComplete="name"
@@ -352,18 +353,18 @@ const Registration = () => {
                                     sx={{ mt: 3, mb: 2 }}
                                     disabled={loading}
                                 >
-                                    {loading && <CircularProgress size={25} className="text-white" />}
+                                    {loading && <CircularProgress size={25} className="text-white poppins" />}
                                     {!loading && t('create_account')}
                                 </Button>
 
                                 <Grid container className="flex-col sm:flex-row">
                                     <Grid item xs={12} sm className="mb-2 sm:mb-0">
-                                        <Link className='cursor-pointer' onClick={() => navigate('/user/login')} variant="body2">
+                                        <Link className='cursor-pointer poppins' onClick={() => navigate('/user/login')} variant="body2">
                                             {t('already_have_account')}
                                         </Link>
                                     </Grid>
                                     <Grid item xs={12} sm className="text-left sm:text-right">
-                                        <Link className='cursor-pointer' onClick={() => navigate(routes.retailer_registration)} variant="body2">
+                                        <Link className='cursor-pointer poppins' onClick={() => navigate(routes.retailer_registration)} variant="body2">
                                             {t('apply_for_retailer_account')}
                                         </Link>
                                     </Grid>

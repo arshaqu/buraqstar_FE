@@ -215,7 +215,8 @@
     "logout": "لاگ آؤٹ",
     "view_profile": "پروفائل دیکھیں",
     "my_profile": "میری پروفائل",
-    "home": "ہوم"
+    "home": "ہوم",
+     "addresses" : "پتے"
   },
   "address_card": {
     "address": "پتہ",

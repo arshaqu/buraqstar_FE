@@ -435,9 +435,9 @@ const Home = () => {
           </div>
         </div>
 
-{/*  */}
+          {/*  */}
 
-        
+                  
 
 
         {/* New Arrival Section */}
