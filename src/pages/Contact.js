@@ -4,7 +4,7 @@ import bg from "../assets/contact.jpg";
 import watermark from "../assets/contactsvg.svg";
 import logomini from '../assets/buraqlog.png';
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { Hero, BrandBanner } from "../components";
 import { useTranslation } from "react-i18next";
 import SEO from "../components/SEO";
@@ -256,10 +256,11 @@ const Contact = () => {
               <Box className="flex justify-center">
                 <button
                   onClick={handleRequestQuote}
-                  className="poppins font-semibold text-white text-sm px-10 py-3 rounded-full transition-all duration-200 hover:opacity-90 hover:shadow-lg"
+                  className="poppins font-semibold text-white text-sm px-10 py-3 rounded-full transition-all duration-200 hover:opacity-90 hover:shadow-lg "
                   style={{
                     background: "linear-gradient(135deg, #1E55AC 0%, #2858a3 100%)",
-                    boxShadow: "0 4px 15px rgba(40, 88, 163, 0.35)",
+                    boxShadow: "0 4px 15px rgba(171, 171, 171, 0.35)",
+                    border:'2px solid #bfbfbf33'
                   }}
                 >
                   Send A Message
@@ -271,15 +272,11 @@ const Contact = () => {
           {/* ── RIGHT: OFFICE CARDS ── */}
           <Grid item xs={12} md={6}>
             <Box className="flex flex-col gap-4 h-full bg-[#1A408A] p-10 rounded-3xl">
-              <img
-              src={watermark}
-              alt=""
-              style={{
-                position: "absolute",
-                pointerEvents: "none", // 👈 prevents click issues
-              }}
-            />
-            
+             <img
+                src={watermark}
+                alt=""
+                className="absolute bottom-2 right-2 w-24 sm:w-32 md:w-40 lg:w-52 opacity-50 pointer-events-none"
+              />
               {officeCards.map((office, idx) => (
                 <Box
                 key={idx}
@@ -349,14 +346,15 @@ const Contact = () => {
         </Typography>
 
         {/* Divider with watermark */}
-        <Box className="flex items-center justify-center gap-3 mb-8">
-          <Box className="h-px bg-gray-300" sx={{ width: 80 }} />
+        <Box className="flex items-center justify-center gap-3 ">
+          <Box className="h-[1px] bg-gray-800 rounded-xl" sx={{ width: 80 }} />
           <img src={logomini} alt="" style={{ width: 26, height: 20}} />
-          <Box className="h-px bg-gray-300" sx={{ width: 80 }} />
+          <Box className="h-[1px] bg-gray-800 rounded-xl" sx={{ width: 80 }} />
         </Box>
-      <Box
-        className="w-full px-4 sm:px-8 md:px-14 lg:px-24 xl:px-32 py-10"
-        sx={{ border: "1.5px solid #e5e7eb", mx: { xs: 2, sm: 4, md: 6, lg: 8, xl: 10 }, borderRadius: "16px", mb: 6, width: "auto" }}
+        <Box className='p-8'>
+          <Box 
+        className="w-full p-5"
+        sx={{ border: "1.5px solid #e5e7eb", borderRadius: "10px", mb: 4, width: "auto" }}
       >
 
         <Grid container spacing={3} justifyContent="center">
@@ -367,19 +365,19 @@ const Contact = () => {
                 sx={{
                   width: { xs: 50, md: 60 },
                   height: { xs: 50, md: 60 },
-                  background: "linear-gradient(135deg, #1E55AC, #2563c4)",
+                  background: "linear-gradient(135deg, #02AFF3, #02AFF3)",
                   boxShadow: "0 4px 14px rgba(40,88,163,0.3)",
                 }}
               >
                 <LocalPhoneOutlinedIcon sx={{ color: "#fff", fontSize: { xs: 22, md: 26 } }} />
               </Box>
               <Box>
-                <Typography className="poppins font-semibold text-[#2858a3]" sx={{ fontSize: { xs: 14, md: 16 } }}>
+                <Typography className="poppins font-semibold text-gray-700" sx={{ fontSize: { xs: 14, md: 16 } }}>
                   Phone Number
                 </Typography>
                 <a
                   href="tel:80066839"
-                  className="poppins font-medium text-[#2858a3] hover:opacity-75 transition-opacity"
+                  className="poppins font-semibold text-[#2858a3] hover:opacity-75 transition-opacity "
                   style={{ fontSize: 15, textDecoration: "none" }}
                 >
                   800-NOVEX (66839)
@@ -394,28 +392,33 @@ const Contact = () => {
                 sx={{
                   width: { xs: 50, md: 60 },
                   height: { xs: 50, md: 60 },
-                  background: "linear-gradient(135deg, #1E55AC, #2563c4)",
+                  background: "linear-gradient(135deg, #02AFF3, #02AFF3)",
                   boxShadow: "0 4px 14px rgba(40,88,163,0.3)",
                 }}
               >
-                <ChatBubbleOutlineOutlinedIcon sx={{ color: "#fff", fontSize: { xs: 22, md: 26 } }} />
+                <EmailOutlinedIcon sx={{ color: "#fff", fontSize: { xs: 22, md: 26 } }} />
               </Box>
-              <Box>
-                <Typography className="poppins font-semibold text-[#2858a3]" sx={{ fontSize: { xs: 14, md: 16 } }}>
-                  Email
-                </Typography>
-                <a
-                  href="mailto:ecommerce@buraqstar.com"
-                  className="poppins font-medium text-[#2858a3] hover:opacity-75 transition-opacity"
-                  style={{ fontSize: 15, textDecoration: "none" }}
-                >
-                  ecommerce@buraqstar.com
-                </a>
-              </Box>
+             <Box className="min-w-0">
+  <Typography
+    className="poppins font-semibold text-gray-700"
+    sx={{ fontSize: { xs: 13, sm: 14, md: 16 } }}
+  >
+    Email
+  </Typography>
+
+  <a
+    href="mailto:ecommerce@buraqstar.com"
+    className="poppins font-semibold text-[#2858a3] hover:opacity-75 transition-opacity break-all"
+    style={{ fontSize: "clamp(13px, 3.5vw, 15px)", textDecoration: "none" }}
+  >
+    ecommerce@buraqstar.com
+  </a>
+</Box>  
             </Box>
           </Grid>
         </Grid>
-      </Box>
+    </Box>
+                </Box>
 
       <Box className="-mt-4 sm:-mt-7 mb-10">
         <RecentlyView />

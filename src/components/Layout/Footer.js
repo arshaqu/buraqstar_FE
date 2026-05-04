@@ -92,36 +92,36 @@ const Footer = () => {
     <>
     <Box className='h-auto bg-gray-900 w-full'>
      
- <Box className="flex items-center p-5 ipad-subscribe-container">
-      
-      {/* Left text */}
-      <p className="text-white text-xs md:text-lg">
-        {t("footer.discounts_offers")}
-      </p>
+<Box className="flex flex-col md:flex-row md:items-center p-5 ipad-subscribe-container">
+  
+  {/* Left text */}
+  <p className="text-white text-xs md:text-lg mb-3 md:mb-0">
+    {t("footer.discounts_offers")}
+  </p>
 
-      {/* Right side (force to end) */}
-      <Box className="flex items-center gap-2 ml-auto md:mr-10">
-       <input
-          type="text"
-          className="bg-white py-2.5 px-4 text-sm rounded-3xl min-w-[130px] w-full sm:w-[300px] md:w-[400px] lg:w-[600px]"
-          placeholder={t("footer.your_email")}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+  {/* Right side */}
+  <Box className="flex items-center gap-2 md:ml-auto md:mr-10">
+    <input
+      type="text"
+      className="bg-white py-2.5 px-4 text-sm rounded-3xl min-w-[130px] w-full sm:w-[300px] md:w-[400px] lg:w-[600px]"
+      placeholder={t("footer.your_email")}
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+    />
 
-        <Button
-          className="text-white bg-[#2858A3] capitalize rounded-3xl poppins py-2.5 px-4 text-sm hover:bg-[#E02828] transition-colors duration-300 disabled:opacity-50"
-          onClick={handleSubscription}
-          disabled={isSubscribing}
-        >
-          {isSubscribing
-            ? t("footer.subscribing", "Subscribing...")
-            : t("footer.subscribe")}
-            <BsArrowUpRight />
-        </Button>
-      </Box>
+    <Button
+      className="text-white bg-[#2858A3] capitalize rounded-3xl poppins py-2.5 px-4 text-sm hover:bg-[#E02828] transition-colors duration-300 disabled:opacity-50"
+      onClick={handleSubscription}
+      disabled={isSubscribing}
+    >
+      {isSubscribing
+        ? t("footer.subscribing", "Subscribing...")
+        : t("footer.subscribe")}
+      <BsArrowUpRight />
+    </Button>
+  </Box>
 
-    </Box>
+</Box>
           
 
     </Box>

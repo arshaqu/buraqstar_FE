@@ -49,12 +49,12 @@ const NavigationBar = () => {
     <Box className="w-full h-20 bg-black flex items-center justify-between px-4 lg:px-24 hidden sm:hidden md:flex">
 
       {/* Left links */}
-      <Box className="flex items-center gap-x-3 lg:gap-x-6">
+      <Box className="flex items-center gap-x-3 lg:gap-x-5">
         {/* Home */}
         <Link
           to="/"
           key="home"
-          className="flex items-center px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105 group"
+          className="flex items-center px-1 py-1 rounded-lg transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105 group"
         >
           <Typography className="poppins text-lg text-white transition-colors duration-300 group-hover:text-white/90">
             {t("navigation.home")}
@@ -62,7 +62,7 @@ const NavigationBar = () => {
         </Link>
         <Box className="w-[2px] h-7 bg-gray-800" />
 
-        <Categories className='' t={t} />
+        <Categories className t={t} />
         <Box className="w-[2px] h-7 bg-gray-800" />
 
         {routes.map((route, i) => {
@@ -80,7 +80,7 @@ const NavigationBar = () => {
             <React.Fragment key={i}>
               <Link
                 to={route.link}
-                className="flex items-center px-8 py-2 rounded-lg transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105 group"
+                className="flex items-center px-5 py-2 rounded-lg transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105 group"
               >
                 <Typography className="poppins text-md text-white transition-colors duration-300 group-hover:text-white/90">
                   {t(

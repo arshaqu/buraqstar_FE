@@ -566,7 +566,6 @@ const RetailerRegistration = () => {
               height: "100%",
               borderRadius: 3,
               bgcolor:  "grey.100",
-            
               transition: "box-shadow 0.2s ease",
               "&:hover": {
                 boxShadow: `0 8px 32px ${alpha(theme.palette.primary.main, 0.12)}`,
@@ -599,10 +598,10 @@ const RetailerRegistration = () => {
                 <CheckIcon sx={{ fontSize: 20, color: "#2058A3" }} />
               </Box>
 
-              <Typography variant="subtitle1" fontWeight={600} color="text.primary" className="poppins text-2xl" gutterBottom>
+              <Typography variant="subtitle1" fontWeight={600} color="text.primary" className="poppins text-xs md:text-xl" gutterBottom >
                 {item.label}
               </Typography>
-              <Typography variant="body2" color="text.secondary" className="poppins text-lg" sx={{ lineHeight: 1.7 }}>
+              <Typography variant="body2" color="text.secondary" className="poppins text-sm md:text-lg" sx={{ lineHeight: 1.7 }}>
                 {item.desc}
               </Typography>
             </CardContent>
@@ -755,7 +754,7 @@ const RetailerRegistration = () => {
                 <Typography variant="h4" className="poppins" fontWeight={900} color="primary" sx={{ lineHeight: 1.2 }}>
                   BURAQ STAR
                 </Typography>
-                <Typography variant="subtitle1" color="text.secondary" sx={{ fontWeight: 500, mt: 0.5 }}>
+                <Typography variant="subtitle1" className="poppins" color="text.secondary" sx={{ fontWeight: 500, mt: 0.5 }}>
                   {t("retailer_registration_form")}
                 </Typography>
               </Box>
@@ -777,6 +776,7 @@ const RetailerRegistration = () => {
                 <Grid container spacing={2}>
                   <Grid item xs={12} data-retailer-field="business_name">
                     <TextField
+                    className="poppins"
                       fullWidth
                       label={t("business_name")}
                       name="business_name"
@@ -789,7 +789,7 @@ const RetailerRegistration = () => {
                   </Grid>
                   <Grid item xs={12} data-retailer-field="business_type">
                     <FormControl fullWidth error={!!errors.business_type} variant="outlined">
-                      <InputLabel>{t("business_type")}</InputLabel>
+                      <InputLabel className="poppins">{t("business_type")}</InputLabel>
                       <Select
                         name="business_type"
                         value={formData.business_type}
@@ -808,7 +808,7 @@ const RetailerRegistration = () => {
                         label={t("business_type")}
                       >
 
-                        <MenuItem value="Manufacturer">{t("manufacturer")}</MenuItem>
+                        <MenuItem className="poppins" value="Manufacturer">{t("manufacturer")}</MenuItem>
                         <MenuItem value="Wholesaler">{t("wholesaler")}</MenuItem>
                         <MenuItem value="Distributor">{t("distributor")}</MenuItem>
                         <MenuItem value="Retailer">{t("retailer")}</MenuItem>
@@ -888,7 +888,7 @@ const RetailerRegistration = () => {
                       />
                     </Box>
                     {errors.country && (
-                      <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.75, display: "block" }}>
+                      <Typography variant="caption" className="poppins" color="error" sx={{ mt: 0.5, ml: 1.75, display: "block" }}>
                         {errors.country}
                       </Typography>
                     )}
@@ -897,6 +897,7 @@ const RetailerRegistration = () => {
                     <Typography
                       component="label"
                       variant="body2"
+                      className="poppins"
                       sx={{ display: "block", mb: 0.75, color: "text.secondary", fontWeight: 600, fontSize: "0.8125rem" }}
                     >
                       {t("delivery_address.state")}
@@ -960,7 +961,7 @@ const RetailerRegistration = () => {
                       />
                     </Box>
                     {errors.city && (
-                      <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.75, display: "block" }}>
+                      <Typography variant="caption" className="poppins" color="error" sx={{ mt: 0.5, ml: 1.75, display: "block" }}>
                         {errors.city}
                       </Typography>
                     )}
@@ -1077,7 +1078,6 @@ const RetailerRegistration = () => {
                     <TextField
                       fullWidth
                       label={t("email_address")}
-
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
@@ -1089,7 +1089,7 @@ const RetailerRegistration = () => {
                 <Divider sx={{ my: 3, borderColor: alpha(theme.palette.primary.main, 0.12) }} />
 
                 {/* Section 3: Business Details */}
-                <RegisterSectionHeading>{t("business_details")}</RegisterSectionHeading>
+                <RegisterSectionHeading className="poppins">{t("business_details")}</RegisterSectionHeading>
                 <Grid container spacing={2}>
                   <Grid item xs={12} data-retailer-field="products">
                     <TextField
@@ -1161,56 +1161,56 @@ const RetailerRegistration = () => {
                 >
                   <Box component="ul" sx={{ m: 0, pl: 2.5, color: "text.primary" }}>
 
-                    <li>
-                      <Typography variant="body1" color="textPrimary">
+                    <li >
+                      <Typography className="poppins" variant="body1" color="textPrimary">
                         {t("business_registration_certificate")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography variant="body1" color="textPrimary">
+                      <Typography className="poppins" variant="body1" color="textPrimary">
                         {t("trading_license_certificate")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography variant="body1" color="textPrimary">
+                      <Typography className="poppins" variant="body1" color="textPrimary">
                         {t("chamber_commerce_certificate")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography variant="body1" color="textPrimary">
+                      <Typography className="poppins" variant="body1" color="textPrimary">
                         {t("sponsor_passport_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography variant="body1" color="textPrimary">
+                      <Typography className="poppins" variant="body1" color="textPrimary">
                         {t("sponsor_eid_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography variant="body1" color="textPrimary">
+                      <Typography className="poppins" variant="body1" color="textPrimary">
                         {t("manager_passport_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography variant="body1" color="textPrimary">
+                      <Typography className="poppins" variant="body1" color="textPrimary">
                         {t("manager_visa_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography variant="body1" color="textPrimary">
+                      <Typography className="poppins" variant="body1" color="textPrimary">
                         {t("manager_eid_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography variant="body1" color="textPrimary">
+                      <Typography className="poppins" variant="body1" color="textPrimary">
                         {t("tenancy_contract_copy")}
 
                       </Typography>
@@ -1234,6 +1234,7 @@ const RetailerRegistration = () => {
                     data-retailer-field="business_certificate"
                     variant="outlined"
                     fullWidth
+                    className="poppins"
                     startIcon={<CloudUpload />}
                     component="label"
                     color={errors.business_certificate ? "error" : "primary"}
@@ -1250,6 +1251,7 @@ const RetailerRegistration = () => {
                       type="file"
                       name="business_certificate"
                       hidden
+                      className="poppins"
                       onChange={handleFileChange}
                     />
                   </Button>
@@ -1277,6 +1279,7 @@ const RetailerRegistration = () => {
                     data-retailer-field="trading_license_certificate"
                     variant="outlined"
                     fullWidth
+                    className="poppins"
                     startIcon={<CloudUpload />}
                     component="label"
                     color={errors.trading_license_certificate ? "error" : "primary"}
@@ -1320,6 +1323,7 @@ const RetailerRegistration = () => {
                     data-retailer-field="chamber_of_commerce_certificate"
                     variant="outlined"
                     fullWidth
+                    className="poppins"
                     startIcon={<CloudUpload />}
                     component="label"
                     color={errors.chamber_of_commerce_certificate ? "error" : "primary"}
@@ -1363,6 +1367,7 @@ const RetailerRegistration = () => {
                     data-retailer-field="sponsor_passport_copy"
                     variant="outlined"
                     fullWidth
+                    className="poppins"
                     startIcon={<CloudUpload />}
                     component="label"
                     color={errors.sponsor_passport_copy ? "error" : "primary"}
@@ -1408,6 +1413,7 @@ const RetailerRegistration = () => {
                     fullWidth
                     startIcon={<CloudUpload />}
                     component="label"
+                    className="poppins"
                     color={errors.sponsor_eid_copy ? "error" : "primary"}
                     sx={{
                       mb: 2,
@@ -1452,6 +1458,7 @@ const RetailerRegistration = () => {
                     startIcon={<CloudUpload />}
                     component="label"
                     color={errors.manager_passport_copy ? "error" : "primary"}
+                    className="poppins"
                     sx={{
                       mb: 2,
                       borderColor: errors.manager_passport_copy ? '#d32f2f' : undefined,
@@ -1492,6 +1499,7 @@ const RetailerRegistration = () => {
                     data-retailer-field="manager_visa_copy"
                     variant="outlined"
                     fullWidth
+                    className="poppins"
                     startIcon={<CloudUpload />}
                     component="label"
                     color={errors.manager_visa_copy ? "error" : "primary"}
@@ -1535,6 +1543,7 @@ const RetailerRegistration = () => {
                     data-retailer-field="manager_eid_copy"
                     variant="outlined"
                     fullWidth
+                    className="poppins"
                     startIcon={<CloudUpload />}
                     component="label"
                     color={errors.manager_eid_copy ? "error" : "primary"}
@@ -1578,6 +1587,7 @@ const RetailerRegistration = () => {
                     data-retailer-field="tenancy_contract_copy"
                     variant="outlined"
                     fullWidth
+                    className="poppins"
                     startIcon={<CloudUpload />}
                     component="label"
                     color={errors.tenancy_contract_copy ? "error" : "primary"}
@@ -1620,6 +1630,7 @@ const RetailerRegistration = () => {
                   <Button
                     variant="outlined"
                     fullWidth
+                    className="poppins"
                     startIcon={<CloudUpload />}
                     component="label"
                     sx={{ mb: 2 }}
@@ -1668,10 +1679,11 @@ const RetailerRegistration = () => {
                     />
                   }
                   label={
-                    <Typography variant="body2" color="text.primary" sx={{ display: "inline", lineHeight: 1.6 }}>
+                    <Typography variant="body2" color="text.primary" className="poppins" sx={{ display: "inline", lineHeight: 1.6 }}>
                       {t("i_agree_to_the")}{" "}
                       <Box
                         component="a"
+                        className="poppins"
                         href="/terms"
                         target="_blank"
                         rel="noopener noreferrer"

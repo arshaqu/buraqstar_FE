@@ -198,17 +198,17 @@ const Message = ({ t }) => {
               md={8}
               className="px-0 sm:px-8 lg:ps-20 md:text-left text-center space-y-3"
             >
-              <Typography className="poppins text-4xl font-semibold w-full text-[#2E2E2E] text-justify sm:text-left leading-snug mt-8">
+              <Typography className="poppins lg:text-4xl text-2xl font-semibold w-full text-[#2E2E2E] text-justify sm:text-left leading-snug mt-8">
                 {t("who_we_are")}
               </Typography>
               <Typography
-                className="text-lg text-[#152E3A] poppins leading-6  text-justify leading-7 sm:text-left max-w-4xl"
+                className="lg:text-lg md:lg:text-lg text:sm text-[#152E3A] poppins leading-6  text-justify leading-7 sm:text-left max-w-4xl"
                 style={paragraphStyle}
               >
                 {t("who_we_are_description1")}
               </Typography>
               <Typography
-                className="text-lg text-[#152E3A] poppins leading-6 text-justify sm:text-left leading-7 max-w-4xl"
+                className="lg:text-lg md:lg:text-lg text:sm text-[#152E3A] poppins leading-6 text-justify sm:text-left leading-7 max-w-4xl"
                 style={paragraphStyle}
               >
                 {t("who_we_are_description2")}
@@ -229,7 +229,7 @@ const Message = ({ t }) => {
                       />
                     </div>
                     <Typography
-                      className="text-lg text-gray-700 poppins font-semibold  leading-6 mt-5"
+                      className="lg:text-lg md:lg:text-lg text:sm text-gray-700 poppins font-semibold  leading-6 mt-5"
                       style={paragraphStyle}
                     >
                       {item}
@@ -258,7 +258,7 @@ const Message = ({ t }) => {
 
       {/* OUR PROMISES
        */}
-      <Grid item xs={12} className="py-4 px-4 md:py-20 md:px-20">
+      <Grid item xs={12} className="py-4 px-4 md:py-20 md:px-20 ">
         <Box
           className="w-full "
           sx={{
@@ -276,8 +276,8 @@ const Message = ({ t }) => {
           <Grid container className="items-center" spacing={4}>
             <Grid item xs={12} sm={5}>
               <Typography
-                className="poppins font-semibold text-[#152E3A]"
-                sx={{ fontSize: { xs: "1.6rem", sm: "3rem" } }}
+                className="poppins font-semibold text-[#152E3A]  sm:mt-5 xs:mt-5"
+                sx={{ fontSize: { xs: "1.4rem", sm: "2rem" } }}
               >
                 Our Promise
               </Typography>
@@ -285,8 +285,8 @@ const Message = ({ t }) => {
 
             <Grid item xs={12} sm={7}>
               <Typography
-                className="poppins text-[#4A5568] leading-7"
-                sx={{ fontSize: "1.2rem", maxWidth: 700 }}
+                className="poppins text-[#4A5568] leading-7 lg:text-lg md:lg:text-lg text:sm"
+                sx={{  maxWidth: 700 }}
               >
                 We don't just supply products — we support projects. Every item
                 we offer is selected and delivered with one goal :{" "}
@@ -326,7 +326,7 @@ const Message = ({ t }) => {
           {features.map((item, index) => (
             <Box
               key={index}
-              className="bg-white rounded-2xl p-16 shadow-sm flex flex-col items-left"
+              className="bg-white rounded-2xl md:p-16 p-5 shadow-sm flex flex-col items-left"
             >
               {/* ICON (centered) */}
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gray-100 text-[#2858A4] mb-6 text-4xl">
@@ -335,11 +335,11 @@ const Message = ({ t }) => {
 
               {/* CONTENT (left aligned but centered block) */}
               <div className="w-full max-w-md text-left">
-                <Typography className="text-2xl font-semibold text-[#2E2E2E] mb-3 poppins">
+                <Typography className="lg:text-2xl md:lg:2xl text-lg text:sm font-semibold text-[#2E2E2E] mb-3 poppins">
                   {item.title}
                 </Typography>
 
-                <Typography className="text-gray-500 text-xl mt-10 text-base leading-relaxed poppins ">
+                <Typography className="text-gray-500 lg:text-lg md:text-lg text:sm lg:mt-10 text-base leading-relaxed poppins ">
                   {item.desc}
                 </Typography>
               </div>

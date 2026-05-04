@@ -73,22 +73,22 @@ const PrivacyPolicy = () => {
           }
         }}
       /> 
-   <Typography className="text-gray-700 leading-relaxed mb-6 ml-10 p-5 poppins text-xl">
+   <Typography className="text-gray-600 leading-relaxed mb-6 ml-10 p-5 poppins text-sm md:text-lg">
   {t('dashboard_sidebar.home')} &nbsp; &gt; &nbsp; <span className="text-[#2858A3] ">{t('privacy_policy')}</span>
 </Typography>
 
       <Container maxWidth="lg" className=" sm:px-6 md:px-8">
         <Paper elevation={3} className="p-14 rounded-lg shadow-md bg-gray-100">
     
-          <Typography className="text-gray-700 leading-relaxed mb-6 poppins">
+          <Typography className="text-gray-600 leading-relaxed mb-6 poppins text-xs md:text-lg">
             {t("privacy_policy_intro")}
           </Typography>
           {policySections.map((section, i) => (
             <Box key={i} className="mb-6">
-              <Typography variant="h6" className="text-gray-800 font-semibold mb-2 poppins">
+              <Typography variant="h6" className="text-gray-800 font-semibold mb-2 poppins text-sm md:text-xl">
                 {i + 1}. {section.title}
               </Typography>
-              <Typography className="text-gray-700 leading-relaxed whitespace-pre-line poppins">
+              <Typography className="text-gray-600 leading-relaxed whitespace-pre-line poppins text-xs md:text-lg">
                 {section.description}
               </Typography>
             </Box>
