@@ -59,7 +59,7 @@ const Brands = ({ t }) => {
 
 
   return (
-    <Box className="w-full py-10  bg-gray-100 ">
+    <Box className="w-full py-10  bg-gray-100 p-2 ">
       {/* Header */}
       <BrandsScroll/>
 
@@ -67,7 +67,7 @@ const Brands = ({ t }) => {
         {data.map((item, index) => (
           <Box
             key={index}
-            className="bg-white rounded-2xl p-16  shadow-sm flex flex-col items-left"
+            className="bg-white rounded-2xl md:p-16 sm:p-4 p-6  shadow-sm flex flex-col items-left"
           >
        
             {/* CONTENT (left aligned but centered block) */}
@@ -76,12 +76,12 @@ const Brands = ({ t }) => {
                 {item.title}
               </Typography>
 
-              <Typography className="text-gray-500 text-md mt-10 text-base leading-relaxed poppins ">
+              <Typography className="text-gray-500 text-md mt-5 text-base leading-relaxed poppins ">
                 {item.desc}
               </Typography>
             </div>
                 
-           <div className="mt-10">
+           <div className="mt-6">
         <button
           onClick={() => navigate(item.links)}
           className="px-6 py-2 text-gray-800 border border-gray-800 hover:bg-gray-900 hover:text-white rounded-lg  transition"

@@ -387,7 +387,7 @@ const Home = () => {
         {loading ? (
           <SkeletonHomeSlider />
         ) : (
-          <div className="w-full p-0 md:p-8 lg:p-16 box-border">
+          <div className="w-full p-0 md:p-8 lg:p-12 box-border">
             <div className="w-full overflow-hidden rounded-none md:rounded-[20px]">
               <HomeSlider />
             </div>

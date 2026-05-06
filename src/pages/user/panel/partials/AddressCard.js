@@ -61,6 +61,7 @@ const AddressCard = ({ index, address,fetchAddresses }) => {
               {!address.default_shipping && (
                 <Button 
                 variant="contained" 
+                className='poppins'
                 onClick={(e) => {
                   e.stopPropagation();
                   handleMakeDefault();
@@ -94,11 +95,11 @@ const AddressCard = ({ index, address,fetchAddresses }) => {
             <Grid item xs={12} sm={6} key={index}>
               <Box display="flex" alignItems="center">
                 {field.icon}
-                <Typography variant="subtitle2" className='poppins' color="textSecondary" sx={{ ml: 1 }}>
+                <Typography variant="subtitle2" className='poppins' color="textSecondary" sx={{ ml: 1 , fontWeight: 600 , fontSize: {xs: '8px', sm: '10px',md: '12px'}  }}>
                   {field.label}:
                 </Typography>
               </Box>
-              <Typography variant="body1" className='poppins' sx={{ fontWeight: 600, ml: 3 }}>
+              <Typography variant="body1" className='poppins' sx={{ fontWeight: 500, ml: 3 , fontSize: {xs: '8px', sm: '10px',md: '14px'}  }}>
                 {field.value}
               </Typography>
             </Grid>

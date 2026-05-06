@@ -335,7 +335,7 @@ const ShopByBrand = ({ brands = [] }) => {
     <Box sx={{ width: "100%" }}>
       <Box
         sx={{
-          background: "#eaeaea",
+           background: "linear-gradient(135deg, #dce8f5 0%, #eaf2fb 50%, #d6e6f5 100%)",
           p: { xs: "20px 16px", sm: "28px 24px", md: "44px" },
           boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
         }}

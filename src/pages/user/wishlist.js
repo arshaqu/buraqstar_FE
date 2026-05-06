@@ -268,7 +268,7 @@ const initialize = async () => {
                     sm={6}
                     md={4}
                     key={prod.id || i}
-                    style={{ transition: "transform 0.7s ease-in, opacity 0.7s ease-in" }}
+                    style={{ transition: "transform 0.7s ease-in, opacity 0.7s ease-in" , marginLeft:'-10px' }}
                 >
                     <ProductCard prod={prod} />
                 </Grid>

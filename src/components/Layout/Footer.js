@@ -378,7 +378,7 @@ const Footer = () => {
 >
   {/* Copyright */}
   <Grid item className="w-full md:w-auto">
-    <Typography className="text-md text-gray-700 p-2 md:p-5 poppins">
+    <Typography className="text-sm text-gray-700 p-2 md:p-5 poppins">
       {t("footer.copyright")}
     </Typography>
   </Grid>

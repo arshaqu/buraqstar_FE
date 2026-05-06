@@ -20,7 +20,7 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
   const { currency, exchangeRate } = useContext(AuthContext);
 
   return (
-    <Box className="border-2 border-gray-300 p-10 rounded-xl overflow-hidden">
+    <Box className="border-2 border-gray-300 p-1 rounded-xl overflow-hidden">
       <Grid container spacing={2} justifyContent="flex-start">
         {sortedProducts.map((prod, i) => (
           <Grid
@@ -33,8 +33,10 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
             className={`${getClass(i)}`}
             sx={{
               display: "flex",
-              minWidth: "250px", // ✅ FIX
-              maxWidth: "300px", // ✅ FIX
+              // ✅ Remove fixed minWidth/maxWidth that broke mobile layout
+              // On xs (mobile): full width, centered with padding
+              width: "100%",
+              px: { xs: 2, sm: 0 }, // horizontal padding on mobile only
             }}
           >
             <ButtonBase
@@ -53,7 +55,6 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
                   slug: prod.slug,
                   code: prod.item_code,
                 };
-                console.log(prod, "---------------------------");
 
                 const updated = [
                   productData,
@@ -64,7 +65,11 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
 
                 navigate("/product/" + prod.slug);
               }}
-              sx={{ width: "100%", textAlign: "left", alignItems: "stretch" }}
+              sx={{
+                width: "100%",
+                textAlign: "left",
+                alignItems: "stretch",
+              }}
             >
               <Box className="group bg-white border-r border-b p-3 hover:shadow-md transition-all duration-300 flex flex-col w-full h-full">
                 {/* IMAGE */}
@@ -94,73 +99,55 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
                     )}
                   </Box>
 
-              <Box
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 
-                          flex flex-col items-center gap-1
-                          opacity-0 translate-y-6
-                          group-hover:opacity-100 group-hover:translate-y-0
-                          transition-all duration-400 ease-out"
-              >
-                <Box onClick={(e) => e.stopPropagation()}>
-                  <AddToCart
-                    product={prod}
-                    quantity={1}
-              
-                    className=" poppins text-sm
-                      w-60 h-11 
-                      flex items-center justify-center 
-                      bg-[#1E55AC] 
-                      text-white 
-                      rounded-full 
-                      font-semibold 
-                      shadow-md 
-                      hover:bg-[#02AFF3] 
-                      transition-all duration-200
-                    "
-                  />
-                </Box>
-              </Box>
+                  <Box
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 
+                              flex flex-col items-center gap-1
+                              opacity-0 translate-y-6
+                              group-hover:opacity-100 group-hover:translate-y-0
+                              transition-all duration-400 ease-out"
+                  >
+                    <Box onClick={(e) => e.stopPropagation()}>
+                      <AddToCart
+                        product={prod}
+                        quantity={1}
+                        className="poppins text-sm
+                          w-60 h-11 
+                          flex items-center justify-center 
+                          bg-[#1E55AC] 
+                          text-white 
+                          rounded-full 
+                          font-semibold 
+                          shadow-md 
+                          hover:bg-[#02AFF3] 
+                          transition-all duration-200"
+                      />
+                    </Box>
+                  </Box>
 
                   {/* RIGHT BADGES */}
-                   <Box className="
-  absolute top-2 right-2
-  flex flex-col items-end gap-1
-
-  opacity-0 translate-x-6
-  group-hover:opacity-100 group-hover:translate-x-0
-
-  transition-all duration-300 ease-out
-">
-                      {/* ADD TO CART */}
-
-                      {/* WISHLIST */}
-                      <Box
-                        onClick={(e) => e.stopPropagation()}
-                        className="bg-white rounded-full shadow "
-                      >
-                        <AddToWishlist
-                          product={prod}
-                          products={[]}
-                          setProducts={() => {}}
-                          viaCategory={true}
-                          open={false}
-                          setOpen={() => {}}
-                        />
-                      </Box>
-
-                      {/* DISCOUNT */}
-                      {prod.discount_price && (
-                        <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
-                          -
-                          {Math.round(
-                            ((prod.price - prod.discount_price) / prod.price) *
-                              100,
-                          )}
-                          %
-                        </span>
-                      )}
+                  <Box className="
+                    absolute top-2 right-2
+                    flex flex-col items-end gap-1
+                    opacity-0 translate-x-6
+                    group-hover:opacity-100 group-hover:translate-x-0
+                    transition-all duration-300 ease-out
+                  ">
+                    {/* WISHLIST */}
+                    <Box
+                      onClick={(e) => e.stopPropagation()}
+                      className="bg-white rounded-full shadow"
+                    >
+                      <AddToWishlist
+                        product={prod}
+                        products={[]}
+                        setProducts={() => {}}
+                        viaCategory={true}
+                        open={false}
+                        setOpen={() => {}}
+                      />
                     </Box>
 
+                    {/* DISCOUNT */}
                     {prod.discount_price && (
                       <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
                         -
@@ -171,11 +158,12 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
                         %
                       </span>
                     )}
+                  </Box>
                 </Box>
 
                 {/* CONTENT */}
                 <Box className="pt-3 flex flex-col flex-grow p-4">
-                  <Box className="flex items-center gap-1 text-gray-700 text-md ">
+                  <Box className="flex items-center gap-1 text-gray-700 text-md">
                     {prod.stocks}
                     <span className="text-gray-500 ml-1 poppins">Stocks</span>
                   </Box>
@@ -188,7 +176,7 @@ const ProductGrid = React.memo(({ sortedProducts, navigate }) => {
                     {getName(prod, i18n.language)}
                   </Typography>
 
-                  <Box className="flex items-center gap-2 mt-auto ">
+                  <Box className="flex items-center gap-2 mt-auto">
                     <Typography className="font-semibold text-xl poppins">
                       {currency}{" "}
                       {Math.round(

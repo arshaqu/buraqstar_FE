@@ -65,10 +65,10 @@ const ShippingPolicy = () => {
             </Typography>
 
         <Container maxWidth="lg" className=" sm:px-6 md:px-8">
-            <Paper elevation={3} className="p-14 rounded-lg shadow-md bg-gray-100">
+            <Paper elevation={3} className="md:p-14 lg: lg:p-16 sm:p-5 p-5 rounded-lg shadow-md bg-gray-100">
         
               <Typography className="text-gray-600 leading-relaxed mb-6 poppins text-xs md:text-lg">
-                {t("privacy_policy_intro")}
+                {t("shipping_policy_intro")}
               </Typography>
               {shippingSections.map((section, i) => (
                 <Box key={i} className="mb-6">

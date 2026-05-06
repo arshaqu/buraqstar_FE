@@ -598,7 +598,7 @@ const RetailerRegistration = () => {
                 <CheckIcon sx={{ fontSize: 20, color: "#2058A3" }} />
               </Box>
 
-              <Typography variant="subtitle1" fontWeight={600} color="text.primary" className="poppins text-xs md:text-xl" gutterBottom >
+              <Typography variant="subtitle1" fontWeight={600} color="text.primary" className="poppins text-sm md:text-xl" gutterBottom >
                 {item.label}
               </Typography>
               <Typography variant="body2" color="text.secondary" className="poppins text-sm md:text-lg" sx={{ lineHeight: 1.7 }}>
@@ -672,17 +672,18 @@ const RetailerRegistration = () => {
               <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: 1 }}>
                    <Box
                 sx={{
-                  width: 25,
-                  height: 25,
+                  width: 23,
+                  height: 18,
                   borderRadius: "50%",
                   bgcolor: "#e1e1e1",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
+                  marginTop:'4px'
                  
                 }}
               >
-                <CheckIcon sx={{ fontSize: 18, color: "#2058A3" }} />
+                <CheckIcon sx={{ fontSize: 15, color: "#2058A3" }} />
               </Box>
                 <Typography className="mt-1 poppins font-semibold text-gray-500" sx={{ color: "#374151" , fontSize: { xs: 13, md: 14 } }}>
                   {item}
@@ -747,6 +748,7 @@ const RetailerRegistration = () => {
               <Box sx={{ mb: 2 }}>
                 <Typography
                   variant="overline"
+                  className="poppins"
                   sx={{ color: "text.secondary", letterSpacing: 1, fontWeight: 600, display: "block" }}
                 >
                   {t("welcome_to")}
@@ -857,6 +859,7 @@ const RetailerRegistration = () => {
                   </Grid>
                   <Grid item xs={12} md={6} data-retailer-field="country">
                     <Typography
+                    className="poppins"
                       component="label"
                       variant="body2"
                       sx={{ display: "block", mb: 0.75, color: "text.secondary", fontWeight: 600, fontSize: "0.8125rem" }}
@@ -929,6 +932,7 @@ const RetailerRegistration = () => {
                   </Grid>
                   <Grid item xs={12} data-retailer-field="city">
                     <Typography
+                      className="poppins"
                       component="label"
                       variant="body2"
                       sx={{ display: "block", mb: 0.75, color: "text.secondary", fontWeight: 600, fontSize: "0.8125rem" }}
@@ -968,6 +972,7 @@ const RetailerRegistration = () => {
                   </Grid>
                   <Grid item xs={12} data-retailer-field="address">
                     <TextField
+                    className="poppins"
                       fullWidth
                       label={t("address")}
                       name="address"
@@ -1000,10 +1005,11 @@ const RetailerRegistration = () => {
                 <Divider sx={{ my: 3, borderColor: alpha(theme.palette.primary.main, 0.12) }} />
 
                 {/* Section 2: Contact Information */}
-                <RegisterSectionHeading>{t("cont_info")}</RegisterSectionHeading>
+                <RegisterSectionHeading className='poppins' >{t("cont_info")}</RegisterSectionHeading>
                 <Grid container spacing={2}>
                   <Grid item xs={12} data-retailer-field="contact_person_name">
                     <TextField
+                    className='poppins'
                       fullWidth
                       label={t("contact_person_name")}
                       name="contact_person_name"
@@ -1069,13 +1075,14 @@ const RetailerRegistration = () => {
                       />
                     </Box>
                     {errors.phone && (
-                      <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.75, display: "block" }}>
+                      <Typography className='poppins' variant="caption" color="error" sx={{ mt: 0.5, ml: 1.75, display: "block" }}>
                         {errors.phone}
                       </Typography>
                     )}
                   </Grid>
                   <Grid item xs={12} data-retailer-field="email">
                     <TextField
+                      className='poppins'
                       fullWidth
                       label={t("email_address")}
                       name="email"
@@ -1719,7 +1726,7 @@ const RetailerRegistration = () => {
                     },
                   }}
                 >
-                  {loading ? <CircularProgress size={24} color="inherit" /> : t("register_now")}
+                  {loading ? <CircularProgress className="poppins" size={24} color="inherit" /> : t("register_now")}
                 </Button>
               </form>
             </CardContent>

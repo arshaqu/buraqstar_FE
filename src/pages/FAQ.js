@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import bg from "../assets/policy_banner.jpg";
+import bg from "../assets/shop2.png";
 import { Hero, Faq } from "../components";
 import SEO from "../components/SEO";
 import { SITE_URL } from "../constants";

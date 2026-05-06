@@ -13,8 +13,6 @@ import AddToCartModal from "../Cart/AddToCartModal";
 import defaultImage from "../../assets/contactsvg.svg";
 import { AuthContext } from "../../AuthContext";
 import { getName } from "../../utils";
-
-// ✅ Import same as ShopByBrand
 import { AddToCart, AddToWishlist } from "../index";
 
 const SaleSection = ({ products, onLoadMore, isLoading, hasMore, sectionType = "hot_sale" }) => {
@@ -116,7 +114,7 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
       </Box>
 
       {/* ── Swiper ── */}
-      <Box className="mt-10" sx={{ px: { xs: 2, sm: 3, md: 4 }, overflow: "hidden" }}>
+      <Box className="mt-6" sx={{ px: { xs: 1, sm: 3, md: 4 }, overflow: "hidden" }}>
         <Swiper
           onSwiper={setSwiperInstance}
           onSlideChange={(swiper) => {
@@ -127,7 +125,7 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           dir={isRTL ? "rtl" : "ltr"}
           breakpoints={{
-            0:    { slidesPerView: 1,   spaceBetween: 8 },
+            0:    { slidesPerView: 1.1, spaceBetween: 8 },
             480:  { slidesPerView: 2.2, spaceBetween: 8 },
             768:  { slidesPerView: 3.2, spaceBetween: 8 },
             1024: { slidesPerView: 4.2, spaceBetween: 8 },
@@ -151,7 +149,6 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
                 : null;
             const isOutOfStock = product?.stocks === 0;
 
-            // ✅ Same product shape as ShopByBrand's toProduct()
             const cartProduct = {
               id: product.id,
               name: product.name,
@@ -167,14 +164,21 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
             };
 
             return (
-              <SwiperSlide key={i} style={{ height: "auto", alignSelf: "stretch" }}>
-                {/* ✅ Outer div — not a link, holds the group hover */}
+              <SwiperSlide
+                key={i}
+                style={{
+                  height: "auto",        // ✅ let card define its own height
+                  alignSelf: "stretch",
+                  display: "flex",       // ✅ so inner Box fills the slide
+                }}
+              >
                 <Box
                   className="group"
                   sx={{
                     position: "relative",
                     width: "100%",
-                   
+                    display: "flex",           // ✅ column flex so card fills slide
+                    flexDirection: "column",
                     border: "0.5px solid",
                     borderColor: "divider",
                     borderRadius: "12px",
@@ -183,7 +187,6 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
                     transition: "box-shadow 0.18s",
                     cursor: "pointer",
                     "&:hover": { boxShadow: "0 4px 20px rgba(0,0,0,0.10)" },
-                    // ✅ Same MUI hover trick as ShopByBrand
                     "&:hover .sale-cart-overlay": { opacity: 1, transform: "translateY(0)" },
                     "&:hover .sale-wishlist-overlay": { opacity: 1, transform: "translateX(0)" },
                   }}
@@ -218,11 +221,18 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
                   {/* ── Image Area ── */}
                   <Box
                     sx={{
-                      position: "relative", width: "100%",
-                      height: { xs: 180, sm: 200, md: 220, lg: 260 },
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      background: "#ffffff", borderBottom: "1px solid #e9e9e9",
-                      p: 2, overflow: "hidden", boxSizing: "border-box",
+                      position: "relative",
+                      width: "100%",
+                      // ✅ aspect-ratio instead of fixed height — no dead space on any screen
+                      aspectRatio: "1 / 1",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "#ffffff",
+                      borderBottom: "1px solid #e9e9e9",
+                      p: { xs: 1.5, sm: 2 },   // ✅ tighter padding on mobile
+                      overflow: "hidden",
+                      boxSizing: "border-box",
                     }}
                   >
                     <img
@@ -232,7 +242,7 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
                       onError={(e) => { e.currentTarget.src = defaultImage; }}
                     />
 
-                    {/* ✅ Add to Cart Overlay — identical pattern to ShopByBrand */}
+                    {/* Add to Cart Overlay */}
                     <Box
                       className="sale-cart-overlay"
                       sx={{
@@ -252,7 +262,7 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
                       />
                     </Box>
 
-                    {/* ✅ Wishlist Overlay — identical pattern to ShopByBrand */}
+                    {/* Wishlist Overlay */}
                     <Box
                       className="sale-wishlist-overlay"
                       sx={{
@@ -282,21 +292,21 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
 
                   {/* ── Product Info ── */}
                   <Box sx={{ p: "12px 14px 14px", flex: 1, display: "flex", flexDirection: "column" }}>
-                    <Typography className="poppins" sx={{ fontSize: 11, color: "text.secondary", mb: "2px",  }}>
+                    <Typography className="poppins" sx={{ fontSize: 11, color: "text.secondary", mb: "2px" }}>
                       {categoryName}
                     </Typography>
                     <Typography
                       className="poppins font-semibold"
                       sx={{
                         fontSize: 14, color: "#2858A3", mb: "8px",
-                        lineHeight: 1.3, height: `${2 * 1.3 * 14}px`,
+                        lineHeight: 1.3,
                         display: "-webkit-box", WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical", overflow: "hidden",
                       }}
                     >
                       {productName}
                     </Typography>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", mt: "auto" }}>
                       <Typography className="poppins" sx={{ fontSize: 14, fontWeight: 600 }}>
                         {currency} {(Math.round(finalPrice * (exchangeRate || 1) * 100) / 100).toFixed(2)}
                       </Typography>

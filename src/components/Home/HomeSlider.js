@@ -88,7 +88,7 @@ const HomeSlider = () => {
                 src={slide.image}
                 alt={slide.title[i18n.language]}
                 className="w-full h-auto object-contain"
-                style={{ maxHeight: isTablet ? 360 : 450 }}
+                style={{ maxHeight: isTablet ? 360 : 700 }}
               />
             )}
             {isMobile && (

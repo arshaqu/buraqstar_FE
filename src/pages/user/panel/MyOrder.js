@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight: 600,
     color: '#fbfcffff', // gray-600
-    backgroundColor: 'rgb(35 67 118 / 0.9)', // lightly transparent gray-50
+    backgroundColor: '#ffffff', // lightly transparent gray-50
     borderBottom: '2px solid #E5E7EB', // gray-200
     textTransform: 'uppercase',
     fontSize: '0.75rem',
@@ -275,7 +275,7 @@ const MyOrder = () => {
                                     <Typography variant="h5" fontWeight="bold" color="textPrimary">
                                         {orders.length}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography className='poppins ' variant="body2" color="textSecondary">
                                         {t('my_order.total_orders')}
                                     </Typography>
                                 </Box>
@@ -290,22 +290,22 @@ const MyOrder = () => {
                                     <Typography variant="h5" fontWeight="bold" color="textPrimary">
                                         {orders.filter(o => ['canceled', 'failed'].includes(o.payment_status?.toLowerCase())).length}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography className='poppins' variant="body2" color="textSecondary">
                                         {t('my_order.canceled_orders')}
                                     </Typography>
                                 </Box>
                             </Paper>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <Paper elevation={0} className="bg-white/40 backdrop-blur-md shadow-lg" sx={{ p: 3, borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.4)', display: 'flex', alignItems: 'center', gap: 2 }}>
-                                <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: 'rgba(5, 150, 105, 0.1)', color: '#059669' }}>
+                            <Paper elevation={0}  className="bg-white/40 backdrop-blur-md shadow-lg" sx={{ p: 3, borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.4)', display: 'flex', alignItems: 'center', gap: 2 }}>
+                                <Box  sx={{ p: 1.5, borderRadius: '12px', bgcolor: 'rgba(5, 150, 105, 0.1)', color: '#059669' }}>
                                     <SearchIcon />
                                 </Box>
                                 <Box>
-                                    <Typography variant="h5" fontWeight="bold" color="textPrimary">
+                                    <Typography className='poppins' variant="h5" fontWeight="bold" color="textPrimary">
                                         {orders.filter(o => ['paid', 'success'].includes(o.payment_status?.toLowerCase())).length}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography className='poppins' variant="body2" color="textSecondary">
                                         {t('my_order.successful_orders')}
                                     </Typography>
                                 </Box>
@@ -321,7 +321,7 @@ const MyOrder = () => {
                         value={searchQuery}
                         onChange={handleSearch}
                         size="small"
-                        className="bg-white/40 backdrop-blur-md shadow-sm"
+                        className="bg-white/40 backdrop-blur-md shadow-sm poppins"
                         sx={{
                             width: { xs: '100%', sm: '320px' },
                             borderRadius: '12px',
@@ -346,41 +346,41 @@ const MyOrder = () => {
                             <TableHead >
                                 <TableRow >
                                     <StyledTableCell sortDirection={orderBy === 'code' ? order : false}>
-                                        <TableSortLabel className='text-gray-700 bg-white'  active={orderBy === 'code'} direction={orderBy === 'code' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'code')}>
+                                        <TableSortLabel className='text-gray-700 bg-white poppins'   sx={{    fontSize: {xs: '8px', sm: '10px',md: '12px'}  }}  active={orderBy === 'code'} direction={orderBy === 'code' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'code')}>
                                             {t('my_order.order_code')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'product_count' ? order : false}>
-                                        <TableSortLabel active={orderBy === 'product_count'} direction={orderBy === 'product_count' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'product_count')}>
+                                    <StyledTableCell className='text-gray-700 bg-white poppins' align="center" sortDirection={orderBy === 'product_count' ? order : false}>
+                                        <TableSortLabel  sx={{    fontSize: {xs: '8px', sm: '10px',md: '12px'}  }} active={orderBy === 'product_count'} direction={orderBy === 'product_count' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'product_count')}>
                                             {t('my_order.items')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'payment_type' ? order : false}>
-                                        <TableSortLabel active={orderBy === 'payment_type'} direction={orderBy === 'payment_type' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'payment_type')}>
+                                    <StyledTableCell className='text-gray-700 bg-white poppins' align="center" sortDirection={orderBy === 'payment_type' ? order : false}>
+                                        <TableSortLabel sx={{    fontSize: {xs: '8px', sm: '10px',md: '12px'}  }} active={orderBy === 'payment_type'} direction={orderBy === 'payment_type' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'payment_type')}>
                                             {t('my_order.payment_type')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'delivery_status' ? order : false}>
-                                        <TableSortLabel active={orderBy === 'delivery_status'} direction={orderBy === 'delivery_status' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'delivery_status')}>
+                                    <StyledTableCell className='text-gray-700 bg-white poppins' align="center" sortDirection={orderBy === 'delivery_status' ? order : false}>
+                                        <TableSortLabel sx={{    fontSize: {xs: '8px', sm: '10px',md: '12px'}  }} active={orderBy === 'delivery_status'} direction={orderBy === 'delivery_status' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'delivery_status')}>
                                             {t('my_order.delivery_status')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'payment_status' ? order : false}>
+                                    <StyledTableCell sx={{    fontSize: {xs: '8px', sm: '10px',md: '12px'}  }} className='text-gray-700 bg-white poppins' align="center" sortDirection={orderBy === 'payment_status' ? order : false}>
                                         <TableSortLabel active={orderBy === 'payment_status'} direction={orderBy === 'payment_status' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'payment_status')}>
                                             {t('my_order.payment_status')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'grand_total' ? order : false}>
+                                    <StyledTableCell sx={{    fontSize: {xs: '8px', sm: '10px',md: '12px'}  }} className='text-gray-700 bg-white poppins' align="center" sortDirection={orderBy === 'grand_total' ? order : false}>
                                         <TableSortLabel active={orderBy === 'grand_total'} direction={orderBy === 'grand_total' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'grand_total')}>
                                             {t('my_order.amount')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell className='text-gray-700 bg-white' align="center" sortDirection={orderBy === 'created_at' ? order : false}>
+                                    <StyledTableCell sx={{    fontSize: {xs: '8px', sm: '10px',md: '12px'}  }} className='text-gray-700 bg-white poppins' align="center" sortDirection={orderBy === 'created_at' ? order : false}>
                                         <TableSortLabel active={orderBy === 'created_at'} direction={orderBy === 'created_at' ? order : 'asc'} onClick={(event) => handleRequestSort(event, 'created_at')}>
                                             {t('my_order.date')}
                                         </TableSortLabel>
                                     </StyledTableCell>
-                                    <StyledTableCell className='text-gray-700 bg-white' align="right">
+                                    <StyledTableCell sx={{    fontSize: {xs: '8px', sm: '10px',md: '12px'}  }} className='text-gray-700 bg-white poppins' align="right">
                                         {t('my_order.actions')}
                                     </StyledTableCell>
                                 </TableRow>
@@ -398,7 +398,7 @@ const MyOrder = () => {
                                 ) : filteredOrders.length === 0 ? (
                                     <TableRow>
                                         <TableCell colSpan={8} align="center" sx={{ py: 6 }}>
-                                            <Typography variant="body1" color="textSecondary">
+                                            <Typography className='poppins' variant="body1" color="textSecondary">
                                                 {t('my_order.no_orders_found')}
                                             </Typography>
                                         </TableCell>
@@ -408,7 +408,7 @@ const MyOrder = () => {
                                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         .map((row) => (
                                             <StyledTableRow key={row.id || row.code}>
-                                                <TableCell sx={{ fontWeight: 600, color: '#111827' }}>
+                                                <TableCell className='poppins' sx={{ fontWeight: 600, color: '#111827' }}>
                                                     {row.code}
                                                 </TableCell>
                                                 <TableCell align="center">
@@ -419,22 +419,22 @@ const MyOrder = () => {
                                                     />
                                                 </TableCell>
                                                 <TableCell align="center">
-                                                    <Typography variant="body2" sx={{ fontWeight: 600, fontSize: '0.75rem', color: '#6B7280', letterSpacing: 0.5 }}>
+                                                    <Typography className='poppins' variant="body2" sx={{ fontWeight: 600, fontSize: '0.75rem', color: '#6B7280', letterSpacing: 0.5 }}>
                                                         {row.payment_type ? row.payment_type.replace(/_/g, ' ').toUpperCase() : 'N/A'}
                                                     </Typography>
                                                 </TableCell>
                                                 <TableCell align="center">{getStatusChip(row.delivery_status)}</TableCell>
                                                 <TableCell align="center">{getStatusChip(row.payment_status)}</TableCell>
-                                                <TableCell align="center" sx={{ fontWeight: 700, color: '#111827' }}>
+                                                <TableCell align="center" className='poppins' sx={{ fontWeight: 700, color: '#111827' }}>
                                                     {`${row.currency || row.main_cur || 'AED'} ${parseFloat(row.grand_total).toFixed(2)}`}
                                                 </TableCell>
-                                                <TableCell align="center" sx={{ color: '#6B7280', fontSize: '0.85rem' }}>
+                                                <TableCell align="center" className='poppins' sx={{ color: '#6B7280', fontSize: '0.85rem' }}>
                                                     {formatDate(row.created_at)}
                                                 </TableCell>
                                                 <TableCell align="right">
                                                     <Box className="flex items-center justify-end gap-1">
                                                         {isRetryEligible(row) && (
-                                                            <Tooltip title={t('my_order.pay_now')}>
+                                                            <Tooltip className='poppins' title={t('my_order.pay_now')}>
                                                                 <IconButton
                                                                     onClick={() => handleRetryPayment(row.code)}
                                                                     disabled={retryLoading === row.code}
@@ -457,7 +457,7 @@ const MyOrder = () => {
                                                                 </IconButton>
                                                             </Tooltip>
                                                         )}
-                                                            <Tooltip title={t('my_order.order_details')}>
+                                                            <Tooltip className='poppins' title={t('my_order.order_details')}>
                                                             <IconButton
                                                                 onClick={() => handleViewOrder(row)}
                                                                 color="primary"
@@ -505,7 +505,7 @@ const MyOrder = () => {
                 }}
             >
                 <DialogTitle sx={{ m: 0, p: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center', bgcolor: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
-                    <Typography variant="h6" fontWeight="bold" color="textPrimary">
+                    <Typography className='poppins' variant="h6" fontWeight="bold" color="textPrimary">
                         {t('my_order.order_details')}
                     </Typography>
                     <IconButton aria-label="close" onClick={handleCloseModal} size="small" sx={{ color: '#6B7280' }}>
@@ -535,9 +535,9 @@ const MyOrder = () => {
                                     {/* Top Status & Info Bar */}
                                     <Box className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 flex flex-wrap justify-between items-center gap-4">
                                         <Box>
-                                            <Typography variant="body2" color="textSecondary" className="mb-1">{t('my_order.order_hash')}</Typography>
-                                            <Typography variant="h5" fontWeight="bold" color="textPrimary">{selectedOrder.code}</Typography>
-                                            <Typography variant="body2" color="textSecondary" className="mt-1">{formatDate(selectedOrder.created_at)}</Typography>
+                                            <Typography variant="body2" color="textSecondary" className="mb-1 poppins">{t('my_order.order_hash')}</Typography>
+                                            <Typography variant="h5" fontWeight="bold" className='poppins' color="textPrimary">{selectedOrder.code}</Typography>
+                                            <Typography variant="body2" color="textSecondary" className="mt-1 poppins">{formatDate(selectedOrder.created_at)}</Typography>
                                         </Box>
                                         <Box className="flex gap-3 items-center">
                                             <Box className="flex flex-col items-end">
@@ -593,29 +593,29 @@ const MyOrder = () => {
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                                         {/* Order Info */}
                                         <Paper elevation={0} className="p-6 border border-gray-100 rounded-xl bg-gray-50/50">
-                                            <Typography variant="subtitle1" fontWeight="bold" className="text-gray-900 mb-4 border-b border-gray-200 pb-2">{t('my_order.order_information')}</Typography>
+                                            <Typography variant="subtitle1" fontWeight="bold" className="text-gray-900 mb-4 border-b border-gray-200 pb-2 poppins">{t('my_order.order_information')}</Typography>
                                             <Box className="space-y-3">
                                                 <Box className="flex justify-between">
-                                                    <Typography variant="body2" className="text-gray-500">{t('my_order.delivery_type')}</Typography>
+                                                    <Typography variant="body2" className="text-gray-500 poppins">{t('my_order.delivery_type')}</Typography>
                                                     <Typography variant="body2" fontWeight="600" className="text-gray-800">{selectedOrder.delivery_type ? selectedOrder.delivery_type.replace(/_/g, ' ').toUpperCase() : 'N/A'}</Typography>
                                                 </Box>
                                                 <Box className="flex justify-between">
-                                                    <Typography variant="body2" className="text-gray-500">{t('my_order.payment_method')}</Typography>
-                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800">{selectedOrder.payment_type ? selectedOrder.payment_type.replace(/_/g, ' ').toUpperCase() : 'N/A'}</Typography>
+                                                    <Typography variant="body2" className="text-gray-500 poppins">{t('my_order.payment_method')}</Typography>
+                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800 poppins">{selectedOrder.payment_type ? selectedOrder.payment_type.replace(/_/g, ' ').toUpperCase() : 'N/A'}</Typography>
                                                 </Box>
                                             </Box>
                                         </Paper>
 
                                         {/* Shipping Address */}
                                         <Paper elevation={0} className="p-6 border border-gray-100 rounded-xl bg-gray-50/50">
-                                            <Typography variant="subtitle1" fontWeight="bold" className="text-gray-900 mb-4 border-b border-gray-200 pb-2">{t('my_order.shipping_address')}</Typography>
+                                            <Typography variant="subtitle1" fontWeight="bold" className="text-gray-900 mb-4 border-b border-gray-200 pb-2 poppins">{t('my_order.shipping_address')}</Typography>
                                             {selectedOrder.shipping_address ? (
                                                 <Box className="space-y-1">
-                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800">{selectedOrder.shipping_address.name || 'Customer'}</Typography>
-                                                    <Typography variant="body2" className="text-gray-600">{selectedOrder.shipping_address.address}</Typography>
-                                                    <Typography variant="body2" className="text-gray-600">{selectedOrder.shipping_address.city}, {selectedOrder.shipping_address.postal_code}</Typography>
-                                                    <Typography variant="body2" className="text-gray-600">{selectedOrder.shipping_address.state}, {selectedOrder.shipping_address.country}</Typography>
-                                                    <Typography variant="body2" className="text-gray-600 mt-2"><strong>{t('my_order.phone_label')}</strong> {selectedOrder.shipping_address.phone}</Typography>
+                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800 poppins">{selectedOrder.shipping_address.name || 'Customer'}</Typography>
+                                                    <Typography variant="body2" className="text-gray-600 poppins">{selectedOrder.shipping_address.address}</Typography>
+                                                    <Typography variant="body2" className="text-gray-600 poppins">{selectedOrder.shipping_address.city}, {selectedOrder.shipping_address.postal_code}</Typography>
+                                                    <Typography variant="body2" className="text-gray-600 poppins">{selectedOrder.shipping_address.state}, {selectedOrder.shipping_address.country}</Typography>
+                                                    <Typography variant="body2" className="text-gray-600 poppins mt-2"><strong>{t('my_order.phone_label')}</strong> {selectedOrder.shipping_address.phone}</Typography>
                                                 </Box>
                                             ) : (
                                                 <Typography variant="body2" className="text-gray-500 italic">{t('my_order.no_shipping_details')}</Typography>
@@ -624,47 +624,47 @@ const MyOrder = () => {
 
                                         {/* Billing Address */}
                                         <Paper elevation={0} className="p-6 border border-gray-100 rounded-xl bg-gray-50/50">
-                                            <Typography variant="subtitle1" fontWeight="bold" className="text-gray-900 mb-4 border-b border-gray-200 pb-2">{t('my_order.billing_address')}</Typography>
+                                            <Typography variant="subtitle1" fontWeight="bold" className="text-gray-900 mb-4 border-b border-gray-200 pb-2 poppins">{t('my_order.billing_address')}</Typography>
                                             {selectedOrder.billing_address || selectedOrder.shipping_address ? (
                                                 <Box className="space-y-1">
                                                     {/* Fallback to shipping if billing doesn't exist explicitly in data structure but conceptually it's the same */}
-                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800">
+                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800 poppins ">
                                                         {(selectedOrder.billing_address && selectedOrder.billing_address.name) || (selectedOrder.shipping_address && selectedOrder.shipping_address.name) || 'Customer'}
                                                     </Typography>
-                                                    <Typography variant="body2" className="text-gray-600">{(selectedOrder.billing_address && selectedOrder.billing_address.address) || selectedOrder.shipping_address.address}</Typography>
-                                                    <Typography variant="body2" className="text-gray-600">{(selectedOrder.billing_address && selectedOrder.billing_address.city) || selectedOrder.shipping_address.city}, {(selectedOrder.billing_address && selectedOrder.billing_address.postal_code) || selectedOrder.shipping_address.postal_code}</Typography>
-                                                    <Typography variant="body2" className="text-gray-600">{(selectedOrder.billing_address && selectedOrder.billing_address.state) || selectedOrder.shipping_address.state}, {(selectedOrder.billing_address && selectedOrder.billing_address.country) || selectedOrder.shipping_address.country}</Typography>
+                                                    <Typography variant="body2" className="text-gray-600 poppins">{(selectedOrder.billing_address && selectedOrder.billing_address.address) || selectedOrder.shipping_address.address}</Typography>
+                                                    <Typography variant="body2" className="text-gray-600 poppins">{(selectedOrder.billing_address && selectedOrder.billing_address.city) || selectedOrder.shipping_address.city}, {(selectedOrder.billing_address && selectedOrder.billing_address.postal_code) || selectedOrder.shipping_address.postal_code}</Typography>
+                                                    <Typography variant="body2" className="text-gray-600 poppins">{(selectedOrder.billing_address && selectedOrder.billing_address.state) || selectedOrder.shipping_address.state}, {(selectedOrder.billing_address && selectedOrder.billing_address.country) || selectedOrder.shipping_address.country}</Typography>
                                                 </Box>
                                             ) : (
-                                                <Typography variant="body2" className="text-gray-500 italic">{t('my_order.no_billing_details')}</Typography>
+                                                <Typography variant="body2" className="text-gray-500 italic poppins">{t('my_order.no_billing_details')}</Typography>
                                             )}
                                         </Paper>
                                     </div>
 
                                     {selectedOrder.special_instruction && (
                                         <Box className="bg-yellow-50 rounded-xl p-5 mb-8 border border-yellow-100">
-                                            <Typography variant="subtitle2" fontWeight="bold" className="text-yellow-800 mb-2">{t('my_order.special_instructions')}</Typography>
-                                            <Typography variant="body2" className="text-yellow-900 whitespace-pre-wrap">{selectedOrder.special_instruction}</Typography>
+                                            <Typography variant="subtitle2" fontWeight="bold" className="text-yellow-800 mb-2 poppins">{t('my_order.special_instructions')}</Typography>
+                                            <Typography variant="body2" className="text-yellow-900 whitespace-pre-wrap poppins">{selectedOrder.special_instruction}</Typography>
                                         </Box>
                                     )}
 
                                     {/* Shipment Tracking */}
                                     {(selectedOrder.courier_name || selectedOrder.tracking_number || selectedOrder.tracking_url) && (
                                         <Box className="bg-blue-50 rounded-xl p-5 mb-8 border border-blue-100">
-                                            <Typography variant="subtitle2" fontWeight="bold" className="text-blue-800 mb-3">{t('my_order.shipment_tracking')}</Typography>
+                                            <Typography variant="subtitle2" fontWeight="bold" className="text-blue-800 mb-3 poppins">{t('my_order.shipment_tracking')}</Typography>
                                             <Box className="flex flex-wrap gap-x-8 gap-y-2">
                                                 {selectedOrder.courier_name && (
                                                     <Box>
-                                                        <Typography variant="caption" className="text-blue-500">{t('my_order.courier')}</Typography>
-                                                        <Typography variant="body2" fontWeight="600" className="text-blue-900">{selectedOrder.courier_name}</Typography>
+                                                        <Typography variant="caption" className="text-blue-500 poppins">{t('my_order.courier')}</Typography>
+                                                        <Typography variant="body2" fontWeight="600" className="text-blue-900 poppins">{selectedOrder.courier_name}</Typography>
                                                     </Box>
                                                 )}
                                                 {selectedOrder.tracking_number && (
                                                     <Box>
-                                                        <Typography variant="caption" className="text-blue-500">{t('my_order.tracking_number')}</Typography>
-                                                        <Typography variant="body2" fontWeight="600" className="text-blue-900">
+                                                        <Typography variant="caption" className="text-blue-500 poppins">{t('my_order.tracking_number')}</Typography>
+                                                        <Typography variant="body2" fontWeight="600" className="text-blue-900 poppins">
                                                             {selectedOrder.tracking_url ? (
-                                                                <a href={selectedOrder.tracking_url} target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-700 inline-flex items-center gap-1">
+                                                                <a href={selectedOrder.tracking_url} target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-700 inline-flex items-center gap-1 poppins">
                                                                     {selectedOrder.tracking_number}
                                                                     <OpenInNewIcon sx={{ fontSize: 14 }} />
                                                                 </a>
@@ -676,9 +676,9 @@ const MyOrder = () => {
                                                 )}
                                                 {selectedOrder.tracking_url && !selectedOrder.tracking_number && (
                                                     <Box>
-                                                        <Typography variant="caption" className="text-blue-500">{t('my_order.shipment_tracking')}</Typography>
-                                                        <Typography variant="body2" fontWeight="600">
-                                                            <a href={selectedOrder.tracking_url} target="_blank" rel="noopener noreferrer" className="text-blue-700 underline hover:text-blue-900 inline-flex items-center gap-1">
+                                                        <Typography variant="caption" className="text-blue-500 poppins">{t('my_order.shipment_tracking')}</Typography>
+                                                        <Typography variant="body2" className='poppins' fontWeight="600">
+                                                            <a href={selectedOrder.tracking_url} target="_blank" rel="noopener noreferrer" className="text-blue-700 underline hover:text-blue-900 inline-flex items-center gap-1 poppins">
                                                                 {t('my_order.view_tracking')}
                                                                 <OpenInNewIcon sx={{ fontSize: 14 }} />
                                                             </a>
@@ -690,37 +690,37 @@ const MyOrder = () => {
                                     )}
 
                                     {/* Order Items Table */}
-                                    <Typography variant="h6" fontWeight="bold" className="text-gray-900 mb-4">{t('my_order.order_items')}</Typography>
-                                    <TableContainer component={Paper} elevation={0} className="border border-gray-200 rounded-xl mb-8 overflow-hidden">
+                                    <Typography variant="h6" fontWeight="bold" className="text-gray-900 mb-4 poppins">{t('my_order.order_items')}</Typography>
+                                    <TableContainer component={Paper} elevation={0} className="border border-gray-200 rounded-xl mb-8 overflow-hidden poppins">
                                         <Table sx={{ minWidth: 600 }}>
-                                            <TableHead className="bg-gray-50">
+                                            <TableHead className="bg-gray-50 poppins">
                                                 <TableRow>
-                                                    <TableCell sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.product')}</TableCell>
-                                                    <TableCell align="center" sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.unit_price')}</TableCell>
-                                                    <TableCell align="center" sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.qty')}</TableCell>
-                                                    <TableCell align="center" sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.tax')}</TableCell>
-                                                    <TableCell align="right" sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.total')}</TableCell>
+                                                    <TableCell className='poppins' sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.product')}</TableCell>
+                                                    <TableCell align="center" className='poppins' sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.unit_price')}</TableCell>
+                                                    <TableCell align="center" className='poppins' sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.qty')}</TableCell>
+                                                    <TableCell align="center" className='poppins' sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.tax')}</TableCell>
+                                                    <TableCell align="right" className='poppins' sx={{ fontWeight: 600, color: '#4B5563', py: 2 }}>{t('my_order.total')}</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
                                                 {selectedOrder.products && selectedOrder.products.data && selectedOrder.products.data.map((product) => (
-                                                    <TableRow key={product.id} className="hover:bg-gray-50/50">
+                                                    <TableRow key={product.id} className="hover:bg-gray-50/50 className='poppins'">
                                                         <TableCell>
                                                             <Box className="flex items-center gap-4">
                                                                 <Box className="w-14 h-14 rounded-lg border border-gray-100 overflow-hidden flex-shrink-0 bg-white">
                                                                     <img src={product?.images ? ImageURL + product.images : defaultImage} alt={product.name} className="w-full h-full object-cover" />
                                                                 </Box>
-                                                                <Typography variant="body2" fontWeight="600" className="text-gray-800">{product.name}</Typography>
+                                                                <Typography variant="body2" fontWeight="600" className="text-gray-800 className='poppins'">{product.name}</Typography>
                                                             </Box>
                                                         </TableCell>
-                                                        <TableCell align="center" className="text-gray-600">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(product.price).toFixed(2)}`}</TableCell>
+                                                        <TableCell align="center" className="text-gray-600 poppins">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(product.price).toFixed(2)}`}</TableCell>
                                                         <TableCell align="center">
                                                             <Box className="inline-flex items-center justify-center bg-gray-100 px-3 py-1 rounded-full">
-                                                                <Typography variant="body2" fontWeight="bold" className="text-gray-700">{product.quantity}</Typography>
+                                                                <Typography variant="body2" fontWeight="bold" className="text-gray-700 poppins ">{product.quantity}</Typography>
                                                             </Box>
                                                         </TableCell>
-                                                        <TableCell align="center" className="text-gray-600">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(product.tax).toFixed(2)}`}</TableCell>
-                                                        <TableCell align="right" className="text-gray-900" sx={{ fontWeight: 600 }}>{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(product.total).toFixed(2)}`}</TableCell>
+                                                        <TableCell align="center" className="text-gray-600 poppins">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(product.tax).toFixed(2)}`}</TableCell>
+                                                        <TableCell align="right" className="text-gray-900 poppins" sx={{ fontWeight: 600 }}>{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(product.total).toFixed(2)}`}</TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>
@@ -732,27 +732,27 @@ const MyOrder = () => {
                                         <Box className="w-full sm:w-96 bg-gray-50 p-6 rounded-xl border border-gray-200">
                                             <Box className="space-y-4">
                                                 <Box className="flex justify-between items-center">
-                                                    <Typography variant="body2" className="text-gray-500">{t('my_order.subtotal')}</Typography>
-                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.subtotal).toFixed(2)}`}</Typography>
+                                                    <Typography variant="body2" className="text-gray-500 poppins">{t('my_order.subtotal')}</Typography>
+                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800 poppins">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.subtotal).toFixed(2)}`}</Typography>
                                                 </Box>
                                                 <Box className="flex justify-between items-center">
-                                                    <Typography variant="body2" className="text-gray-500">{t('my_order.tax')}</Typography>
-                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.tax).toFixed(2)}`}</Typography>
+                                                    <Typography variant="body2" className="text-gray-500 poppins">{t('my_order.tax')}</Typography>
+                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800 poppins">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.tax).toFixed(2)}`}</Typography>
                                                 </Box>
                                                 <Box className="flex justify-between items-center">
-                                                    <Typography variant="body2" className="text-gray-500">{t('my_order.shipping')}</Typography>
-                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.shipping_cost).toFixed(2)}`}</Typography>
+                                                    <Typography variant="body2" className="text-gray-500 poppins">{t('my_order.shipping')}</Typography>
+                                                    <Typography variant="body2" fontWeight="600" className="text-gray-800 poppins">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.shipping_cost).toFixed(2)}`}</Typography>
                                                 </Box>
                                                 {parseFloat(selectedOrder.coupon_discount) > 0 && (
                                                     <Box className="flex justify-between items-center text-green-600">
-                                                        <Typography variant="body2" fontWeight="500">{t('my_order.discount')}</Typography>
-                                                        <Typography variant="body2" fontWeight="600">{`- ${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.coupon_discount).toFixed(2)}`}</Typography>
+                                                        <Typography variant="body2" fontWeight="500 poppins">{t('my_order.discount')}</Typography>
+                                                        <Typography variant="body2" fontWeight="600 poppins">{`- ${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.coupon_discount).toFixed(2)}`}</Typography>
                                                     </Box>
                                                 )}
                                                 <Divider className="my-2" />
                                                 <Box className="flex justify-between items-center">
-                                                    <Typography variant="h6" fontWeight="bold" className="text-gray-900">{t('my_order.total')}</Typography>
-                                                    <Typography variant="h6" fontWeight="bold" color="primary">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.grand_total).toFixed(2)}`}</Typography>
+                                                    <Typography variant="h6" fontWeight="bold" className="text-gray-900 poppins">{t('my_order.total')}</Typography>
+                                                    <Typography variant="h6" fontWeight="bold" className='poppins' color="primary">{`${selectedOrder.currency || selectedOrder.main_cur || 'AED'} ${parseFloat(selectedOrder.grand_total).toFixed(2)}`}</Typography>
                                                 </Box>
                                             </Box>
                                         </Box>

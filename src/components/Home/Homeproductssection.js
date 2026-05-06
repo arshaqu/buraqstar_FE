@@ -374,6 +374,7 @@ const HomeProductsSection = ({ isGridView = true }) => {
       {/* Mobile drawer toggle */}
       <Box sx={{ display: { xs: 'flex', md: 'none' }, mb: 1.5 }}>
         <Button
+        className='mb-3'
           startIcon={<MenuIcon />}
           onClick={() => setDrawerOpen(true)}
           variant="outlined"
@@ -388,7 +389,7 @@ const HomeProductsSection = ({ isGridView = true }) => {
         <Box sx={{ width: 260, p: 2 }}>{sidebarContent}</Box>
       </Drawer>
 
-      <Grid container spacing={2}>
+      <Grid container >
 
         {/* ── Desktop Sticky Sidebar ── */}
         <Grid

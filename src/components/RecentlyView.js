@@ -57,8 +57,8 @@ function RecentlyView() {
             >
               {/* ✅ Navigatable area — only clicking this part goes to product page */}
                 
-                <div className="relative w-full h-60 p-5 flex items-center justify-center mb-3 border-b overflow-hidden">
-                  <a className="p-5"
+                <div className="relative w-full h-60 p-3 flex items-center justify-center mb-3 border-b overflow-hidden">
+                  <a className=""
                     href={`/product/${item.slug}`}
                   >
 

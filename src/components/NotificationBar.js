@@ -14,8 +14,8 @@ const NotificationBar = ({ open, setOpen, type, message }) => {
                     borderRadius: "12px",
                     fontSize: "10px",
                     fontWeight: 300,
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-                    backgroundColor:'rgba(0,0,0,0.2)'
+                   
+                    backgroundColor:'rgb(0, 0, 0)'
                 }}
                 >
                 {message}

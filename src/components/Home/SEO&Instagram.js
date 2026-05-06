@@ -1,6 +1,8 @@
 import React from "react";
 // import BuraqLogo from "../../assets/buraqlog.png";
 import BuraqLogo from '../../assets/watermark_panel.svg'
+import { useNavigate } from 'react-router-dom';
+
 
 const checkItems = [
   "Trusted Since 2002",
@@ -10,6 +12,7 @@ const checkItems = [
 ];
 
 const WhoWeAre = () => {
+  const navigate = useNavigate()
   return (
     <>
       <style>{`
@@ -239,7 +242,7 @@ const WhoWeAre = () => {
                 <span className="check-label poppins">{item}</span>
               </div>
             ))}
-            <button className="shop-btn poppins text-md">Shop Now</button>
+            <button onClick={() => navigate("/category")} className="shop-btn poppins text-md">Shop Now</button>
           </div>
 
           {/* RIGHT — Logo watermark */}

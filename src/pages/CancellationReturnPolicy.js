@@ -95,10 +95,10 @@ const CancellationReturnPolicy = () => {
         {t('dashboard_sidebar.home')} &nbsp; &gt; &nbsp; <span className="text-[#2858A3] ">{t('order_cancellation_return_policy')}</span>
       </Typography>
          <Container maxWidth="lg" className=" sm:px-6 md:px-8">
-            <Paper elevation={3} className="p-14 rounded-lg shadow-md bg-gray-100">
+            <Paper elevation={3} className="md:p-14 lg: lg:p-16 sm:p-5 p-5 rounded-lg shadow-md bg-gray-100">
         
               <Typography className="text-gray-700 leading-relaxed mb-6 poppins text-xs md:text-lg">
-                {t("privacy_policy_intro")}
+                {t("order_cancellation_return_policy")}
               </Typography>
               {policySections.map((section, i) => (
                 <Box key={i} className="mb-6">

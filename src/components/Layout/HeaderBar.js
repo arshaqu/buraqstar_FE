@@ -259,7 +259,7 @@ const HeaderBar = () => {
   // }, [CartId])
 
   return (
-    <Box className='h-20 sm:h-28 w-full relative top-0 bg-white flex items-center justify-between px-2.5 sm:px-4 sm:py-5'>
+    <Box className='h-20 sm:h-20 w-full relative top-0 bg-white flex items-center justify-between px-2.5 sm:px-4 sm:py-5'>
      <Box className='flex items-center'>
   <IconButton
     className='p-0 mr-1 sm:mr-2 block sm:block lg:hidden'
@@ -276,7 +276,7 @@ const HeaderBar = () => {
   <Link to='/' onClick={handleLogoClick} className="ml-0">
     <img
       src={logo}
-      className='h-[38px] sm:h-[54px] md:h-[62px] lg:h-[70px] w-auto object-contain'
+      className='h-[30px] sm:h-[40px] md:h-[45px] lg:h-[50px] w-auto object-contain'
       alt='burraq star logo'
     />
   </Link>
@@ -285,18 +285,18 @@ const HeaderBar = () => {
       {/* Desktop Search Bar */}
     <Box
   ref={desktopSearchRef}
-  className="relative w-[50%] h-[75%] bg-gray-100 rounded-3xl hidden sm:flex items-center px-4 py-4 mx-8 border border-gray-200"
+  className="relative w-[50%] h-[100%] bg-gray-100 rounded-3xl hidden sm:flex items-center px-4 py-4 mx-8 border border-gray-200 poppins"
 >
   <input
-    className="flex-1 bg-transparent outline-none text-[#2858A3] "
+    className="flex-1 bg-transparent outline-none font-thin poppins text-sm ml-2 text-[#2858A3] poppins"
     placeholder={t('header.search_placeholder')}
     value={search}
     onChange={handleSearchChange}
     onKeyDown={handleKeyDown}
   />
   
-  <Box style={isRTL ? { marginLeft: '-9px' } : { marginRight: '-9px' }} className='  border border-[#2858A3] rounded-3xl p-1.5 bg-[#2858A3] hover:bg-[#02AFF3] transition-colors duration-200'>
-    <FiSearch className="text-3xl text-white cursor-pointer" />
+  <Box style={isRTL ? { marginLeft: '-9px' } : { marginRight: '-9px' }} className='  border border-[#2858A3] rounded-3xl  bg-[#2858A3] hover:bg-[#02AFF3] transition-colors duration-200'>
+    <FiSearch className="text-3xl text-white cursor-pointer p-1" />
 
   </Box>
 

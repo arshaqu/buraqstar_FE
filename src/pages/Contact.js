@@ -271,7 +271,7 @@ const Contact = () => {
 
           {/* ── RIGHT: OFFICE CARDS ── */}
           <Grid item xs={12} md={6}>
-            <Box className="flex flex-col gap-4 h-full bg-[#1A408A] p-10 rounded-3xl">
+            <Box className="flex flex-col gap-4 h-full bg-[#1A408A] md:p-10 lg:p-10 p-5 rounded-3xl">
              <img
                 src={watermark}
                 alt=""
@@ -283,7 +283,7 @@ const Contact = () => {
                 sx={{
                   background: "#0D2D61",
                   borderRadius: "16px",
-                  p: { xs: "20px 24px", md: "24px 32px" },
+                  p: { xs: "14px 16px", md: "24px 32px" },
                   position: "relative",
                   overflow: "hidden",
                   flex: 1,
@@ -307,7 +307,7 @@ const Contact = () => {
                 </Typography>
 
                 <Box
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 mb-2"
                   sx={{ position: "relative", zIndex: 1 }}
                 >
                   <Box
@@ -324,8 +324,8 @@ const Contact = () => {
 
                   <a
                     href={office.href}
-                    className="poppins font-medium text-white hover:opacity-80 transition-opacity"
-                    style={{ fontSize: 14, textDecoration: "none" }}
+                    className="poppins font-medium text-white hover:opacity-80  transition-opacity"
+                    style={{ fontSize: 12, textDecoration: "none" }}
                   >
                     {office.tel}
                   </a>
@@ -378,7 +378,7 @@ const Contact = () => {
                 <a
                   href="tel:80066839"
                   className="poppins font-semibold text-[#2858a3] hover:opacity-75 transition-opacity "
-                  style={{ fontSize: 15, textDecoration: "none" }}
+                   sx={{ fontSize: { xs: 10, sm: 12, md: 14 } , textDecoration:'none' }}
                 >
                   800-NOVEX (66839)
                 </a>
@@ -409,7 +409,7 @@ const Contact = () => {
   <a
     href="mailto:ecommerce@buraqstar.com"
     className="poppins font-semibold text-[#2858a3] hover:opacity-75 transition-opacity break-all"
-    style={{ fontSize: "clamp(13px, 3.5vw, 15px)", textDecoration: "none" }}
+    sx={{ fontSize: { xs: 10, sm: 12, md: 14 } , textDecoration:'none' }}
   >
     ecommerce@buraqstar.com
   </a>

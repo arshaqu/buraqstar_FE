@@ -91,6 +91,9 @@ const Categories = () => {
     return (
         <Dropdown
             key={`${dropdownKey}-${i18n.language}`}
+            sx={{
+                    fontSize: { md: "0.75rem", lg: "0.875rem", xl: "1rem" },
+                  }}
             position="right"
             title={<>{t("header_categories.shop")} {categoryOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</>}
             className="poppins text-md text-white flex items-center relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/20 hover:shadow-lg hover:scale-105 group"

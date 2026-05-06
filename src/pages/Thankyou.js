@@ -78,17 +78,17 @@ const ThankYouPage = () => {
               <div className="icon-fix"></div>
             </div>
           </div>
-          <Typography variant="h4" gutterBottom>
+          <Typography className='poppins' variant="h4" gutterBottom>
             {t('thankyou.title')}
           </Typography>
           <CardContent>
-            <Typography variant="h6" gutterBottom>
+            <Typography className='poppins' variant="h6" gutterBottom>
               {t('thankyou.order_placed')}
             </Typography>
-            <Typography variant="h6" gutterBottom>
+            <Typography className='poppins' variant="h6" gutterBottom>
               {t('thankyou.order_code')} <strong>{orderCode}</strong>
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography className='poppins' variant="body1" gutterBottom>
               {t('thankyou.message')}
             </Typography>
             <Button

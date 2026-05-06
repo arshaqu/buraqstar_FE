@@ -615,7 +615,7 @@
     "our_brands": "Our Brands"
   },
   "header": {
-    "search_placeholder": "Search Here By Product Name...",
+    "search_placeholder": "Search Here By Product Name Or Code...",
     "cart": "Cart",
     "dashboard": "Dashboard",
     "login": "Login",
