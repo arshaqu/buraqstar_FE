@@ -39,7 +39,7 @@ function RecentlyView() {
   });
 
   return (
-    <div className="mt-10 px-4 lg:px-20">
+    <div className="mt-5 px-4 lg:px-20">
       <Typography
         sx={{ fontWeight: "600" }}
         className="text-2xl mb-6 poppins border-b"
@@ -57,7 +57,7 @@ function RecentlyView() {
             >
               {/* ✅ Navigatable area — only clicking this part goes to product page */}
                 
-                <div className="relative w-full h-60 p-3 flex items-center justify-center mb-3 border-b overflow-hidden">
+                  <div className="relative w-full  h-60  p-5 flex items-center justify-center mb-3 border-b overflow-hidden">
                   <a className=""
                     href={`/product/${item.slug}`}
                   >

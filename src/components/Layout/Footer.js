@@ -179,11 +179,14 @@ const Footer = () => {
         <Grid item xs={12} sm={5} className="mb-6 sm:mb-0">
           <Box className="flex justify-center sm:justify-start">
             <Link to="/" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
-              <img
-                src={footer_logo1}
-                alt="burraq star logo"
-                className="h-[8vh] w-auto text-center"
-              />
+             
+
+    <img
+      src={footer_logo1}
+      className='h-[30px] sm:h-[40px] md:h-[45px] lg:h-[50px] w-auto object-contain'
+      alt='burraq star logo'
+    />
+  
             </Link>
           </Box>
           <Typography className="text-[12px] mt-7 mb-4 w-[95%] text-gray-600 max-w-lg poppins text-center md:text-start footer-text-ipad ipad-description">

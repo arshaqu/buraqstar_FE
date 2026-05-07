@@ -539,16 +539,16 @@ const RetailerRegistration = () => {
         </div>
       </Box>
 
-    {/* Cards Grid */}
-  <Grid
-  container
-  spacing={2}
-  sx={{
-    maxWidth: 1700,
-    width: "100%",
-    mx: "auto",
-  }}
->
+            {/* Cards Grid */}
+          <Grid
+          container
+          spacing={2}
+          sx={{
+            maxWidth: 1700,
+            width: "100%",
+            mx: "auto",
+          }}
+        >
       {[
         { label: t("power_hand_tools"),          desc: t("power_hand_tools_desc") },
         { label: t("switch_sockets"),             desc: t("switch_sockets_desc") },
@@ -559,7 +559,7 @@ const RetailerRegistration = () => {
         { label: t("sanitary_bath_fittings"),     desc: t("sanitary_bath_fittings_desc") },
         { label: t("led_lamps_light_fittings"),   desc: t("led_lamps_light_fittings_desc") },
       ].map((item, index) => (
-        <Grid item xs={12} sm={6} md={3} key={index}>
+        <Grid className="ml-[-6px]" item xs={12} sm={6} md={3} key={index}>
           <Card
             elevation={0}
             sx={{
@@ -1169,55 +1169,60 @@ const RetailerRegistration = () => {
                   <Box component="ul" sx={{ m: 0, pl: 2.5, color: "text.primary" }}>
 
                     <li >
-                      <Typography className="poppins" variant="body1" color="textPrimary">
+                      <Typography className="poppins"  sx={{ fontSize: {
+                                xs: "0.875rem", // mobile
+                                md: "1rem",     // tablet+
+                                lg: "1rem",}}  }
+                        variant="body1" color="textPrimary">
                         {t("business_registration_certificate")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography className="poppins" variant="body1" color="textPrimary">
+                      <Typography className="poppins"   sx={{ fontSize: { xs: "0.875rem",  md: "1rem",  lg: "1rem",}}  } 
+                        variant="body1" color="textPrimary">
                         {t("trading_license_certificate")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography className="poppins" variant="body1" color="textPrimary">
+                      <Typography className="poppins"  sx={{ fontSize: { xs: "0.875rem",  md: "1rem",  lg: "1rem",}}  }  variant="body1" color="textPrimary">
                         {t("chamber_commerce_certificate")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography className="poppins" variant="body1" color="textPrimary">
+                      <Typography className="poppins"  sx={{ fontSize: { xs: "0.875rem",  md: "1rem",  lg: "1rem",}}  }  variant="body1" color="textPrimary">
                         {t("sponsor_passport_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography className="poppins" variant="body1" color="textPrimary">
+                      <Typography className="poppins"  sx={{ fontSize: { xs: "0.875rem",  md: "1rem",  lg: "1rem",}}  }  variant="body1" color="textPrimary">
                         {t("sponsor_eid_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography className="poppins" variant="body1" color="textPrimary">
+                      <Typography className="poppins"  sx={{ fontSize: { xs: "0.875rem",  md: "1rem",  lg: "1rem",}}  }  variant="body1" color="textPrimary">
                         {t("manager_passport_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography className="poppins" variant="body1" color="textPrimary">
+                      <Typography className="poppins"  sx={{ fontSize: { xs: "0.875rem",  md: "1rem",  lg: "1rem",}}  }  variant="body1" color="textPrimary">
                         {t("manager_visa_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography className="poppins" variant="body1" color="textPrimary">
+                      <Typography className="poppins"  sx={{ fontSize: { xs: "0.875rem",  md: "1rem",  lg: "1rem",}}  }  variant="body1" color="textPrimary">
                         {t("manager_eid_copy")}
 
                       </Typography>
                     </li>
                     <li>
-                      <Typography className="poppins" variant="body1" color="textPrimary">
+                      <Typography className="poppins"  sx={{ fontSize: { xs: "0.875rem",  md: "1rem",  lg: "1rem",}}  }  variant="body1" color="textPrimary">
                         {t("tenancy_contract_copy")}
 
                       </Typography>

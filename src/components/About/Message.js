@@ -85,7 +85,7 @@ const Message = ({ t }) => {
 
         {/* Heading Section */}
         <Box className="flex flex-col items-center justify-center text-center mb-10 ">
-          <Typography className="text-4xl font-semibold text-[#2E2E2E] poppins">
+          <Typography className="text-3xl sm:text-4xl font-semibold text-[#2E2E2E] poppins">
             About Buraq Star
           </Typography>
 
@@ -111,14 +111,24 @@ const Message = ({ t }) => {
           {/* Card 1 */}
           <Grid item xs={12} sm={6} md={3}>
             <Box className="bg-gray-100 rounded-xl shadow-sm md:p-6 text-center h-full">
-              <div className="flex justify-center mb-3 p-6">
+              <div className="flex justify-center mb-2">
                 <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-2 sm:text-p-2 md:p-3">
                   <ShareLocationOutlinedIcon
-                    sx={{ fontSize: 44, color: "#2858A4" }}
+                    sx={{
+                    color: '#2858a3',
+                  width: 44,
+                  height: 44,
+                  borderRadius: "50%",
+                  bgcolor: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+
+                }}
                   />
                 </div>
               </div>
-              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+              <Typography fontWeight={600} color="text.primary" className="poppins text-sm md:text-xl" gutterBottom>
                 Dubai & Sharjah
               </Typography>
               <Typography className="text-sm sm:text-base md:text-md text-gray-500 md:mt-2 poppins max-w-sm mx-auto p-2 sm:text-p-2 md:p-3">
@@ -130,12 +140,22 @@ const Message = ({ t }) => {
           {/* Card 2 */}
           <Grid item xs={12} sm={6} md={3}>
             <Box className="bg-gray-100 rounded-xl shadow-sm md:p-6 text-center h-full">
-              <div className="flex justify-center mb-3 p-6">
+              <div className="flex justify-center mb-2">
                 <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-2 sm:text-p-2 md:p-3">
-                  <VerifiedUserIcon sx={{ fontSize: 44, color: "#2858A4" }} />
+                  <VerifiedUserIcon sx={{
+                  color: '#2858a3',
+                  width: 44,
+                  height: 44,
+                  borderRadius: "50%",
+                  bgcolor: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+             
+                }} />
                 </div>
               </div>
-              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+              <Typography fontWeight={600} color="text.primary" className="poppins text-sm md:text-xl" gutterBottom>
                 20+ Years of Experience
               </Typography>
               <Typography className="text-sm sm:text-base md:text-md text-gray-500 md:mt-2 poppins max-w-sm mx-auto p-2 sm:text-p-2 md:p-3">
@@ -147,12 +167,22 @@ const Message = ({ t }) => {
           {/* Card 3 */}
           <Grid item xs={12} sm={6} md={3}>
             <Box className="bg-gray-100 rounded-xl shadow-sm md:p-6 text-center h-full">
-              <div className="flex justify-center mb-3 p-6">
+              <div className="flex justify-center mb-2">
                 <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-2 sm:text-p-2 md:p-3">
-                  <StarBorderIcon sx={{ fontSize: 44, color: "#2858A4" }} />
+                  <StarBorderIcon sx={{
+                  color: '#2858a3',
+                  width: 44,
+                  height: 44,
+                  borderRadius: "50%",
+                  bgcolor: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+             
+                }} />
                 </div>
               </div>
-              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+              <Typography fontWeight={600} color="text.primary" className="poppins text-sm md:text-xl" gutterBottom>
                 GCC Reach
               </Typography>
               <Typography className="text-sm sm:text-base md:text-md text-gray-500 md:mt-2 poppins max-w-sm mx-auto p-2 sm:text-p-2 md:p-3">
@@ -164,12 +194,22 @@ const Message = ({ t }) => {
           {/* Card 4 */}
           <Grid item xs={12} sm={6} md={3}>
             <Box className="bg-gray-100 rounded-xl shadow-sm md:p-6 text-center h-full">
-              <div className="flex justify-center mb-3 p-6">
+              <div className="flex justify-center mb-2">
                 <div className="rounded-full bg-white flex items-center justify-center shadow-sm p-2 sm:text-p-2 md:p-3">
-                  <PublicIcon sx={{ fontSize: 44, color: "#2858A4" }} />
+                  <PublicIcon sx={{
+                  color: '#2858a3',
+                  width: 44,
+                  height: 44,
+                  borderRadius: "50%",
+                  bgcolor: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+             
+                }} />
                 </div>
               </div>
-              <Typography className="font-semibold text-xl text-[#2E2E2E] poppins p-1">
+              <Typography fontWeight={600} color="text.primary" className="poppins text-sm md:text-xl" gutterBottom>
                 International Distribution
               </Typography>
               <Typography className="text-sm sm:text-base md:text-md text-gray-500 md:mt-2 poppins max-w-sm mx-auto p-2 sm:text-p-2 md:p-3">
@@ -182,9 +222,9 @@ const Message = ({ t }) => {
       </Grid>
 
       {/* WHO WE ARE */}
-    <Grid item xs={12} className="bg-[#F4F6F7]" sx={{ py: { xs: 4, sm: 6, md: 10 }, px: { xs: 2, sm: 4, md: 10 } }}>
-  <Box sx={{ width: "100%", py: { xs: 3, sm: 4 }, px: { xs: 2, sm: 4 }, borderRadius: "24px" }}>
-    <Grid container sx={{ background: "#fff", borderRadius: "12px", p: { xs: 2, sm: 3, md: 4 }, alignItems: "center" }} spacing={3}>
+    <Grid item xs={12} className="bg-[#F4F6F7] " sx={{ py: { xs: 4, sm: 6, md: 10 }, px: { xs: 1, sm: 4, md: 10 } }}>
+  <Box sx={{ width: "100%", py: { xs: 1, sm: 4 }, px: { xs: 2, sm: 4 }, borderRadius: "24px "  , marginLeft:'12px' }}>
+    <Grid container sx={{ background: "#fff", borderRadius: "12px", p: { xs: 1, sm: 3, md: 4 }, alignItems: "center" }} spacing={3}>
       
       {/* Left Column: Text Content */}
       <Grid item xs={12} md={8}>
@@ -322,7 +362,7 @@ const Message = ({ t }) => {
 
             <Grid item xs={12} sm={7}>
               <Typography
-                className="poppins text-[#4A5568] leading-6 lg:text-lg md:lg:text-lg text:sm"
+                className="poppins text-[#4A5568] leading-6 lg:text-lg md:lg:text-lg text:sm      text-sm sm:text-base  "
                 sx={{  maxWidth: 700 }}
               >
                 We don't just supply products — we support projects. Every item
@@ -366,7 +406,7 @@ const Message = ({ t }) => {
               className="bg-white rounded-2xl md:p-16 p-5 shadow-sm flex flex-col items-left"
             >
               {/* ICON (centered) */}
-              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gray-100 text-[#2858A4] mb-6 text-4xl">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gray-100 text-[#2858A4] mb-3 text-4xl">
                 {item.icon}
               </div>
 
@@ -376,7 +416,7 @@ const Message = ({ t }) => {
                   {item.title}
                 </Typography>
 
-                <Typography className="text-gray-500 text-sm sm:text-base md:text-md lg:mt-10 text-base leading-relaxed poppins ">
+                <Typography className="text-gray-500 text-sm sm:text-base md:text-md lg:mt-8 text-base leading-relaxed poppins ">
                   {item.desc}
                 </Typography>
               </div>

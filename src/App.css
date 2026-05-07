@@ -623,3 +623,17 @@ top: 10px;
   animation: scroll 20s linear infinite;
 }
 
+
+.swiper {
+  height: auto !important;
+}
+
+.swiper-wrapper {
+  align-items: stretch !important;
+  height: auto !important;
+}
+
+.swiper-slide {
+  height: auto !important;
+  display: flex !important;
+}

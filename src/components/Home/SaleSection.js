@@ -116,6 +116,11 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
       {/* ── Swiper ── */}
       <Box className="mt-6" sx={{ px: { xs: 1, sm: 3, md: 4 }, overflow: "hidden" }}>
         <Swiper
+          autoHeight={true}
+            style={{
+    height: "auto",
+    paddingBottom: "0px",
+  }}
           onSwiper={setSwiperInstance}
           onSlideChange={(swiper) => {
             if (swiper.activeIndex >= products.length - 5 && hasMore && !isLoading && onLoadMore) {
@@ -125,7 +130,7 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           dir={isRTL ? "rtl" : "ltr"}
           breakpoints={{
-            0:    { slidesPerView: 1.1, spaceBetween: 8 },
+            0:    { slidesPerView: 1, spaceBetween: 8 },
             480:  { slidesPerView: 2.2, spaceBetween: 8 },
             768:  { slidesPerView: 3.2, spaceBetween: 8 },
             1024: { slidesPerView: 4.2, spaceBetween: 8 },
@@ -137,9 +142,10 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
           centeredSlides={false}
         >
           {products.map((product, i) => {
+            
             const imageUrl = product?.images?.[0] ? ImageURL + product.images[0] : defaultImage;
             const productName = getName(product, i18n.language) || product?.name || "—";
-            const categoryName = product?.category?.name || product?.category || "";
+            const item_code = product?.item_code?.name || product?.item_code || "";
             const price = Number(product?.price) || 0;
             const discountPrice = product?.discount_price ? Number(product.discount_price) : null;
             const finalPrice = discountPrice ?? price;
@@ -168,22 +174,22 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
                 key={i}
                 style={{
                   height: "auto",        // ✅ let card define its own height
-                  alignSelf: "stretch",
+                  
                   display: "flex",       // ✅ so inner Box fills the slide
                 }}
               >
                 <Box
                   className="group"
                   sx={{
-                    position: "relative",
-                    width: "100%",
-                    display: "flex",           // ✅ column flex so card fills slide
-                    flexDirection: "column",
-                    border: "0.5px solid",
-                    borderColor: "divider",
-                    borderRadius: "12px",
-                    overflow: "hidden",
-                    background: "#fff",
+                       position: "relative",
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        border: "0.5px solid",
+                        borderColor: "divider",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        background: "#fff",
                     transition: "box-shadow 0.18s",
                     cursor: "pointer",
                     "&:hover": { boxShadow: "0 4px 20px rgba(0,0,0,0.10)" },
@@ -291,10 +297,19 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
                   </Box>
 
                   {/* ── Product Info ── */}
-                  <Box sx={{ p: "12px 14px 14px", flex: 1, display: "flex", flexDirection: "column" }}>
-                    <Typography className="poppins" sx={{ fontSize: 11, color: "text.secondary", mb: "2px" }}>
-                      {categoryName}
+                 <Box
+                    sx={{
+                      p: "12px 14px 14px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      flexGrow: 1,
+                    }}
+                  >
+                      <Typography className="poppins" sx={{ fontSize: 12, color: "text.secondary", mb: "4px" }}>
+                      {item_code}
                     </Typography>
+            
                     <Typography
                       className="poppins font-semibold"
                       sx={{
@@ -343,10 +358,12 @@ const ProductsSlider = ({ products, onLoadMore, isLoading, hasMore, sectionType 
           open={cartModal}
           onClose={() => setCartModal(false)}
           product={modalProduct}
-        />
+          />
       )}
     </Box>
   );
 };
 
 export default SaleSection;
+
+          

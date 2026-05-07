@@ -67,7 +67,7 @@ const Brands = ({ t }) => {
         {data.map((item, index) => (
           <Box
             key={index}
-            className="bg-white rounded-2xl md:p-16 sm:p-4 p-6  shadow-sm flex flex-col items-left"
+            className="bg-white rounded-2xl md:p-14 sm:p-4 p-6 shadow-sm flex flex-col items-left"
           >
        
             {/* CONTENT (left aligned but centered block) */}
@@ -76,7 +76,7 @@ const Brands = ({ t }) => {
                 {item.title}
               </Typography>
 
-              <Typography className="text-gray-500 text-md mt-5 text-base leading-relaxed poppins ">
+              <Typography className="text-gray-500 md:text-md lg:text-md text-sm mt-5 text-base leading-relaxed poppins ">
                 {item.desc}
               </Typography>
             </div>
@@ -84,7 +84,7 @@ const Brands = ({ t }) => {
            <div className="mt-6">
         <button
           onClick={() => navigate(item.links)}
-          className="px-6 py-2 text-gray-800 border border-gray-800 hover:bg-gray-900 hover:text-white rounded-lg  transition"
+          className="px-5 py-1 text-gray-800 border border-gray-800 hover:bg-gray-900 hover:text-white rounded-lg md:text-md lg:text-md text-sm transition"
         >
           View {item.title}<CallMadeOutlinedIcon className="text-md mb-1 ml-2"/>
         </button>
